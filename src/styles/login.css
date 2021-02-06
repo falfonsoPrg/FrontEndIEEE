@@ -1,0 +1,30 @@
+.login-form {
+  width: 400px;
+  height: 410px;
+  border-radius: 3%;
+  padding: 20px;
+  margin-top: 2%;
+  border: #DBDBDB 2px solid;
+  background-color: #f1f2f6;
+}
+
+.title-login {
+  text-align: center;
+  color: #0f83ff;
+}
+
+.aClass {
+  text-align: center;
+  font-size: 14px;
+  text-align: center;
+}
+#btn-submit {
+  width: 355px;
+  font-size: 18px;
+}
+
+.signUp {
+  text-align: center;
+  margin-top: 5%;
+  font-size: 15px;
+}
