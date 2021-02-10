@@ -8,7 +8,7 @@ class NavBar extends Component
   constructor(props) {
     super(props);
     this.state = {
-      chapters: []
+      chapters: [{id_chapter:1, name_chapter:"A"}]
     };
   }
 
@@ -20,7 +20,7 @@ class NavBar extends Component
   })
     .then(
       (res) => {
-        this.setState({chapters: res.data})
+        //this.setState({chapters: res.data})
       }
     ).catch( (err) => {
       console.log(err)
