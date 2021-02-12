@@ -50,7 +50,7 @@ class NavBar extends Component
         <ul className="navbar-nav mr-auto">
           <li className={this.getNavLinkClass("/")}>
             <NavLink to="/">
-              <a className="nav-link" href="#">Inicio cristian <span className="sr-only">(current)</span></a>
+              <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
             </NavLink>
           </li>
           <li className="nav-item dropdown">
