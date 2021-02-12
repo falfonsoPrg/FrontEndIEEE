@@ -75,13 +75,6 @@ class Login extends Component {
                   Ingresar
                 </Button>
                 <br></br>
-                <Form.Group>
-                  <div className="signUp">
-                    <p>
-                      ¿No estas registrado? <a href="/">Registrate</a>
-                    </p>
-                  </div>
-                </Form.Group>
               </Form>
             </div>
           </div>
