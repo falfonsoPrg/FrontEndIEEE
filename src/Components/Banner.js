@@ -10,25 +10,27 @@ import {
 
 const items = [
   {
-    src: '/images/BannerIEEE1.jpg',
+    src: '/images/BannerIEEE5.png',
     altText: 'Todos',
     caption: 'Bienvenidos a IEEE'
   },
   {
-    src: '/images/BannerIEEE2.jpg',
+    src: '/images/BannerIEEE6.png',
     altText: 'Para tí',
     caption: 'En la Universidad El Bosque'
   },
   {
-    src: '/images/BannerIEEE3.jpg',
+    src: '/images/BannerIEEE7.png',
     altText: 'Ven con nosotros',
     caption: 'Grandes experiencias te esperan'
   },
   {
-    src: '/images/BannerIEEE4.jpg',
+    src: '/images/BannerIEEE8.png',
     altText: 'Somos un equipo',
     caption: 'Somos Rama IEEE - Universidad El Bosque'
   }
+
+  
 ];
 
 const Banner = (props) => {
