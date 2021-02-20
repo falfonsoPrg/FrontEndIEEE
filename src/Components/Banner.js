@@ -10,25 +10,47 @@ import {
 
 const items = [
   {
-    src: '/images/BannerIEEE5.png',
-    altText: 'Todos',
-    caption: 'Bienvenidos a IEEE'
+    src: '/images/BannerIEEE1.png',
+    altText: 'Computer Society',
+    caption: 'Computer Society'
   },
   {
-    src: '/images/BannerIEEE6.png',
+    src: '/images/BannerIEEE2.png',
     altText: 'Para tí',
     caption: 'En la Universidad El Bosque'
   },
   {
-    src: '/images/BannerIEEE7.png',
+    src: '/images/BannerIEEE3.png',
     altText: 'Ven con nosotros',
     caption: 'Grandes experiencias te esperan'
+  },
+  {
+    src: '/images/BannerIEEE4.png',
+    altText: 'Somos un equipo',
+    caption: 'Somos Rama IEEE - Universidad El Bosque'
+  },
+  {
+    src: '/images/BannerIEEE5.png',
+    altText: 'Somos un equipo',
+    caption: 'Somos Rama IEEE - Universidad El Bosque'
+  },
+  {
+    src: '/images/BannerIEEE6.png',
+    altText: 'Somos un equipo',
+    caption: 'Somos Rama IEEE - Universidad El Bosque'
+  },
+  {
+    src: '/images/BannerIEEE7.png',
+    altText: 'Somos un equipo',
+    caption: 'Somos Rama IEEE - Universidad El Bosque'
   },
   {
     src: '/images/BannerIEEE8.png',
     altText: 'Somos un equipo',
     caption: 'Somos Rama IEEE - Universidad El Bosque'
   }
+  
+
 
   
 ];
