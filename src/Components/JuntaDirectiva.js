@@ -8,14 +8,18 @@ class JuntaDirectiva extends Component
 {
 
     componentDidMount()
-    {
+    { 
         this.swiper2 = new Swiper('.swiper2', {
-            slidesPerView: 1,
+            slidesPerView: 2,
             spaceBetween: 10,
             // init: false,
             pagination: {
               el: '.swiper-pagination',
               clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
             },
             breakpoints: {
               '@0.00': {
@@ -34,8 +38,10 @@ class JuntaDirectiva extends Component
                 slidesPerView: 4,
                 spaceBetween: 50,
               },
+
             }
           });
+          
     }
 
     render()
@@ -72,6 +78,8 @@ class JuntaDirectiva extends Component
               </div>
             </div>
             <div className="swiper-pagination swiper-pagination2"></div>
+            <div class="swiper-button-next" ></div>
+            <div class="swiper-button-prev" ></div>
           </div>
         )
     }
