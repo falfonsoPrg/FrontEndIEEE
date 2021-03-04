@@ -49,31 +49,31 @@ class JuntaDirectiva extends Component
         return (
             <div className="swiper-container swiper2">
             <div className="swiper-wrapper">
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team1.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team1.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
               <div className="box-content">
                 <h1 className="title" style={{color: 'white', bottom: "40px"}}>Williamson</h1>
                 <span className="post" style={{color: 'white'}}>role in detail</span>
               </div>
                 </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team2.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team2.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 2
               </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team3.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team3.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 3
               </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team4.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team4.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 4
               </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team1.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team1.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 5
               </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team2.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team2.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 6
               </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team3.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team3.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 7
               </div>
-              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team4.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "300px", width: "100%"}}>
+              <div className="swiper-slide" style={{ backgroundImage: `url('/images/team4.jpg') `, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: "400px", width: "100%"}}>
                 Slide 8
               </div>
             </div>
