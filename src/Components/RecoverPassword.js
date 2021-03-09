@@ -17,22 +17,24 @@ class RecoverPassword extends Component {
         <Row>
           <Col >
           <div align="center">
-            <div className="login-form">
+            <div className="recover-form">
               <Form noValidate  onSubmit={this.handle}>
-                <h4 className="title-login">Recuperar contraseña</h4>
+                <h4 className="title-recoverPass">Recuperar contraseña</h4>
+                <br/>
                 <Form.Group controlId="formBasicEmail">
-                  <p> ingresa tu correo para recuperar la contraseña </p>
-                  <div>
-                    {/* <img src= '/images/RecoveryPass.png' width= "300"></img> */}
-                  </div>
-                  <Form.Label className="login-label">
+                  <p> Queremos ayudarte a recuperar tu contraseña <br/>
+                  Por favor escribe tu correo electronico para poder enviarte un codigo
+                  </p>
+                  <br/>
+                  <Form.Label className="Recover-mail">
                     Correo Electónico
+                    <br/>
                   </Form.Label>
-                  <Form.Control type="email" placeholder="Ingrese Email" /> 
+                  <Form.Control type="email" placeholder="Ingrese Email" width="2"/> 
                 </Form.Group>
                 <div>
-                  
-                <Button id="btn-cancel" variant="primary" type="submit">
+                <br/>
+                <Button id="btn-cancel" variant="primary" href="/Login">
                   cancelar
                 </Button>
 
