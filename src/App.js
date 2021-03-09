@@ -9,6 +9,7 @@ import Login from './chapterComponent/login'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import MainComponent from './MainComponent';
 import ChapterArea from './ChapterArea';
+import RecoverPassword from './Components/RecoverPassword';
 
 
 function App ()
@@ -20,8 +21,8 @@ function App ()
           <Switch>
 
             <Route path="/Capitulos/:id_chapter" component={ChapterArea}/>
-            
             <Route path="/Login" component={Login}/>
+           <Route path="/RecoverPassword" component={RecoverPassword}/>
             <Route exact path="/" component={MainComponent}/>
         
           </Switch> 

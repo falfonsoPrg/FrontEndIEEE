@@ -69,7 +69,7 @@ class Login extends Component {
                     placeholder="Ingrese contraseña"
                     onChange = {(agregarContrasena) =>this.setState({contrasena:agregarContrasena.target.value}) }
                   />
-                  <Form.Text className="text-muted"><a href="/"> ¿Has olvidado tu contraseña?</a></Form.Text>
+                  <Form.Text className="text-muted"><a href="/RecoverPassword"> ¿Has olvidado tu contraseña?</a></Form.Text>
                 </Form.Group>
                 <Button id="btn-submit" variant="primary" type="submit">
                   Ingresar
