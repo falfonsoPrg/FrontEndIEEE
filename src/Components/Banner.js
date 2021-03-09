@@ -11,8 +11,7 @@ import {
 const items = [
   {
     src: '/images/BannerIEEE1.png',
-    altText: 'Computer Society',
-    caption: 'Computer Society'
+    
   },
   {
     src: '/images/BannerIEEE2.png',
