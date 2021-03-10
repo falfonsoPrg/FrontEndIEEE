@@ -70,9 +70,9 @@ class Login extends Component {
                     placeholder="Ingrese contraseña"
                     onChange = {(agregarContrasena) =>this.setState({contrasena:agregarContrasena.target.value}) }
                   />
-                  <a className="nav-link" href="#">¿Has olvidado tu contraseña?</a>
-                 <Redirect to="/RecoverPassword">
-                 <a className="nav-link" href="#">¿Has olvidado tu contraseña?</a>
+                 
+                 <a className="nav-link" href="/RecoverPassword">¿Has olvidado tu contraseña?</a>
+                 <Redirect to="/Login">
                   </Redirect>  
                   
                 </Form.Group>
