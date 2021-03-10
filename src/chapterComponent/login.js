@@ -8,7 +8,8 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
+  NavLink
 } from "react-router-dom";
 
 const axios = require("axios");
@@ -69,8 +70,13 @@ class Login extends Component {
                     placeholder="Ingrese contraseña"
                     onChange = {(agregarContrasena) =>this.setState({contrasena:agregarContrasena.target.value}) }
                   />
-                  <Form.Text className="text-muted"><a href="/RecoverPassword"> ¿Has olvidado tu contraseña?</a></Form.Text>
+                  <a className="nav-link" href="#">¿Has olvidado tu contraseña?</a>
+                 <Redirect to="/RecoverPassword">
+                 <a className="nav-link" href="#">¿Has olvidado tu contraseña?</a>
+                  </Redirect>  
+                  
                 </Form.Group>
+                
                 <Button id="btn-submit" variant="primary" type="submit">
                   Ingresar
                 </Button>
