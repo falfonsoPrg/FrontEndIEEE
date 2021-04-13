@@ -78,7 +78,7 @@ class NavBar extends Component
              <div>
              <span className={this.getNavLinkClass("/Login")}>
              <NavLink to="/Profile">
-               <a class="nav-link" href="#" style={{color: 'white'}}>{JSON.parse(state).name_user}</a>
+               <a class="nav-link" href="#" style={{color: 'white'}}>{JSON.parse(state).firstname}</a>
              </NavLink>
              
              </span> 

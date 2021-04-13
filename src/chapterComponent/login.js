@@ -26,21 +26,15 @@ class Login extends Component {
     this.handle = (event) => {
       event.preventDefault();
       event.stopPropagation();
-      axios.post(process.env.REACT_APP_ENDPOINT+'/api/Sesion/inicioSesion',{
-        name_user: this.state.usuario,
-        u_password: this.state.contrasena
+      axios.post(process.env.REACT_APP_ENDPOINT+'/api/auth/login',{
+        email: this.state.usuario,
+        password: this.state.contrasena
       }).then( (response) => {
-        if(response.data.error){
-          alert(response.data.error)
-        }
-        else{
-          console.log(response.data)
-          localStorage.setItem('usuario',JSON.stringify(response.data.user[0]))
-          localStorage.setItem('token',response.data.text)
-          this.setState({redirect:true})
-        }
+        localStorage.setItem('usuario',JSON.stringify(response.data.member))
+        localStorage.setItem('token',response.data.text)
+        this.setState({redirect:true})
       }).catch( (err) => {
-        console.log(err)
+        alert(err.response.data.error)
       })
     }
   }
