@@ -70,7 +70,7 @@ class NavBar extends Component
           </div>
       </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Contactanos</a>
+            <a className="nav-link" href="/ContactUs">Contactanos</a>
           </li> 
         </ul>
             {
