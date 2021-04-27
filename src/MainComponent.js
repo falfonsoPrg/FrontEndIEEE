@@ -16,21 +16,21 @@ class MainComponent extends Component
       misvisobj: [
         {
           image: "/images/IeeeMision.jpg",
-          title: "Misión",
+          title: "Mission",
           subtitle: "IEEE",
-          description: "La Misión de la rama IEEE en la universidad el bosque es..."
+          description: "The Mission of the IEEE branch in the university the forest is ..."
         },
         {
           image: "/images/IeeeVision.jpg",
-          title: "Visión",
+          title: "Vision",
           subtitle: "IEEE",
-          description: "La visión de la rama IEEE en la universidad el bosque es..."
+          description: "The vision of the IEEE branch at the university el bosque is ..."
         },
         {
           image: "/images/IeeeObjetivos.jpg",
-          title: "Objetivos",
+          title: "Objectives",
           subtitle: "IEEE",
-          description: "Los objetivos de la rama IEEE en la universidad el bosque son..."
+          description: "The objectives of the IEEE branch at El Bosque University are ..."
         }
       ]
     }
@@ -46,7 +46,7 @@ class MainComponent extends Component
     })
     return (
       <div>
-      
+
       <Banner></Banner>
       <br></br>
       <Container fluid>
@@ -56,7 +56,7 @@ class MainComponent extends Component
       </Container>
       <br></br>
       <div align="center"><InfoUEB></InfoUEB></div>
-      <div align="center"><h1 >Galería Rama IEEE</h1>
+      <div align="center"><h1>IEEE Branch Gallery</h1>
       </div>
       <Container fluid>
         <Row>
@@ -64,15 +64,15 @@ class MainComponent extends Component
           <Col lg="6"><GaleriaRama></GaleriaRama></Col>
           <Col lg="3"></Col>
         </Row>
-        <div align="center"><h1 >Junta Directiva</h1></div>
+        <div align="center"><h1>Board of Directors</h1></div>
         <Row>
           <Col lg="1"></Col>
           <Col lg="10"><JuntaDirectiva></JuntaDirectiva></Col>
           <Col lg="1"></Col>
         </Row>
       </Container>
-      
-      
+
+
         </div>
       );
     }
