@@ -17,21 +17,21 @@ class AddChapterMember extends Component
             id_chapter: 0,
             id_role: 0,
             name_role: 0,
-            picture: '' 
+            picture: ''
 
         }
     }
 
-    
+
 
     getNavLinkClass = (path) => {
         return this.props.location.pathname === path ? 'active' : '';
     }
 
-    changeHandler = e => 
+    changeHandler = e =>
     {
         this.setState({[e.target.name]: e.target.value})
-    } 
+    }
 
     submitHandler = e =>
     {
@@ -51,7 +51,7 @@ class AddChapterMember extends Component
                         <Form onSubmit={this.submitHandler}>
                             <FormGroup>
                                 <Label for="name">Nombre</Label>
-                                <Input type="text" name="text" id="text" value={name} onChange={this.changeHandler} placeholder="Nombre del nuevo Miembro" />
+                                <Input type="text" name="text" id="text" value={name} onChange={this.changeHandler} placeholder="Name of the new Member" />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="name">Email</Label>
@@ -61,7 +61,7 @@ class AddChapterMember extends Component
                                 <Label for="exampleSelect" sm={2}>Rol</Label>
                                 <Col sm={10}>
                                 <Input type="select" name="select" value={id_event}  id="exampleSelect">
-                                    <option value="0">Ninguno</option>
+                                    <option value="0">None</option>
                                     <option value="1">Rol 2</option>
                                     <option value="2">Rol 3</option>
                                     <option value="3">Rol 4</option>
@@ -70,21 +70,21 @@ class AddChapterMember extends Component
                                 </Col>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="exampleFile">Agregar Imagen</Label>
+                                <Label for="exampleFile">Add Image</Label>
                                 <Input type="file" value={picture} name="picture" id="exampleFile" onChange={this.changeHandler} />
                                 <FormText color="muted">
-                                ¡Agrega la nueva imagen a la galería!
+                                Add the new image to the gallery!
                                 </FormText>
                             </FormGroup>
-                            
+
                             <br/>
-                            <Button color="success">Agregar Miembro <AddIcon/></Button>
+                            <Button color="success">Add Member<AddIcon/></Button>
                             <br/>
                         </Form>
                             <NavLink to="/Capitulos/Inicio/:chapter">
-                            <Button color="danger">Cancelar <HighlightOffIcon/></Button>
+                            <Button color="danger">Cancel <HighlightOffIcon/></Button>
                             </NavLink>
-                        
+
                     </Col>
                     <Col sm="4"></Col>
                 </Row>
@@ -92,6 +92,6 @@ class AddChapterMember extends Component
         );
     }
 }
- 
+
 AddChapterMember = withRouter(AddChapterMember)
 export default AddChapterMember;

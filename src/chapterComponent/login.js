@@ -55,7 +55,7 @@ class Login extends Component {
                   <Form.Label className="login-label">
                     Email address
                   </Form.Label>
-                  <Form.Control type="email" placeholder="Ingrese Email" onChange = {(nombreDeUsuario) =>this.setState({usuario:nombreDeUsuario.target.value}) } />
+                  <Form.Control type="email" placeholder="Enter Email" onChange = {(nombreDeUsuario) =>this.setState({usuario:nombreDeUsuario.target.value}) } />
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label className="login-label">Password</Form.Label>

@@ -48,7 +48,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/secretario.png" ></img>
                                     <h5 className="user-name">Esteban Cardenas</h5>
-                                    <h6 className="user-rol">Secretary </h6>
+                                    <h6 className="user-rol">Secretary Chapter Computer</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -80,13 +80,13 @@ class ContactUs extends Component {
 
                     </div>
                     <div className="cards">
-                    <h1 className = "tituloCapitulo">Capitulo RAS</h1>
+                    <h1 className = "tituloCapitulo">Chapter RAS</h1>
                         <ul className="slider">
                             <li id="presidenteRAS">
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/presidente.png" ></img>
                                     <h5 className="user-name">Andres Galvis</h5>
-                                    <h6 className="user-rol">Presidente Capitulo RAS</h6>
+                                    <h6 className="user-rol">Chair Chapter RAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -95,7 +95,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/vicepresidente.png" ></img>
                                     <h5 className="user-name">Cristian Sanchez</h5>
-                                    <h6 className="user-rol">Vicepresidente Capitulo RAS</h6>
+                                    <h6 className="user-rol">Vice-Chair Chapter RAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -104,7 +104,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/secretario.png" ></img>
                                     <h5 className="user-name">Esteban Cardenas</h5>
-                                    <h6 className="user-rol">Secretario Capitulo RAS</h6>
+                                    <h6 className="user-rol">Secretary Chapter RAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -113,7 +113,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/tesorero.png" ></img>
                                     <h5 className="user-name">Miguel Mendieta</h5>
-                                    <h6 className="user-rol">Tesorero Capitulo RAS</h6>
+                                    <h6 className="user-rol">Treasurer Chapter RAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -136,13 +136,13 @@ class ContactUs extends Component {
 
                     </div>
                     <div className="cards">
-                    <h1 className = "tituloCapitulo">Capitulo IAS</h1>
+                    <h1 className = "tituloCapitulo">Chapter IAS</h1>
                         <ul className="slider">
                             <li id="presidenteIAS">
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/presidente.png" ></img>
                                     <h5 className="user-name">Andres Galvis</h5>
-                                    <h6 className="user-rol">Presidente Capitulo IAS</h6>
+                                    <h6 className="user-rol">Chair Chapter IAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -151,7 +151,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/vicepresidente.png" ></img>
                                     <h5 className="user-name">Cristian Sanchez</h5>
-                                    <h6 className="user-rol">Vicepresidente Capitulo IAS</h6>
+                                    <h6 className="user-rol">Vice-chair Chapter IAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -160,7 +160,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/secretario.png" ></img>
                                     <h5 className="user-name">Esteban Cardenas</h5>
-                                    <h6 className="user-rol">Secretario Capitulo IAS</h6>
+                                    <h6 className="user-rol">Secretary Chapter IAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -169,7 +169,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/tesorero.png" ></img>
                                     <h5 className="user-name">Miguel Mendieta</h5>
-                                    <h6 className="user-rol">Tesorero Capitulo IAS</h6>
+                                    <h6 className="user-rol">Treasurer Chapter IAS</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>

@@ -34,7 +34,7 @@ class NavBar extends Component
   getNavLinkClass = (path) => {
     return this.props.location.pathname === path ? 'active' : '';
   }
-  
+
   render()
   {
     const state = localStorage.getItem('usuario')
@@ -50,15 +50,15 @@ class NavBar extends Component
         <ul className="navbar-nav mr-auto">
           <li className={this.getNavLinkClass("/")}>
             <NavLink to="/">
-              <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
+              <a className="nav-link" href="#">Start <span className="sr-only">(current)</span></a>
             </NavLink>
           </li>
           <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Capítulos
+          Chapters
         </a>
         <div className="dropdown-menu "aria-labelledby="navbarDropdown">
-            {this.state.chapters.length == 0 ? 
+            {this.state.chapters.length == 0 ?
               '':
             this.state.chapters.map((chapter, i) => <div key={i}>
             <NavLink to={`Capitulos/${chapter.id_chapter}`}>
@@ -70,21 +70,21 @@ class NavBar extends Component
           </div>
       </li>
           <li className="nav-item">
-            <a className="nav-link" href="/ContactUs">Contactanos</a>
-          </li> 
+            <a className="nav-link" href="/ContactUs">Contact us</a>
+          </li>
         </ul>
             {
-             state !=undefined? 
+             state !=undefined?
              <div>
              <span className={this.getNavLinkClass("/Login")}>
              <NavLink to="/Profile">
                <a class="nav-link" href="#" style={{color: 'white'}}>{JSON.parse(state).firstname}</a>
              </NavLink>
-             
-             </span> 
+
+             </span>
              <span className={this.getNavLinkClass("/Login")}>
              <NavLink to="/">
-               <a class="nav-link" href="/" onClick={this.logout} style={{color: 'white'}}>Cerrar Sesión</a>
+               <a class="nav-link" href="/" onClick={this.logout} style={{color: 'white'}}>Close Sesion</a>
              </NavLink>
              </span>
              </div>
@@ -94,9 +94,9 @@ class NavBar extends Component
                <a class="nav-link" href="#" style={{color: 'white'}}>Login</a>
              </NavLink>
              </span>
-              
+
             }
-            
+
       </div>
     </nav>
     );

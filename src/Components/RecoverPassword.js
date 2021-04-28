@@ -10,7 +10,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 class RecoverPassword extends Component {
 
   render() {
-   
+
     return (
       <Router>
       <Container fluid  >
@@ -19,31 +19,31 @@ class RecoverPassword extends Component {
           <div align="center">
             <div className="recover-form">
               <Form noValidate  onSubmit={this.handle}>
-                <h4 className="title-recoverPass">Recuperar contraseña</h4>
+                <h4 className="title-recoverPass">Recover password</h4>
                 <br/>
                 <Form.Group controlId="formBasicEmail">
-                  <p> Queremos ayudarte a recuperar tu contraseña <br/>
-                  Por favor escribe tu correo electronico para poder enviarte un codigo
+                  <p> We want to help you recover your password <br/>
+                  Please write your email address to be able to send you a code
                   </p>
                   <br/>
                   <Form.Label className="Recover-mail">
-                    Correo Electónico
+                    Email address
                     <br/>
                   </Form.Label>
-                  <Form.Control type="email" placeholder="Ingrese Email" width="2"/> 
+                  <Form.Control type="email" placeholder="Enter Email" width="2"/>
                 </Form.Group>
                 <div>
                 <br/>
                 <Button id="btn-cancel" variant="primary" href="/Login">
-                  cancelar
+                  cancel
                 </Button>
 
                 <Button id="btn-submit" variant="primary" type="submit">
-                  Aceptar
+                  accept
                 </Button>
-              
+
                 </div>
-               
+
                 <br></br>
               </Form>
             </div>

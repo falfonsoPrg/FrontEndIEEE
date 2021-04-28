@@ -11,12 +11,12 @@ class InfoUEB extends Component
             <div>
             <p>
                 <button className="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    IEEE en la Universidad El Bosque
+                    IEEE at El Bosque University
                 </button>
             </p>
                 <div className="collapse" id="collapseExample">
                 <div className="card card-body">
-                    El IEEE en la UNIVERSIDAD EL BOSQUE...
+                    THE IEEE AT EL BOSQUE UNIVERSITY ...
                 </div>
                 </div>
             </div>
