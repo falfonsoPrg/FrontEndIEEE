@@ -53,26 +53,26 @@ class Login extends Component {
                 <h4 className="title-login">Login</h4>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label className="login-label">
-                    Correo Electónico
+                    Email address
                   </Form.Label>
                   <Form.Control type="email" placeholder="Ingrese Email" onChange = {(nombreDeUsuario) =>this.setState({usuario:nombreDeUsuario.target.value}) } />
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
-                  <Form.Label className="login-label">Contraseña</Form.Label>
+                  <Form.Label className="login-label">Password</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Ingrese contraseña"
+                    placeholder="Enter password"
                     onChange = {(agregarContrasena) =>this.setState({contrasena:agregarContrasena.target.value}) }
                   />
-                 
-                 <a className="nav-link" href="/RecoverPassword">¿Has olvidado tu contraseña?</a>
+
+                 <a className="nav-link" href="/RecoverPassword">Forgot password?</a>
                  <Redirect to="/Login">
-                  </Redirect>  
-                  
+                  </Redirect>
+
                 </Form.Group>
-                
+
                 <Button id="btn-submit" variant="primary" type="submit">
-                  Ingresar
+                    Sign In
                 </Button>
                 <br></br>
               </Form>

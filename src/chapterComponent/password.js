@@ -18,25 +18,25 @@ class Password extends Component {
                 </Form.Group>
 
                 <Form.Group>
-                  <h5>¿Problemas para iniciar sesion?</h5>
+                  <h5>Problems logging in?</h5>
                   <Form.Text className="text-muted">
                     <p className="recover-password-description">
-                      Escribe la dirección de correo electrónico asociado a tu
-                      cuenta
+                    Enter the email address associated with your
+                     account
                     </p>
                   </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Control type="email" placeholder="Correo Eletrónico" />
+                  <Form.Control type="email" placeholder="Email address" />
                 </Form.Group>
                 <Button className="btn-recover-password" type="submit">
-                  Enviar enlace
+                  Send link
                 </Button>
                 <br></br>
                 <hr></hr>
                 <Form.Group>
                   <p>
-                    ¿No estas registrado? <a href="/">Registrate</a>
+                    Not registered? <a href="/">Sign up</a>
                   </p>
                 </Form.Group>
               </Form>

@@ -14,16 +14,16 @@ function getData(_, requestOptions) {
       CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
     const dataUrl = [ 'https://www.googleapis.com/calendar/v3/calendars/',
       CALENDAR_ID, '/events?key=', PUBLIC_KEY].join('');
-  
+
     return fetch(dataUrl, requestOptions).then(
       (response) => response.json()
     ).then((data) => data.items);
   }
-  
+
   const dataSource = new CustomStore({
     load: (options) => getData(options, { showDeleted: false })
   });
-  
+
   const currentDate = new Date(2017, 4, 25);
   const views = ['day', 'workWeek', 'month'];
 
@@ -38,9 +38,9 @@ class MyScheduler extends Component
                   <div className="long-title">
                     <br/>
                     <div align="center">
-                     <h3>Calendario Capítulo</h3>
+                     <h3>Calendar Chapter</h3>
                     </div>
-                    
+
                     <br/>
                   </div>
                   <Scheduler
@@ -60,7 +60,7 @@ class MyScheduler extends Component
               </Col>
             </Row>
           </Container>
-    
+
         );
       }
 }

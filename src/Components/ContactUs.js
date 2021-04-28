@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form"; 
+import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 
 
@@ -16,21 +16,21 @@ class ContactUs extends Component {
                     <div className = "contactUScontainer">
                     <div className="basicInformation">
                         <div className="order">
-                            <h1 className="topTitle">Contacta Con Nosotros</h1>
-                            <p className="topInformation">Bienvenido a la página de contactos del grupo de IEEE Universidad el Bosque.
-                            A continuación te presentaremos a los presidentes de cada capítulo
-                            La manera más optima,contactarlos mediante correo electrónico.
-                                Esperamos sea de tu ayuda.</p>
+                            <h1 className="topTitle">Contact us</h1>
+                            <p className="topInformation">Welcome to the contact page of the IEEE Universidad el Bosque group.
+                             Next we will introduce you to the presidents of each chapter
+                             The most optimal way, contact them by email.
+                                 We hope it will be of your help.</p>
                         </div>
                     </div>
                     <div className="cards">
-                    <h1 className = "tituloCapitulo">Capitulo Computer</h1>
+                    <h1 className = "tituloCapitulo">Chapter Computer</h1>
                         <ul className="slider">
                             <li id="presidenteComputer">
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/presidente.png" ></img>
                                     <h5 className="user-name">Andres Galvis</h5>
-                                    <h6 className="user-rol">Presidente Capitulo Computer</h6>
+                                    <h6 className="user-rol">Chair Chapter Computer</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -39,7 +39,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/vicepresidente.png" ></img>
                                     <h5 className="user-name">Cristian Sanchez</h5>
-                                    <h6 className="user-rol">Vicepresidente Capitulo Computer</h6>
+                                    <h6 className="user-rol">Vice-Chair Chapter Computer</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -48,7 +48,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/secretario.png" ></img>
                                     <h5 className="user-name">Esteban Cardenas</h5>
-                                    <h6 className="user-rol">Secretario Capitulo Computer</h6>
+                                    <h6 className="user-rol">Secretary </h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>
@@ -57,7 +57,7 @@ class ContactUs extends Component {
                                 <div className="card">
                                     <img className="iconos" src="/images/presidents/tesorero.png" ></img>
                                     <h5 className="user-name">Miguel Mendieta</h5>
-                                    <h6 className="user-rol">Tesorero Capitulo Computer</h6>
+                                    <h6 className="user-rol">Treasurer Chapter Computer</h6>
                                     <h6 className="user-mail">lecardenas@unbosque.edu.co</h6>
                                     <br></br>
                                 </div>

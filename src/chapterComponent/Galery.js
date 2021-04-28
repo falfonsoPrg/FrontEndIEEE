@@ -17,7 +17,7 @@ class Galery extends Component
     state = {
         modalIsOpen: false
     }
-    
+
 
     toggleModal()
     {
@@ -28,7 +28,7 @@ class Galery extends Component
     render()
     {
 
-       
+
 
         return(
             <div>
@@ -37,18 +37,18 @@ class Galery extends Component
                         <CardImg top width="100%" height="150px" src={this.props.galery.image} />
                     </a>
                     <CardBody>
-                    <CardTitle><Button outline color="danger"><DeleteIcon/> Eliminar Imagen </Button></CardTitle>
+                    <CardTitle><Button outline color="danger"><DeleteIcon/> Delete image </Button></CardTitle>
                     </CardBody>
                 </Card>
                 <Modal isOpen={this.state.modalIsOpen} toggle={this.toggleModal.bind(this)}>
-                    <ModalHeader>Título de la imágen</ModalHeader>
+                    <ModalHeader>Image title</ModalHeader>
                     <ModalBody>
                         <img src={this.props.galery.image} width="100%" height="300px"/>
-                        <h5>Descripción de la imágen</h5>
+                        <h5>Image description</h5>
                     </ModalBody>
                     <ModalFooter>
-                       
-                    <Button color="secondary" onClick={this.toggleModal.bind(this)}>Salir<ExitToAppIcon/></Button>
+
+                    <Button color="secondary" onClick={this.toggleModal.bind(this)}>Exit<ExitToAppIcon/></Button>
                     </ModalFooter>
                 </Modal>
             </div>

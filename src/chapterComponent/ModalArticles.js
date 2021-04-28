@@ -7,7 +7,7 @@ import ArticlesArea from './ArticlesArea';
 
 class ModalArticles extends Component{
 
-  
+
   state = {
     modalIsOpen: false
   }
@@ -24,11 +24,11 @@ class ModalArticles extends Component{
     return (
       <div>
         <Modal isOpen={this.state.modalIsOpen} toggle={this.toggleModal.bind(this)}>
-          <ModalHeader>Artículos Capítulo Computer</ModalHeader>
+          <ModalHeader>Articles Chapter Computer</ModalHeader>
             <ModalBody>
               <ArticlesArea/>
           </ModalBody>
-          <ModalFooter>             
+          <ModalFooter>
             <Button color="secondary" onClick={this.toggleModal.bind(this)}>Salir<ExitToAppIcon/></Button>
             </ModalFooter>
         </Modal>

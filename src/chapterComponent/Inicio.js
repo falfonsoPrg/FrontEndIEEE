@@ -41,7 +41,7 @@ class Inicio extends Component
                 <Row>
                     <Col sm={12} md={6} lg={6}>
                         <div align="center">
-                            <h1>Información General</h1>
+                            <h1>General information</h1>
                             <p>Lorem</p>
                         </div>
                     </Col>
@@ -49,7 +49,7 @@ class Inicio extends Component
                         <div align="center">
                             <Link to="/Capitulos/Calendario/:chapter">
                                 <Calendar/>
-                                <Button outline color="success" >Calendario<DateRangeIcon/></Button>
+                                <Button outline color="success" >Calendar<DateRangeIcon/></Button>
                             </Link>
                         </div>
                     </Col>
@@ -62,14 +62,14 @@ class Inicio extends Component
                             <Row>
                                 <Col sm="3">
                                 <Link to="/Capitulos/AgregarMiembro/:chapter">
-                                    <Button outline color="success" ><AddAPhotoIcon/> Agregar Integrante </Button>
+                                    <Button outline color="success" ><AddAPhotoIcon/> Add Member </Button>
                                 </Link>
                                 </Col>
                                 <Col sm="6">
-                                    <h1>Integrantes</h1>
+                                    <h1>Members</h1>
                                 </Col>
                                 <Col sm="3">
-                                    
+
                                 </Col>
                             </Row>
                             <Integrantes/>
@@ -80,7 +80,7 @@ class Inicio extends Component
             </Container>
         );
     }
-    
+
 }
 
 export default Inicio;

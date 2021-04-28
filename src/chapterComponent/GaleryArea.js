@@ -57,27 +57,27 @@ class GaleryArea extends Component
                 <Container fluid>
                 <br/>
                     <Row>
-                        
+
                         <Col sm="3">
                             <div align="center">
                             <NavLink to="/Capitulos/Galeria/Agregar/:chapter">
-                                <Button outline color="success" >Agregar Imagen <AddAPhotoIcon/></Button>
+                                <Button outline color="success" >Add Image <AddAPhotoIcon/></Button>
                             </NavLink>
                             </div>
-                            
+
                         </Col>
                         <Col sm="6">
                             <div align="center">
-                                <h1>Galería Capítulo Computer</h1>
+                                <h1>Gallery Chapter Computer</h1>
                             </div>
                         </Col>
                         <Col sm="3">
-                            
+
                         </Col>
                     </Row>
                     <Row>
                         <Col sm="3">
-                            <h2>Linea de tiempo IEEE</h2>
+                            <h2>IEEE timeline</h2>
                         <CronologyArea/>
                         </Col>
                         <Col sm="9">

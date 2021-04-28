@@ -14,17 +14,17 @@ class EventsArea extends Component
             {
                 image: "/images/banner1.jpg",
                 name: "IEEE PICTURE",
-                description: "Este día fue bien chidoris bicos..."
+                description: "This day was good shidoris bicos ..."
             },
             {
                 image: "/images/banner2.png",
                 name: "IEEE PICTURE",
-                description: "El IEEE participó en..."
+                description: "The IEEE participated in ..."
             },
             {
                 image: "/images/banner3.jpg",
                 name: "IEEE PICTURE",
-                description: "La Misión de la rama IEEE en la universidad el bosque es..."
+                description: "The Mission of the IEEE branch in the university the forest is ..."
             }
         ]
         }
@@ -45,20 +45,20 @@ class EventsArea extends Component
                 <Container fluid>
                     <br/>
                     <Row>
-                        
+
                         <Col sm="3">
                             <div align="center">
-                                <Button outline color="success" >Agregar Evento <AddAPhotoIcon/></Button>
+                                <Button outline color="success" >Add Event <AddAPhotoIcon/></Button>
                             </div>
-                            
+
                         </Col>
                         <Col sm="6">
                             <div align="center">
-                                <h1>Eventos Capítulo Computer</h1>
+                                <h1>Events Chapter Computer</h1>
                             </div>
                         </Col>
                         <Col sm="3">
-                            
+
                         </Col>
                     </Row>
                     <Row>

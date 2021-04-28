@@ -17,17 +17,17 @@ class AchivementArea extends Component
             {
                 image: "/images/banner1.jpg",
                 name: "IEEE PICTURE",
-                description: "Este día fue bien chidoris bicos..."
+                description: "This day was good shidoris bicos ..."
             },
             {
                 image: "/images/banner2.png",
                 name: "IEEE PICTURE",
-                description: "El IEEE participó en..."
+                description: "The IEEE participated in ..."
             },
             {
                 image: "/images/banner3.jpg",
                 name: "IEEE PICTURE",
-                description: "La Misión de la rama IEEE en la universidad el bosque es..."
+                description: "The Mission of the IEEE branch in the university the forest is ..."
             }
         ]
         }
@@ -49,21 +49,21 @@ class AchivementArea extends Component
                 <Container fluid>
                     <br/>
                     <Row>
-                        
+
                         <Col sm="3">
                             <div align="center">
-                                <Button outline color="success" >Agregar Logros <AddAPhotoIcon/></Button>
+                                <Button outline color="success" >Add Achievements <AddAPhotoIcon/></Button>
                             </div>
-                            
+
                         </Col>
                         <Col sm="6">
                             <div align="center">
-                                <h1>Logros Capítulo Computer</h1>
+                                <h1>Computer Chapter Achievements</h1>
                             </div>
                         </Col>
                         <Col sm="3">
                             <div align="center">
-                                <Button outline color="primary" onClick={toggleModal} >¡Mira nuestros artículos! <VisibilityIcon/></Button>
+                                <Button outline color="primary" onClick={toggleModal} >Check out our articles! <VisibilityIcon/></Button>
                             </div>
                         </Col>
                     </Row>

@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button } from 'reactstrap';
-  
+
 
 class Events extends Component
 {
@@ -27,8 +27,8 @@ class Events extends Component
                     <CardBody>
                     <CardTitle>{this.props.event.nombre}</CardTitle>
                     <CardSubtitle>{this.props.event.description}</CardSubtitle>
-                    <Button outline color="success" >Editar <EditIcon/></Button>
-                    <Button outline color="danger">Eliminar <DeleteIcon/></Button>
+                    <Button outline color="success" >Edit <EditIcon/></Button>
+                    <Button outline color="danger">Delete <DeleteIcon/></Button>
                     </CardBody>
                 </Card>
             </div>
