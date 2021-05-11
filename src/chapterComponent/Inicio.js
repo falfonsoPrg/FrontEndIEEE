@@ -17,7 +17,7 @@ class Inicio extends Component
         this.state = {
             id_chapter: this.props.match.params.chapter
         };
-
+        console.log(props)
     }
     getChapter=()=>{
 

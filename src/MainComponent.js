@@ -49,7 +49,7 @@ class MainComponent extends Component
 
       <Banner></Banner>
       <br></br>
-      <Container fluid>
+      <Container>
         <Row>
           {cardMVO}
         </Row>
@@ -58,7 +58,7 @@ class MainComponent extends Component
       <div align="center"><InfoUEB></InfoUEB></div>
       <div align="center"><h1>IEEE Branch Gallery</h1>
       </div>
-      <Container fluid>
+      <Container>
         <Row>
           <Col lg="3"></Col>
           <Col lg="6"><GaleriaRama></GaleriaRama></Col>

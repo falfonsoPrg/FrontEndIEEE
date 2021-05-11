@@ -61,7 +61,7 @@ class NavBar extends Component
             {this.state.chapters.length == 0 ?
               '':
             this.state.chapters.map((chapter, i) => <div key={i}>
-            <NavLink to={`Capitulos/${chapter.id_chapter}`}>
+            <NavLink to={`/Capitulos/${chapter.id_chapter}`}>
                 <a className="dropdown-item" href="#">{chapter.name_chapter}</a>
               </NavLink>
               <div className="dropdown-divider"></div>
@@ -69,8 +69,10 @@ class NavBar extends Component
             }
           </div>
       </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/ContactUs">Contact us</a>
+      <li className={this.getNavLinkClass("/ContactUs")}>
+            <NavLink to="/ContactUs">
+              <a className="nav-link" href="#">Contact us <span className="sr-only">(current)</span></a>
+            </NavLink>
           </li>
         </ul>
             {
@@ -82,7 +84,7 @@ class NavBar extends Component
              </NavLink>
 
              </span>
-             <span className={this.getNavLinkClass("/Login")}>
+             <span className={this.getNavLinkClass("/")}>
              <NavLink to="/">
                <a class="nav-link" href="/" onClick={this.logout} style={{color: 'white'}}>Close Sesion</a>
              </NavLink>

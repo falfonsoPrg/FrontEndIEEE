@@ -43,45 +43,35 @@ class Login extends Component {
     if (redirect){return <Redirect to='/'/>;
     }
     return (
-      <Router>
-      <Container fluid  >
-        <Row>
-          <Col >
-          <div align="center">
-            <div className="login-form">
-              <Form noValidate  onSubmit={this.handle}>
-                <h4 className="title-login">Login</h4>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label className="login-label">
-                    Email address
-                  </Form.Label>
-                  <Form.Control type="email" placeholder="Enter Email" onChange = {(nombreDeUsuario) =>this.setState({usuario:nombreDeUsuario.target.value}) } />
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label className="login-label">Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter password"
-                    onChange = {(agregarContrasena) =>this.setState({contrasena:agregarContrasena.target.value}) }
-                  />
+      <div style={{    textAlign: '-webkit-center'}}>
+        <div className="login-form">
+          <Form noValidate  onSubmit={this.handle}>
+            <h4 className="title-login">Login</h4>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label className="login-label">
+                Email address
+              </Form.Label>
+              <Form.Control type="email" placeholder="Enter Email" onChange = {(nombreDeUsuario) =>this.setState({usuario:nombreDeUsuario.target.value}) } />
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label className="login-label">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter password"
+                onChange = {(agregarContrasena) =>this.setState({contrasena:agregarContrasena.target.value}) }
+              />
+              <Link to="/RecoverPassword">
+                Forgot password?
+              </Link>
+            </Form.Group>
 
-                 <a className="nav-link" href="/RecoverPassword">Forgot password?</a>
-                 <Redirect to="/Login">
-                  </Redirect>
-
-                </Form.Group>
-
-                <Button id="btn-submit" variant="primary" type="submit">
-                    Sign In
-                </Button>
-                <br></br>
-              </Form>
-            </div>
-          </div>
-          </Col>
-        </Row>
-      </Container>
-      </Router>
+            <Button id="btn-submit" variant="primary" type="submit">
+                Sign In
+            </Button>
+            <br></br>
+          </Form>
+        </div>
+      </div>
     );
   }
 }

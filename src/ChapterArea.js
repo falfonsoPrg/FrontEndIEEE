@@ -23,29 +23,21 @@ class ChapterArea extends Component
 
     render()
     {
+        console.log(this.props)
         return(
             <div>
-                <Router>
-                    <div className="App">
-                        <NavChapters></NavChapters>
-                        <Redirect to={`/Capitulos/Inicio/${this.state.id_chapter}`} component={Inicio}/> 
+                    <NavChapters id_chapter={this.state.id_chapter}></NavChapters>
                     <Switch>
-                        <Route path="/Capitulos/Galeria/ModalImage/:chapter" component={ModalArticles}/>
-                        <Route path="/Capitulos/Galeria/Agregar/:chapter" component={AddPictureForm}/>
-                        <Route path="/Capitulos/Inicio/:chapter" component={Inicio}/>
-                        <Route path="/Capitulos/Galeria/:chapter" component={GaleryArea}/>
-                        <Route path="/Capitulos/Logros/:chapter" component={AchivementArea}/>
-                        <Route path="/Capitulos/Eventos/:chapter" component={EventsArea}/>
-                        <Route path="/Capitulos/Calendario/:chapter" component={MyScheduler}/>
-                        <Route path="/Capitulos/Articulos/:chapter" component={ModalArticles}/>
-                        <Route path="/Capitulos/AgregarMiembro/:chapter" component={AddChapterMember}/>
-                        
-                    </Switch> 
-                    </div>
-                    
-                </Router>
-                
-                
+                        <Route path="/Capitulo/:id_chapter/Galeria/ModalImage/" component={ModalArticles}/>
+                        <Route path="/Capitulo/:id_chapter/Galeria/Agregar/" component={AddPictureForm}/>
+                        <Route path="/Capitulo/:id_chapter/Inicio/" component={Inicio}/>
+                        <Route exact path="/Capitulo/:id_chapter/Galeria/" component={GaleryArea}/>
+                        <Route exact path="/Capitulo/:id_chapter/Logros/" component={AchivementArea}/>
+                        <Route exact path="/Capitulo/:id_chapter/Eventos/" component={EventsArea}/>
+                        <Route exact path="/Capitulo/:id_chapter/Calendario/" component={MyScheduler}/>
+                        <Route exact path="/Capitulo/:id_chapter/Articulos/" component={ModalArticles}/>
+                        <Route exact path="/Capitulo/:id_chapter/AgregarMiembro/" component={AddChapterMember}/>
+                    </Switch>          
             </div>
         );
     }

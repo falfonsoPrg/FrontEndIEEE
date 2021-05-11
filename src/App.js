@@ -2,15 +2,19 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
+import MainComponent from './MainComponent';
+import ChapterArea from './ChapterArea';
 import NavBar from './Components/NavBar'
+import NewNavbar from './Components/NewNavbar'
+import RecoverPassword from './Components/RecoverPassword';
+import ContactUs from './Components/ContactUs';
 import Inicio from './chapterComponent/Inicio';
 import Login from './chapterComponent/login'
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import MainComponent from './MainComponent';
-import ChapterArea from './ChapterArea';
-import RecoverPassword from './Components/RecoverPassword';
-import ContactUs from './Components/ContactUs';
+
 
 
 function App ()
@@ -18,16 +22,7 @@ function App ()
     return(
       <Router>
         <div className="App">
-          <NavBar></NavBar>
-          <Switch>
-
-            <Route path="/Capitulos/:id_chapter" component={ChapterArea}/>
-            <Route path="/Login" component={Login}/>
-            <Route path="/ContactUs" component={ContactUs}/>
-            <Route path="/RecoverPassword" component={RecoverPassword}/>
-            <Route exact path="/" component={MainComponent}/>
-        
-          </Switch> 
+          <NewNavbar></NewNavbar>
         </div>
       </Router>
     );

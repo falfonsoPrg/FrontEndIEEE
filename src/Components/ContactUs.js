@@ -12,7 +12,6 @@ class ContactUs extends Component {
     render() {
         return (
             <Router>
-                <main className="container">
                     <div className = "contactUScontainer">
                     <div className="basicInformation">
                         <div className="order">
@@ -192,7 +191,6 @@ class ContactUs extends Component {
 
                     </div>
                     </div>
-                </main>
             </Router>
         );
     }
