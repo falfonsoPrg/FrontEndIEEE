@@ -26,9 +26,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import CodeIcon from '@material-ui/icons/Code';
-import EcoIcon from '@material-ui/icons/Eco';
-import MemoryIcon from '@material-ui/icons/Memory';
 
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
@@ -199,25 +196,12 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {/* {['Computer', 'IAS', 'RAS', 'EMB'].map((text, index) => (
-            <ListItem button key={text} component={Link} to={"/Chapter/"+index}>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text} component={Link} to="/design">
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
-          ))} */}
-
-          <ListItem button key={"Computer"} component={Link} to={"/Chapter/"+0}>
-            <ListItemIcon> <CodeIcon /> </ListItemIcon>
-            <ListItemText primary={"Computer"} />
-          </ListItem>
-          <ListItem button key={"RAS"} component={Link} to={"/Chapter/"+1}>
-            <ListItemIcon> <MemoryIcon /> </ListItemIcon>
-            <ListItemText primary={"RAS"} />
-          </ListItem>
-          <ListItem button key={"EMB"} component={Link} to={"/Chapter/"+2}>
-            <ListItemIcon> <EcoIcon /> </ListItemIcon>
-            <ListItemText primary={"EMB"} />
-          </ListItem>
+          ))}
         </List>
         <Divider />
         <List>
@@ -234,7 +218,6 @@ export default function MiniDrawer() {
             <Route path="/ContactUs" component={ContactUs}/>
             <Route path="/Login" component={Login}/>
             <Route path="/RecoverPassword" component={RecoverPassword}/>
-            <Route path="/Chapter/:chapter_id" component={ChapterArea}/>
 
             <Route default component={MainComponent}/>
           </Switch>
