@@ -15,9 +15,9 @@ class Inicio extends Component
     constructor(props){
         super(props);
         this.state = {
-            id_chapter: this.props.match.params.chapter
+            id_chapter: 0
         };
-
+        console.log(props)
     }
     getChapter=()=>{
 
@@ -48,7 +48,7 @@ class Inicio extends Component
                     <Col sm={12} md={6} lg={6}>
                         <div align="center">
                             <Link to="/Capitulos/Calendario/:chapter">
-                                <Calendar local="en-US"/>
+                                <Calendar/>
                                 <Button outline color="success" >Calendar<DateRangeIcon/></Button>
                             </Link>
                         </div>
