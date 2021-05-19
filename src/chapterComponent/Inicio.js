@@ -48,7 +48,7 @@ class Inicio extends Component
                     <Col sm={12} md={6} lg={6}>
                         <div align="center">
                             <Link to="/Capitulos/Calendario/:chapter">
-                                <Calendar local="en-US">
+                                <Calendar local="en">
                                 <Button outline color="success" >Calendar<DateRangeIcon/></Button>
                             </Link>
                         </div>
