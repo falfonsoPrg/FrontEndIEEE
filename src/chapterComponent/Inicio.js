@@ -15,7 +15,7 @@ class Inicio extends Component
     constructor(props){
         super(props);
         this.state = {
-            id_chapter: this.props.match.params.chapter
+            id_chapter: 0
         };
         console.log(props)
     }
