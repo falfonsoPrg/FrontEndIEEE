@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
@@ -30,7 +30,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import EcoIcon from '@material-ui/icons/Eco';
 import MemoryIcon from '@material-ui/icons/Memory';
 
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import MainComponent from '../MainComponent';
 import ChapterArea from '../ChapterArea';
@@ -41,6 +41,7 @@ import Inicio from '../chapterComponent/Inicio';
 import Login from '../chapterComponent/login'
 
 const drawerWidth = 240;
+const axios = require("axios");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,11 +108,29 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer() {
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [chapters, setChapters] = React.useState([]);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  useEffect(() => {  
+    
+      axios.get(process.env.REACT_APP_ENDPOINT+'/Chapters/', {
+        headers: {
+          'auth-token': localStorage.getItem('token'),
+        }
+      })
+        .then(
+          (res) => {
+            setChapters(res.data.response)
+          }
+        ).catch((err) => {
+          console.log(err)
+        }
+        )
 
+
+   
+  },[]);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -152,7 +171,7 @@ export default function MiniDrawer() {
           <Typography variant="h6" >
             IEEE El Bosque University
           </Typography>
-          {auth && (<div style={{ marginLeft: 'auto'}}> Pedro Perez
+          {auth && (<div style={{ marginLeft: 'auto' }}> Pedro Perez
             <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
               <AccountCircleIcon style={{ color: 'white' }} />
             </IconButton>
@@ -169,16 +188,16 @@ export default function MiniDrawer() {
             </Menu>
           </div>
           )}
-          {!auth && (<div style={{ marginLeft: 'auto'}}> Log in
+          {!auth && (<div style={{ marginLeft: 'auto' }}> Log in
             <IconButton component={Link} to="/Login">
               <VpnKeyIcon style={{ color: 'white' }} />
             </IconButton>
           </div>
           )}
         </Toolbar>
-        
+
       </AppBar>
-      
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -192,6 +211,7 @@ export default function MiniDrawer() {
           }),
         }}
       >
+        
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -199,48 +219,35 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {/* {['Computer', 'IAS', 'RAS', 'EMB'].map((text, index) => (
-            <ListItem button key={text} component={Link} to={"/Chapter/"+index}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))} */}
-
-          <ListItem button key={"Computer"} component={Link} to={"/Chapter/"+0}>
-            <ListItemIcon> <CodeIcon /> </ListItemIcon>
-            <ListItemText primary={"Computer"} />
+        {chapters.map((chapter, index) => (
+          <ListItem button key={chapter.chapter_id} component={Link} to={"/Chapter/" + chapter.chapter_id}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={chapter.chapter_name} />
           </ListItem>
-          <ListItem button key={"RAS"} component={Link} to={"/Chapter/"+1}>
-            <ListItemIcon> <MemoryIcon /> </ListItemIcon>
-            <ListItemText primary={"RAS"} />
-          </ListItem>
-          <ListItem button key={"EMB"} component={Link} to={"/Chapter/"+2}>
-            <ListItemIcon> <EcoIcon /> </ListItemIcon>
-            <ListItemText primary={"EMB"} />
-          </ListItem>
+        ))} 
         </List>
         <Divider />
         <List>
-            <ListItem button key={"ContactUs"} component={Link} to="/ContactUs">
-              <ListItemIcon><ContactSupportIcon /></ListItemIcon>
-              <ListItemText primary={"Contact Us"} />
-            </ListItem>
+          <ListItem button key={"ContactUs"} component={Link} to="/ContactUs">
+            <ListItemIcon><ContactSupportIcon /></ListItemIcon>
+            <ListItemText primary={"Contact Us"} />
+          </ListItem>
         </List>
       </Drawer>
-      
-      <main style={{    inlineSize: '-webkit-fill-available'}}>
-        <div className={classes.toolbar} />
-          <Switch>
-            <Route path="/ContactUs" component={ContactUs}/>
-            <Route path="/Login" component={Login}/>
-            <Route path="/RecoverPassword" component={RecoverPassword}/>
-            <Route path="/Chapter/:chapter_id" component={ChapterArea}/>
 
-            <Route default component={MainComponent}/>
-          </Switch>
-          <footer>
-            <h6>© 2021 IEEE - Universidad El Bosque Page All rights reserved.</h6>
-          </footer>
+      <main style={{ inlineSize: '-webkit-fill-available' }}>
+        <div className={classes.toolbar} />
+        <Switch>
+          <Route path="/ContactUs" component={ContactUs} />
+          <Route path="/Login" component={Login} />
+          <Route path="/RecoverPassword" component={RecoverPassword} />
+          <Route path="/Chapter/:chapter_id" component={ChapterArea} />
+
+          <Route default component={MainComponent} />
+        </Switch>
+        <footer>
+          <h6>© 2021 IEEE - Universidad El Bosque Page All rights reserved.</h6>
+        </footer>
       </main>
     </div>
   );
