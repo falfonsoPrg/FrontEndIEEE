@@ -1,31 +1,25 @@
-import React from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import AppBar from './MainComponents/AppBar'
+import {BrowserRouter as Router} from 'react-router-dom'
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#0a1b2a'
+    },
+  }
+});
 
-import MainComponent from './MainComponent';
-import ChapterArea from './ChapterArea';
-import NavBar from './Components/NavBar'
-import NewNavbar from './Components/NewNavbar'
-import RecoverPassword from './Components/RecoverPassword';
-import ContactUs from './Components/ContactUs';
-import Inicio from './chapterComponent/Inicio';
-import Login from './chapterComponent/login'
-
-
-
-
-function App ()
-{
-    return(
-      <Router>
-        <div className="App">
-          <NewNavbar></NewNavbar>
-        </div>
-      </Router>
-    );
-  
+function App() {
+  return (
+    <MuiThemeProvider theme={theme}>
+      <div className="App">
+        <Router>
+          <AppBar></AppBar>
+        </Router>
+      </div>
+    </MuiThemeProvider>
+  );
 }
+
 export default App;
