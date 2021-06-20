@@ -17,8 +17,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
-
 
 
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -26,18 +24,13 @@ import MailIcon from '@material-ui/icons/Mail';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import CodeIcon from '@material-ui/icons/Code';
-import EcoIcon from '@material-ui/icons/Eco';
-import MemoryIcon from '@material-ui/icons/Memory';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import MainComponent from '../MainComponent';
 import ChapterArea from '../ChapterArea';
-import NavBar from './NavBar'
 import RecoverPassword from './RecoverPassword';
 import ContactUs from './ContactUs';
-import Inicio from '../chapterComponent/Inicio';
 import Login from '../chapterComponent/login'
 
 const drawerWidth = 240;

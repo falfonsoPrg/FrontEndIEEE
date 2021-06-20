@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom
 import Inicio from './chapterComponent/Inicio';
 import AchivementArea from './chapterComponent/AchivementArea';
 import EventsArea from './chapterComponent/EventsArea';
-import GaleryArea from './chapterComponent/GaleryArea';
+import GalleryArea from './chapterComponent/GalleryArea';
 import AddPictureForm from './Forms/AddPictureForm';
 import ModalArticles from './chapterComponent/ModalArticles';
 import MyScheduler from './chapterComponent/MyScheduler';
@@ -33,7 +33,7 @@ export default function ChapterArea() {
             </TabList>
             </AppBar>
             <TabPanel value="1"><Inicio id_chapter={1}/></TabPanel>
-            <TabPanel value="2"> <GaleryArea /> </TabPanel>
+            <TabPanel value="2"> <GalleryArea /> </TabPanel>
             <TabPanel value="3"><EventsArea /></TabPanel>
             <TabPanel value="4"><AchivementArea /></TabPanel>
       </TabContext>

@@ -7,7 +7,7 @@ import {
     Card, CardImg, CardTitle, CardBody, Button } from 'reactstrap';
 
 
-class Galery extends Component
+class Gallery extends Component
  {
     constructor(props)
     {
@@ -34,16 +34,16 @@ class Galery extends Component
             <div>
                 <Card>
                     <a onClick={this.toggleModal.bind(this)}>
-                        <CardImg top width="100%" height="150px" src={this.props.galery.image} />
+                        <CardImg top width="100%" height="150px" src={this.props.gallery.image} />
                     </a>
-                    <CardBody>
-                    <CardTitle><Button outline color="danger"><DeleteIcon/> Delete image </Button></CardTitle>
+                    <CardBody >
+                    <CardTitle ><Button outline color="danger"><DeleteIcon/> Delete image </Button></CardTitle>
                     </CardBody>
                 </Card>
                 <Modal isOpen={this.state.modalIsOpen} toggle={this.toggleModal.bind(this)}>
                     <ModalHeader>Image title</ModalHeader>
                     <ModalBody>
-                        <img src={this.props.galery.image} width="100%" height="300px"/>
+                        <img src={this.props.gallery.image} width="100%" height="300px"/>
                         <h5>Image description</h5>
                     </ModalBody>
                     <ModalFooter>
@@ -55,4 +55,4 @@ class Galery extends Component
         );
     }
 }
-export default Galery ;
+export default Gallery ;

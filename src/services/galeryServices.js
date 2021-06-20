@@ -2,7 +2,7 @@ import request from 'superagent';
 import { Component } from 'react';
 
 
-class galeryServices extends Component
+class galleryServices extends Component
 {
     componentDidMount()
     {
