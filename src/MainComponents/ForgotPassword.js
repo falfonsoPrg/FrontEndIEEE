@@ -1,7 +1,7 @@
 import {React, useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Paper, Container, Grid, Button, Box } from '@material-ui/core';
-
+import { Redirect } from 'react-router';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +37,7 @@ export default function ForgotPassword(props) {
     
     return (
         <Container maxWidth="sm" style={{marginTop: 60}}>
+            {props.auth && (<Redirect to="/" /> )}
             <Paper elevation={3}>
                 <Grid container spacing={3}>
                     <Grid item xs>

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Login from './Login'
 import ForgotPassword from './ForgotPassword'
 import Main from './Main'
+import ContactUs from './ContactUs'
 
 export default function AppRoutes(props) {
     return (
@@ -13,6 +14,9 @@ export default function AppRoutes(props) {
             </Route>
             <Route path="/forgotPassword">
                 <ForgotPassword auth={props.auth} setAuth={props.handleAuth} />
+            </Route>
+            <Route path="/contactUs">
+                <ContactUs />
             </Route>
             <Route default path="/" component={Main}/>
         </Switch>
