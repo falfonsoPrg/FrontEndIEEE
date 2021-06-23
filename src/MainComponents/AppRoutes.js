@@ -22,6 +22,9 @@ export default function AppRoutes(props) {
             <Route path="/create">
                 <CreateMember />
             </Route>
+            <Route path='/${props.chapter}'>
+                <GalleryArea  />
+            </Route>
             
             <Route default path="/" component={Main}/>
         </Switch>
