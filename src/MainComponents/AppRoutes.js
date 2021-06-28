@@ -6,6 +6,7 @@ import ForgotPassword from './ForgotPassword'
 import Main from './Main'
 import ContactUs from './ContactUs'
 import CreateMember from '../ChapterComponents/Members/CreateMember'
+import ChapterRoutes from '../ChapterComponents/ChapterRoutes'
 
 export default function AppRoutes(props) {
     return (
@@ -21,6 +22,9 @@ export default function AppRoutes(props) {
             </Route>
             <Route path="/create">
                 <CreateMember />
+            </Route>
+            <Route path="/chapter/:id">
+                <ChapterRoutes handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
             </Route>
             
             <Route default path="/" component={Main}/>

@@ -1,13 +1,15 @@
 import {React, useState, useEffect} from 'react'
+import { useHistory } from "react-router-dom";
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Paper, Container, Grid, Button, Box, Checkbox, FormControlLabel } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -21,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function CreateMember() {
+export default function CreateMember(props) {
     const classes = useStyles();
+    const history = useHistory()
 
     const [firstname, setFirstName] = useState("")
     const [lastname, setLastName] = useState("")
@@ -34,6 +37,9 @@ export default function CreateMember() {
 
     const [chapter, setChapter] = useState(null)
     const [inputChapter, setInputChapter] = useState("")
+    
+    const [role, setRole] = useState(null)
+    const [inputRole, setInputRole] = useState("")
 
     const [active, setActive] = useState(true)
 
@@ -44,7 +50,31 @@ export default function CreateMember() {
     const [selectedStartDate, setSelectedStartDate] = useState(new Date());
     const [selectedEndDate, setSelectedEndDate] = useState(new Date());
     
-    const chapters = []
+    const [chapters, setChapters] = useState([])
+    const [roles, setRoles] = useState([])
+    const { handleLoader, openSnackbarByType } = props
+
+    const loadData = () => {
+        handleLoader(true)
+        axios.get(process.env.REACT_APP_ENDPOINT + "/chapters").then((res) => {
+            setChapters(res.data.response)
+            handleLoader(false)
+        }).catch((err) => {
+            openSnackbarByType(true, "error", "Chapters couldn't be found")
+            handleLoader(false)
+        })
+        handleLoader(true)
+        axios.get(process.env.REACT_APP_ENDPOINT + "/roles").then((res) => {
+            setRoles(res.data.response)
+            handleLoader(false)
+        }).catch((err) => {
+            openSnackbarByType(true, "error", "Roles couldn't be found")
+            handleLoader(false)
+        })
+    }
+    useEffect(loadData
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    , [])
 
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -72,11 +102,32 @@ export default function CreateMember() {
             };
         }
     }
-
-    const submit = (e) => {
-        
+    const generateRandomPassword = () => {
+        return "Abc123"
     }
-
+    const submit = (e) => {
+        e.preventDefault()
+        const user = {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            password: generateRandomPassword(),
+            document: document,
+            phone: phone,
+            image_path: "/photo"
+        }
+        handleLoader(true)
+        axios.post(process.env.REACT_APP_ENDPOINT + "/members", user).then(() => {
+            openSnackbarByType(true, "success", "Member created succesfully")
+            handleLoader(false)
+        }).catch((err)=> {
+            openSnackbarByType(true, "error", "Member couldn't be created succesfully")
+            handleLoader(false)
+        })
+    }
+    const goBack = () => {
+        history.goBack()
+    }
     return (
         <Container maxWidth="sm" style={{marginTop: 60}}>
             <Paper elevation={3}>
@@ -85,7 +136,7 @@ export default function CreateMember() {
                     </Grid>
                     <Grid item xs>
                         <Box fontSize={20} textAlign="center" style={{marginTop: 30}}>Create Member</Box>
-                        <form className={classes.form} noValidate autoComplete="off">
+                        <form className={classes.form} noValidate autoComplete="off" onSubmit={submit}>
                             <TextField id="firstname" label="First name *" type="text" variant="outlined" onChange={(e) => setFirstName(e.target.value)}/>
                             <TextField id="lastname" label="Last name *" type="text" variant="outlined" onChange={(e) => setLastName(e.target.value)}/>
                             <TextField id="email" label="Email *" type="email" variant="outlined" error={emailError} onChange={(e) => handleEmailChange(e)} helperText={emailErrorMessage}/>
@@ -116,23 +167,25 @@ export default function CreateMember() {
                                 id="controllable-states"
                                 options={chapters}
                                 getOptionLabel={(c) => c.chapter_name}
+                                getOptionSelected={(c) => c.chapter_name}
                                 renderOption={(c) => (<div> {c.chapter_name}</div>)}
                                 renderInput={(params) =>(<TextField {...params} label="Choose a chapter *" variant="outlined" />)}
                             />
 
                             <Autocomplete
-                                value={chapter}
+                                value={role}
                                 onChange={(event, newValue) => {
-                                    setChapter(newValue);
+                                    setRole(newValue);
                                 }}
-                                inputValue={inputChapter}
+                                inputValue={inputRole}
                                 onInputChange={(event, newInputValue) => {
-                                    setInputChapter(newInputValue);
+                                    setInputRole(newInputValue);
                                 }}
                                 id="controllable-states"
-                                options={chapters}
-                                getOptionLabel={(c) => c.chapter_name}
-                                renderOption={(c) => (<div> {c.chapter_name}</div>)}
+                                options={roles}
+                                getOptionLabel={(r) => r.role_name}
+                                getOptionSelected={r=>r.role_name}
+                                renderOption={(r) => (<div> {r.role_name}</div>)}
                                 renderInput={(params) =>(<TextField {...params} label="Choose a role *" variant="outlined" />)}
                             />
 
@@ -174,12 +227,15 @@ export default function CreateMember() {
                                 />
                             </MuiPickersUtilsProvider>
 
-                        </form>
                         <div className={classes.button}>
                             <Button variant="contained" color="primary" onClick={(e) => submit(e)} style={{marginBottom: 30,marginTop:10}}>
                                 Submit
                             </Button>
+                            <Button variant="contained" color="primary" onClick={goBack} style={{marginBottom: 30,marginTop:10, marginLeft:10}}>
+                                Back
+                            </Button>
                         </div>
+                        </form>
                     </Grid>
                     
                     <Grid item xs>

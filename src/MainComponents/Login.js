@@ -43,8 +43,9 @@ export default function Login(props) {
     }
 
     const submit = (e) => {
+        e.preventDefault()
         props.handleLoader(true)
-        if(!emailError){
+        if(!emailError && email!==""){
             axios.post(process.env.REACT_APP_ENDPOINT + "/auth/login",{
                 email: email,
                 password: password
@@ -64,6 +65,9 @@ export default function Login(props) {
                 props.openSnackbarByType(true,"error", e.response.data.error !== undefined ? e.response.data.error : "Error while login!")
                 props.handleLoader(false)
             })
+        }else{
+            props.openSnackbarByType(true, "error", emailError ? "Please set a valid email" : "Fill the data")
+            props.handleLoader(false)
         }
     }
     return (
@@ -75,18 +79,19 @@ export default function Login(props) {
                     </Grid>
                     <Grid item xs>
                         <Box fontSize={20} textAlign="center" style={{marginTop: 30}}>Log in</Box>
-                        <form className={classes.form} noValidate autoComplete="off">
+                        <form className={classes.form} noValidate autoComplete="off" onSubmit={(e) => {alert("test")}}>
                             <TextField id="email" label="Email" type="email" variant="outlined" error={emailError} onChange={(e) => handleEmailChange(e)} helperText={emailErrorMessage}/>
                             <TextField id="password" label="Password" type="password" variant="outlined" onChange={(e) => setPassword(e.target.value)}/>
+                            <div className={classes.button}>
+                                <Link component={RouterLink} to="/forgotPassword">
+                                    Forgot password?
+                                </Link>
+                                <Button type="submit" variant="contained" color="primary" onClick={(e) => submit(e)} style={{marginBottom: 30,marginTop:10}}>
+                                    Submit
+                                </Button>
+                            </div>
                         </form>
-                        <div className={classes.button}>
-                            <Link component={RouterLink} to="/forgotPassword">
-                                Forgot password?
-                            </Link>
-                            <Button variant="contained" color="primary" onClick={(e) => submit(e)} style={{marginBottom: 30,marginTop:10}}>
-                                Submit
-                            </Button>
-                        </div>
+
                     </Grid>
                     
                     <Grid item xs>
