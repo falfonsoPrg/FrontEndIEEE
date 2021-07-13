@@ -227,7 +227,7 @@ export default function MiniDrawer() {
                 open={openMenu}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose} component={RouterLink} to="/userProfile">Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={()=>{
                     setAnchorEl(null);
