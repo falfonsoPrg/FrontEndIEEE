@@ -27,7 +27,7 @@ export default function ChapterRoutes(props) {
             <AppBar position="static" color="primary" className={classes.appbar}>
                 <ButtonGroup size="large" disableElevation variant="contained" color="primary" aria-label="contained primary button group">
                     <Button className={classes.mt} component={RouterLink} to={`${url}`}>Main</Button>
-                    <Button className={classes.mt}>Gallery & Events</Button>
+                    <Button className={classes.mt} component={RouterLink} to={`${url}/events`}>Gallery & Events</Button>
                     <Button className={classes.mt} component={RouterLink} to={`${url}/createMember`}>Create member</Button>
                     <Button className={classes.mt} component={RouterLink} to={`${url}/createChapter`}>Create Chapter</Button>
                 </ButtonGroup>
