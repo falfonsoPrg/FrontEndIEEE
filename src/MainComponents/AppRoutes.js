@@ -13,7 +13,7 @@ export default function AppRoutes(props) {
     return (
         <Switch>
             <Route path="/chapter/:id/events">
-                <EventArea/>
+                <EventArea  />
             </Route>
             <Route path="/login">
                 <Login auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType} setMember={props.setMember}/>

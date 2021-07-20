@@ -1,20 +1,18 @@
 import React from 'react';
-import Timeline from '@material-ui/lab/Timeline';
-import TimelineItem from '@material-ui/lab/TimelineItem';
-import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
-import TimelineConnector from '@material-ui/lab/TimelineConnector';
-import TimelineContent from '@material-ui/lab/TimelineContent';
-import TimelineDot from '@material-ui/lab/TimelineDot';
+import {Timeline,TimelineItem,TimelineSeparator,TimelineConnector,TimelineContent,TimelineDot}  from '@material-ui/lab/';
 
-export default function RightAlignedTimeline(props) {
+
+export default function sharedTimeline(props) {
+    
+
     const item = props.content.map(event => {
         return (
             <TimelineItem>
                 <TimelineSeparator>
-                    <TimelineDot />
+                    <TimelineDot onClick={props.changeFunction} />
                     <TimelineConnector />
                 </TimelineSeparator>
-                <TimelineContent>{event.title}</TimelineContent>
+                <TimelineContent onClick={props.changeFunction} >{event.title}</TimelineContent>
             </TimelineItem>
         )
     })
