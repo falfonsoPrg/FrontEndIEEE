@@ -88,7 +88,7 @@ export default function EventArea(props) {
    }, []);
    */
     const changeEvent = (nEvent) => {
-
+        theEvents2[]
         return (
             <EventAreax title={"AAAAAAAAAAAAAAAAAAA"} />
         )
