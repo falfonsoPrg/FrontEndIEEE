@@ -8,7 +8,7 @@ import ContactUs from "./ContactUs";
 import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
 import EventArea from "../ChapterComponents/Members/EventArea";
 import UserProfile from "./UserProfile";
-import CreateGallery from "../ChapterComponents/Forms/CreateGallery"
+import CreateGallery from "../ChapterComponents/Forms/CreateGallery";
 
 export default function AppRoutes(props) {
   return (
@@ -39,13 +39,12 @@ export default function AppRoutes(props) {
       </Route>
 
       <Route path="/userProfile">
-        <UserProfile />
+        <UserProfile member={props.member} auth={props.auth} />
       </Route>
 
       <Route path="/creategallery">
-        <CreateGallery/>
+        <CreateGallery />
       </Route>
-
 
       <Route default path="/" component={Main} />
     </Switch>

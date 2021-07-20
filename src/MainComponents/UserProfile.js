@@ -1,26 +1,13 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import InputBase from "@material-ui/core/InputBase";
-import {
-  TextField,
-  Paper,
-  Container,
-  Grid,
-  Button,
-  Link,
-} from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
-import { positions } from "@material-ui/system";
-import axios from "axios";
-import Typography from "@material-ui/core/Typography";
-import { Link as RouterLink, Redirect } from "react-router-dom";
-import { CenterFocusStrong } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import EditIcon from "@material-ui/icons/Edit";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { getElementById } from "domutils";
+import { Redirect } from "react-router-dom";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
@@ -40,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "25%",
     marginTop: "3%",
     borderRadius: 15,
-    height: 800,
+    height: 815,
     width: "45%",
   },
 
@@ -67,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   large: {
-    position:"absolute",
+    position: "absolute",
     top: "2%",
     left: "34%",
     width: theme.spacing(28),
@@ -83,9 +70,11 @@ export default function UserProfile(props) {
   const [cellphone, setcellphone] = useState("3216985412");
   const [document, setdocument] = useState("1245789635");
   const [visibility, setvisibility] = useState(true);
-  const [hidden, sethidden] = useState("hidden");
+  const [hidden, sethidden] = useState(true);
   return (
     <Box Container m={5}>
+      {!props.auth && <Redirect to="/" />}
+
       <Box className={classes.first_box} position="absolute">
         <div className={classes.btn_edit}>
           <input
@@ -100,7 +89,10 @@ export default function UserProfile(props) {
             aria-label="Edit"
             style={{ marginLeft: "93%" }}
             component="span"
-            onClick={() => setvisibility(false)}
+            onClick={() => {
+              setvisibility(false);
+              sethidden(false);
+            }}
           >
             <EditIcon />
           </IconButton>
@@ -118,17 +110,17 @@ export default function UserProfile(props) {
           src="https://cutewallpaper.org/21/kobe-bryant-cartoon-wallpaper/Kobe-Bryant-24-Sports-Nba-basketball-Kobe-bryant-nba-.jpg"
           className={classes.large}
         />
-
-        <div id="photo">
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="icon-button-file"
-            type="file"
-          />
+        <input
+          accept="image/*"
+          className={classes.input}
+          id="icon-button-file"
+          type="file"
+        />
+        {!hidden && (
           <label htmlFor="icon-button-file">
             <IconButton
-              style={{ marginLeft: "65%", marginTop: "28%" }}
+              position="absolute"
+              left={"41%"}
               color="primary"
               aria-label="upload picture"
               component="span"
@@ -136,14 +128,15 @@ export default function UserProfile(props) {
               <PhotoCamera />
             </IconButton>
           </label>
-        </div>
-
-        <p className={classes.Title} style={{ marginTop: "5%" }}>
-          <b>{name}</b>
+        )}
+       
+        <p className={classes.Title} style={{ marginTop: 240 }}>
+          <b>{props.member.firstname}</b>
         </p>
         <p className={classes.Title} style={{ marginTop: -25 }}>
-          <b>{lastname}</b>
+          <b>{props.member.lastname}</b>
         </p>
+        
       </Box>
 
       <Box className={classes.third_box} boxShadow={10} position="absolute">
@@ -151,11 +144,11 @@ export default function UserProfile(props) {
           <b>Cellphone</b>
         </p>
         <TextField
-          style={{ marginLeft: "38.5%", marginTop: "-2%", width: "25%" }}
+          style={{ marginLeft: "40.2%", marginTop: "-2%", width: "21%" }}
           disabled={visibility}
           id="standard-number"
           type="number"
-          defaultValue={cellphone}
+          defaultValue={props.member.phone}
           InputLabelProps={{
             shrink: true,
           }}
@@ -168,8 +161,8 @@ export default function UserProfile(props) {
         <TextField
           id="standard"
           disabled={visibility}
-          style={{ marginLeft: "24%", marginTop: "-4%", width: "57%" }}
-          defaultValue={email}
+          style={{ marginLeft: "32%", marginTop: "-4%", width: "42%" }}
+          defaultValue={props.member.email}
         />
 
         <p className={classes.Sub_Title}>
@@ -179,25 +172,30 @@ export default function UserProfile(props) {
         <TextField
           id="standard"
           disabled={visibility}
-          style={{ marginLeft: "38.5% ", marginTop: "-4%", width: "23%" }}
-          defaultValue={document}
+          style={{ marginLeft: "41.5% ", marginTop: "-4%", width: "18%" }}
+          defaultValue={props.member.document}
         />
+
+        <p
+          className={classes.Sub_Title}
+          style={{ marginTop: "12%" }}
+        >
+          <b>Chapter</b>
+        </p>
       </Box>
-      <p
-        className={classes.Sub_Title}
-        style={{ marginTop: "2%", marginLeft: "-5%" }}
-      >
-        <b>Chapter</b>
-      </p>
-      <Button
-        style={{ left: "43%", top: "25%", alignSelf: "center" }}
-        variant="contained"
-        color="default"
-        className={classes.button}
-        startIcon={<CloudUploadIcon />}
-      >
-        Upload
-      </Button>
+
+      {!hidden && (
+        <Button
+          style={{ marginLeft: "50.5%", marginTop: "62%" }}
+          hidden={true}
+          variant="contained"
+          color="default"
+          className={classes.button}
+          startIcon={<CloudUploadIcon />}
+        >
+          Upload
+        </Button>
+      )}
     </Box>
   );
 }
