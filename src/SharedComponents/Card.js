@@ -32,6 +32,9 @@ export default function ImgMediaCard(props) {
           <Typography variant="body2" color="textSecondary" component="p">
             {props.cardDescription ? props.cardDescription : "Default description"}
           </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.cardEmail ? props.cardEmail : ""}
+          </Typography>
         </CardContent>
       </CardActionArea>
       {/* <CardActions>
