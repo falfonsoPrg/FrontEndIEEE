@@ -115,7 +115,7 @@ export default function MiniDrawer() {
   const [open, setOpen] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
   const [auth, setAuth] = React.useState(localStorage.getItem('auth') ? localStorage.getItem('auth') : false);
-  const [member, setMember] = React.useState(localStorage.getItem('member') ? JSON.parse(localStorage.getItem('member')) : {firstname:"Default",lastname:"User",email:"na@na.com",member_id:-1});
+  const [member, setMember] = React.useState(localStorage.getItem('member') ? JSON.parse(localStorage.getItem('member')) : {firstname:"Default",phone:"0",document:"0",lastname:"User",email:"na@na.com",member_id:-1});
 
   const [chapters, setChapters] = React.useState([]);
 
@@ -227,7 +227,7 @@ export default function MiniDrawer() {
                 open={openMenu}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose} component={RouterLink} to="/userProfile">Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={()=>{
                     setAnchorEl(null);
@@ -314,7 +314,7 @@ export default function MiniDrawer() {
             )}
           </div>
         </Snackbar>
-        <AppRoutes auth={auth} handleAuth={setAuth} handleLoader={setOpenLoader} openSnackbarByType={openSnackbarByType} setMember={setMember}/>
+        <AppRoutes auth={auth} handleAuth={setAuth} handleLoader={setOpenLoader} openSnackbarByType={openSnackbarByType} setMember={setMember} member={member}/>
       </main>
     </div>
   );

@@ -114,7 +114,7 @@ export default function CreateMember(props) {
             password: generateRandomPassword(),
             document: document,
             phone: phone,
-            image_path: "/photo"
+            image_path: photo
         }
         handleLoader(true)
         axios.post(process.env.REACT_APP_ENDPOINT + "/members", user).then(() => {
