@@ -1,38 +1,52 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
-import Login from './Login'
-import ForgotPassword from './ForgotPassword'
-import Main from './Main'
-import ContactUs from './ContactUs'
-import ChapterRoutes from '../ChapterComponents/ChapterRoutes'
-    import EventArea from '../ChapterComponents/Members/EventArea'
-    import UserProfile from './UserProfile'
+import Login from "./Login";
+import ForgotPassword from "./ForgotPassword";
+import Main from "./Main";
+import ContactUs from "./ContactUs";
+import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
+import EventArea from "../ChapterComponents/Members/EventArea";
+import UserProfile from "./UserProfile";
+import CreateGallery from "../ChapterComponents/Forms/CreateGallery";
 
 export default function AppRoutes(props) {
-    return (
-        <Switch>
-            <Route path="/chapter/:id/events">
-                <EventArea/>
-            </Route>
-            <Route path="/login">
-                <Login auth={props.auth} setAuth={props.handleAuth} handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType} setMember={props.setMember}/>
-            </Route>
-            <Route path="/forgotPassword">
-                <ForgotPassword auth={props.auth} setAuth={props.handleAuth} />
-            </Route>
-            <Route path="/contactUs">
-                <ContactUs />
-            </Route>
-            <Route path="/chapter/:id">
-                <ChapterRoutes handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
-            </Route>
+  return (
+    <Switch>
+      <Route path="/chapter/:id/events">
+        <EventArea />
+      </Route>
+      <Route path="/login">
+        <Login
+          auth={props.auth}
+          setAuth={props.handleAuth}
+          handleLoader={props.handleLoader}
+          openSnackbarByType={props.openSnackbarByType}
+          setMember={props.setMember}
+        />
+      </Route>
+      <Route path="/forgotPassword">
+        <ForgotPassword auth={props.auth} setAuth={props.handleAuth} />
+      </Route>
+      <Route path="/contactUs">
+        <ContactUs />
+      </Route>
+      <Route path="/chapter/:id">
+        <ChapterRoutes
+          handleLoader={props.handleLoader}
+          openSnackbarByType={props.openSnackbarByType}
+        />
+      </Route>
 
-            <Route path="/userProfile">
-                <UserProfile />
-            </Route>
-            
-            <Route default path="/" component={Main}/>
-        </Switch>
-    )
+      <Route path="/userProfile">
+        <UserProfile member={props.member} auth={props.auth} />
+      </Route>
+
+      <Route path="/creategallery">
+        <CreateGallery />
+      </Route>
+
+      <Route default path="/" component={Main} />
+    </Switch>
+  );
 }
