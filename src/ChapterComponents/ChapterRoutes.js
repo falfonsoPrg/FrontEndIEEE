@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
-
+import EventArea from './Members/EventArea';
 import CreateMember from './Forms/CreateMember'
 import CreateChapter from './Forms/CreateChapter'
 import MainChapterView from './MainChapterView'
+import CreateEvent from "../ChapterComponents/Forms/CreateEvent"
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -33,6 +34,9 @@ export default function ChapterRoutes(props) {
                 </ButtonGroup>
             </AppBar>
             <Switch>
+                <Route path={`${path}/events`}>
+                    <EventArea handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
+                </Route>
                 <Route path={`${path}/createMember`}>
                     <CreateMember handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
                 </Route>

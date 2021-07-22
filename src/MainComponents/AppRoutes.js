@@ -6,16 +6,13 @@ import ForgotPassword from "./ForgotPassword";
 import Main from "./Main";
 import ContactUs from "./ContactUs";
 import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
-import EventArea from "../ChapterComponents/Members/EventArea";
 import UserProfile from "./UserProfile";
 import CreateGallery from "../ChapterComponents/Forms/CreateGallery"
+import CreateEvent from "../ChapterComponents/Forms/CreateEvent"
 
 export default function AppRoutes(props) {
   return (
-    <Switch>
-      <Route path="/chapter/:id/events">
-        <EventArea />
-      </Route>
+    <Switch>  
       <Route path="/login">
         <Login
           auth={props.auth}
@@ -45,8 +42,9 @@ export default function AppRoutes(props) {
       <Route path="/creategallery">
         <CreateGallery/>
       </Route>
-
-
+      <Route path="/createEvent">
+        <CreateEvent/>
+      </Route>
       <Route default path="/" component={Main} />
     </Switch>
   );

@@ -26,7 +26,7 @@ export default function ImgMediaCard(props) {
           <Typography gutterBottom variant="h5" component="h2">
             {props.cardTitle ? props.cardTitle : "Default title"}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" style={{textAlign: "justify"}}>
             {props.cardDescription ? props.cardDescription : "Default description"}
           </Typography>
         </CardContent>

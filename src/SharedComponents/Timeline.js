@@ -5,14 +5,14 @@ import {Timeline,TimelineItem,TimelineSeparator,TimelineConnector,TimelineConten
 export default function sharedTimeline(props) {
     
 
-    const item = props.content.map(event => {
+    const item = props.content.map((event,index) => {
         return (
-            <TimelineItem>
+            <TimelineItem key ={index}>
                 <TimelineSeparator>
-                    <TimelineDot onClick={props.changeFunction} />
+                    <TimelineDot style={{cursor:"pointer"}}onClick={()=>{props.changeFunction(event)}} />
                     <TimelineConnector />
                 </TimelineSeparator>
-                <TimelineContent onClick={props.changeFunction} >{event.title}</TimelineContent>
+                <TimelineContent style={{cursor:"pointer"}} onClick={()=>{props.changeFunction(event)}} >{event.title}</TimelineContent>
             </TimelineItem>
         )
     })

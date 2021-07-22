@@ -13,7 +13,7 @@ export default function Main() {
                 <Grid container spacing={5}>
                 
                 <Box fontSize={30} textAlign="center" style={{marginTop: 30}}>What is the student branch of the El Bosque University?</Box>
-                    <Typography paragraph>
+                    <Typography paragraph style={{textAlign: "justify"}}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
                         facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
