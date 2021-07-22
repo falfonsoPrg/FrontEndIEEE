@@ -42,13 +42,10 @@ export default function AppRoutes(props) {
       <Route path="/creategallery">
         <CreateGallery />
       </Route>
-<<<<<<< HEAD
       <Route path="/createEvent">
         <CreateEvent/>
       </Route>
-=======
 
->>>>>>> 994ac1af6989be91b8afd967ece365aa66890181
       <Route default path="/" component={Main} />
     </Switch>
   );
