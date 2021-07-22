@@ -36,15 +36,19 @@ export default function AppRoutes(props) {
       </Route>
 
       <Route path="/userProfile">
-        <UserProfile />
+        <UserProfile member={props.member} auth={props.auth} />
       </Route>
 
       <Route path="/creategallery">
-        <CreateGallery/>
+        <CreateGallery />
       </Route>
+<<<<<<< HEAD
       <Route path="/createEvent">
         <CreateEvent/>
       </Route>
+=======
+
+>>>>>>> 994ac1af6989be91b8afd967ece365aa66890181
       <Route default path="/" component={Main} />
     </Switch>
   );

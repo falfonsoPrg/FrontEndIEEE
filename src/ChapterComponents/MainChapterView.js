@@ -56,7 +56,7 @@ export default function MainChapterView(props) {
                 <Grid item xs={6}>
                     <Paper elevation={3} variant="outlined" style={{padding: 10}}>
                         <Container>
-                            <img src={chapter.logo_path} alt='logo'></img>
+                                <img src={chapter.logo_path} alt='logo' width='550'></img>
                         </Container>
                     </Paper>
                 </Grid>
