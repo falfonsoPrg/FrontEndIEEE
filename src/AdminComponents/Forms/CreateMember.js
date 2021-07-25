@@ -35,14 +35,7 @@ export default function CreateMember(props) {
     const [photo, setPhoto] = useState()
     const [photoName, setPhotoName] = useState("")
 
-    const [chapter, setChapter] = useState(null)
-    const [inputChapter, setInputChapter] = useState("")
-    
-    const [role, setRole] = useState(null)
-    const [inputRole, setInputRole] = useState("")
-
     const [active, setActive] = useState(true)
-
 
     const [emailError, setEmailError] = useState(false)
     const [emailErrorMessage, setEmailErrorMessage] = useState("")
@@ -50,31 +43,7 @@ export default function CreateMember(props) {
     const [selectedStartDate, setSelectedStartDate] = useState(new Date());
     const [selectedEndDate, setSelectedEndDate] = useState(new Date());
     
-    const [chapters, setChapters] = useState([])
-    const [roles, setRoles] = useState([])
     const { handleLoader, openSnackbarByType } = props
-
-    const loadData = () => {
-        handleLoader(true)
-        axios.get(process.env.REACT_APP_ENDPOINT + "/chapters").then((res) => {
-            setChapters(res.data.response)
-            handleLoader(false)
-        }).catch((err) => {
-            openSnackbarByType(true, "error", "Chapters couldn't be found")
-            handleLoader(false)
-        })
-        handleLoader(true)
-        axios.get(process.env.REACT_APP_ENDPOINT + "/roles").then((res) => {
-            setRoles(res.data.response)
-            handleLoader(false)
-        }).catch((err) => {
-            openSnackbarByType(true, "error", "Roles couldn't be found")
-            handleLoader(false)
-        })
-    }
-    useEffect(loadData
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    , [])
 
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -103,7 +72,7 @@ export default function CreateMember(props) {
         }
     }
     const generateRandomPassword = () => {
-        return "Abc123"
+        return "1234"
     }
     const submit = (e) => {
         e.preventDefault()
@@ -120,8 +89,9 @@ export default function CreateMember(props) {
         axios.post(process.env.REACT_APP_ENDPOINT + "/members", user).then(() => {
             openSnackbarByType(true, "success", "Member created succesfully")
             handleLoader(false)
-        }).catch((err)=> {
-            openSnackbarByType(true, "error", "Member couldn't be created succesfully")
+            goBack()
+        }).catch((e)=> {
+            openSnackbarByType(true, "error",e.response.data.error !== undefined ? e.response.data.error : "Member couldn't be created succesfully")
             handleLoader(false)
         })
     }
@@ -154,40 +124,6 @@ export default function CreateMember(props) {
                                     <PhotoCamera /> *
                                 </IconButton> {photoName!=="" && (<>{photoName}</>)}
                             </label>
-
-                            <Autocomplete
-                                value={chapter}
-                                onChange={(event, newValue) => {
-                                    setChapter(newValue);
-                                }}
-                                inputValue={inputChapter}
-                                onInputChange={(event, newInputValue) => {
-                                    setInputChapter(newInputValue);
-                                }}
-                                id="controllable-states"
-                                options={chapters}
-                                getOptionLabel={(c) => c.chapter_name}
-                                getOptionSelected={(c) => c.chapter_name}
-                                renderOption={(c) => (<div> {c.chapter_name}</div>)}
-                                renderInput={(params) =>(<TextField {...params} label="Choose a chapter *" variant="outlined" />)}
-                            />
-
-                            <Autocomplete
-                                value={role}
-                                onChange={(event, newValue) => {
-                                    setRole(newValue);
-                                }}
-                                inputValue={inputRole}
-                                onInputChange={(event, newInputValue) => {
-                                    setInputRole(newInputValue);
-                                }}
-                                id="controllable-states"
-                                options={roles}
-                                getOptionLabel={(r) => r.role_name}
-                                getOptionSelected={r=>r.role_name}
-                                renderOption={(r) => (<div> {r.role_name}</div>)}
-                                renderInput={(params) =>(<TextField {...params} label="Choose a role *" variant="outlined" />)}
-                            />
 
                             <FormControlLabel
                                 value="Active *"

@@ -283,6 +283,10 @@ export default function MiniDrawer() {
               <ListItemIcon ><MailIcon /></ListItemIcon>
               <ListItemText primary={"Contact Us"} />
             </ListItem>
+            <ListItem button key={"Dashboard Admin"} component={RouterLink} to="/admin">
+              <ListItemIcon ><MailIcon /></ListItemIcon>
+              <ListItemText primary={"Dashboard Admin"} />
+            </ListItem>
         </List>
       </Drawer>
       <main className={classes.content}>

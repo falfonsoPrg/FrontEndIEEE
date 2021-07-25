@@ -21,6 +21,9 @@ export default function MainChapterView(props) {
         Chapter_Members: [],
         Chapter_Infos: []
     })
+    const [bannerMembers, setBannerMembers] = useState({
+        images: []
+    })
     const { handleLoader, openSnackbarByType } = props
     let { id } = useParams();
     useEffect(() => {
@@ -28,6 +31,20 @@ export default function MainChapterView(props) {
         axios.get(process.env.REACT_APP_ENDPOINT + "/chapters/" + id)
         .then(res => {
             setChapter(res.data.response)
+            if(res.data.response?.Chapter_Members && res.data.response.Chapter_Members.length > 0){
+                let mem = res.data.response.Chapter_Members.map(m => {
+                    return {
+                        path: m.Member.image_path,
+                        legend: m.Member.firstname
+                    }
+                })
+                let images = {
+                    images: mem
+                }
+                setBannerMembers(images)
+            }else{
+                setBannerMembers({})
+            }
             handleLoader(false)
         }).catch(err => {
             openSnackbarByType(true, "error", "Chapter couldn't be fetched")
@@ -64,7 +81,7 @@ export default function MainChapterView(props) {
                     <Box fontSize={20} textAlign="center">
                         <Typography variant="h5">Members</Typography>
                     </Box>
-                    <Slider images={bannerImages} imageHeight={450}/>
+                    <Slider images={bannerMembers} imageHeight={450} centerSlidePercentage={50} showLegend={true}/>
                 </Grid>
             </Grid>
         </Paper>

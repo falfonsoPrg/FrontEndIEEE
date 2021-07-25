@@ -9,6 +9,7 @@ import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
 import UserProfile from "./UserProfile";
 import CreateGallery from "../ChapterComponents/Forms/CreateGallery"
 import CreateEvent from "../ChapterComponents/Forms/CreateEvent"
+import AdminRoutes from '../AdminComponents/AdminRoutes'
 
 export default function AppRoutes(props) {
   return (
@@ -37,6 +38,15 @@ export default function AppRoutes(props) {
 
       <Route path="/userProfile">
         <UserProfile member={props.member} auth={props.auth} />
+      </Route>
+
+      <Route path="/admin">
+        <AdminRoutes 
+          member={props.member} 
+          auth={props.auth} 
+          handleLoader={props.handleLoader}
+          openSnackbarByType={props.openSnackbarByType} 
+        />
       </Route>
 
       <Route path="/creategallery">
