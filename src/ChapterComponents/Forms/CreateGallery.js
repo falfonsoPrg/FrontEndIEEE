@@ -1,6 +1,7 @@
-import { React } from "react";
+import { React,useState, useEffect } from "react";
 import "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router";
 
 import {
   TextField,
@@ -14,6 +15,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import axios from "axios";
+import { id } from "prelude-ls";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -27,7 +30,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function UserProfile(props) {
+  let{id}= useParams();
+
+  const [events, setEvents] = useState([]);
+
+  const getEvents = () => {
+    axios
+      .get(process.env.REACT_APP_ENDPOINT + "/chapters/"+id)
+      .then((res) => {
+        console.log(res.data.response.Events);
+        setEvents(res.data.response.Events);
+
+      })
+      .catch((err) => {
+        //openSnackbarByType(true, "error", "Chapters couldn't be found");
+      });
+     axios.post 
+  };
+  useEffect(getEvents
+         
+, [])
+
   return (
     <Container maxWidth="sm" style={{ marginTop: 60, boxShadow: 6 }}>
       <Paper
@@ -41,6 +67,25 @@ export default function UserProfile(props) {
               <b>Create Gallery</b>
             </Box>
             <form noValidate autoComplete="off">
+              <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
+                <b>Event</b>
+              </p>
+
+              <Autocomplete
+                id="combo-box-demo"
+                options={events}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField
+                    style={{ width: 250, marginLeft: 35 }}
+                    {...params}
+                    label="Events"
+                    variant="outlined"
+                  />
+                )}
+              />
+
               <p style={{ textAlign: "center", marginTop: 30, fontSize: 20 }}>
                 <b>Picture</b>
               </p>
@@ -88,25 +133,6 @@ export default function UserProfile(props) {
                 placeholder="Maximum 8 rows"
               />
 
-              <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
-                <b>Event</b>
-              </p>
-
-              <Autocomplete
-                id="combo-box-demo"
-                options={top100Films}
-                getOptionLabel={(option) => option.title}
-                style={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField
-                    style={{ width: 250, marginLeft: 35 }}
-                    {...params}
-                    label="Events"
-                    variant="outlined"
-                  />
-                )}
-              />
-
               <div>
                 <Button
                   style={{ marginTop: 35, marginLeft: 73, marginRight: 20 }}
@@ -133,26 +159,3 @@ export default function UserProfile(props) {
   );
 }
 
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "The Usual Suspects", year: 1995 },
-  { title: "Léon: The Professional", year: 1994 },
-  { title: "Spirited Away", year: 2001 },
-  { title: "Saving Private Ryan", year: 1998 },
-  { title: "Once Upon a Time in the West", year: 1968 },
-  { title: "American History X", year: 1998 },
-  { title: "Interstellar", year: 2014 },
-  { title: "Casablanca", year: 1942 },
-  { title: "City Lights", year: 1931 },
-  { title: "Psycho", year: 1960 },
-  { title: "The Green Mile", year: 1999 },
-  { title: "The Intouchables", year: 2011 },
-  { title: "Modern Times", year: 1936 },
-  { title: "Raiders of the Lost Ark", year: 1981 },
-  { title: "Rear Window", year: 1954 },
-  { title: "The Pianist", year: 2002 },
-  { title: "The Departed", year: 2006 },
-];

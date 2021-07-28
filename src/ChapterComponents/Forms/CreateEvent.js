@@ -2,6 +2,8 @@ import 'date-fns';
 import React from 'react'
 import { Grid, Container, Paper, Typography, TextField,makeStyles,CssBaseline  } from '@material-ui/core/';
 import DateFnsUtils from '@date-io/date-fns';
+import Button from '@material-ui/core/Button';
+
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -75,7 +77,13 @@ export default function CreateEvents() {
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
+
+                                   
                                 />
+                                 <Button variant="contained">Default</Button>
+                                    <Button variant="contained" color="primary">
+                                      Primary
+                                    </Button>
                             </Grid>
                         </MuiPickersUtilsProvider>
                     </Grid>

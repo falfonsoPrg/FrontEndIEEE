@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import EventArea from './Members/EventArea';
 import MainChapterView from './MainChapterView'
 
+
 const useStyles = makeStyles((theme) => ({
     appbar: {
         alignItems: 'center',
@@ -35,6 +36,7 @@ export default function ChapterRoutes(props) {
                 <Route path={path}>
                     <MainChapterView handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
                 </Route>
+                
             </Switch>
         </div>
     )

@@ -48,10 +48,7 @@ export default function AppRoutes(props) {
           openSnackbarByType={props.openSnackbarByType} 
         />
       </Route>
-
-      <Route path="/creategallery">
-        <CreateGallery />
-      </Route>
+      
       <Route path="/createEvent">
         <CreateEvent/>
       </Route>
