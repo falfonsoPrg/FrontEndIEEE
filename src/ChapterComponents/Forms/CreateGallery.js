@@ -48,7 +48,6 @@ export default function UserProfile(props) {
       .catch((err) => {
         //openSnackbarByType(true, "error", "Chapters couldn't be found");
       });
-     axios.post 
   };
   useEffect(getEvents
          
