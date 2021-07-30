@@ -11,6 +11,7 @@ import Card from "../../SharedComponents/Card";
 import SharedTimeline from "../../SharedComponents/Timeline";
 import axios from "axios";
 import CreateGallery from "../Forms/CreateGallery";
+import CreateEvent from "../Forms/CreateEvent";
 
 export default function EventArea(props) {
   let { path, url } = useRouteMatch();
@@ -85,6 +86,10 @@ export default function EventArea(props) {
           content={theEvents}
           changeFunction={changeEvent}
         />
+        <Button variant="contained" color="primary"component={RouterLink}
+          to={`${url}/createEvent`}>
+          Submit
+        </Button>
       </Grid>
       <Grid item xs={9}>
         <Typography
@@ -119,18 +124,10 @@ export default function EventArea(props) {
           variant="contained"
           color="primary"
           component={RouterLink}
-          to={`${url}/creategallery`}
+          to={`${url}/createGallery`}
         >
           subir foto
         </Button>
-        <Switch>
-          <Route path={`${path}/creategallery`}>
-            <CreateGallery
-              handleLoader={props.handleLoader}
-              openSnackbarByType={props.openSnackbarByType}
-            />
-          </Route>
-        </Switch>
       </Grid>
     </Grid>
   );
