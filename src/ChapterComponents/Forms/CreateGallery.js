@@ -16,7 +16,6 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import axios from "axios";
-import { id } from "prelude-ls";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -49,9 +48,7 @@ export default function UserProfile(props) {
         //openSnackbarByType(true, "error", "Chapters couldn't be found");
       });
   };
-  useEffect(getEvents
-         
-, [])
+  useEffect(getEvents, [])
 
   return (
     <Container maxWidth="sm" style={{ marginTop: 60, boxShadow: 6 }}>
