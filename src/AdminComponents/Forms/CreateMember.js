@@ -110,7 +110,7 @@ export default function CreateMember(props) {
         openSnackbarByType(
           true,
           "error",
-          e.response.data.error !== undefined
+          e.response.data.error !== undefined 
             ? e.response.data.error
             : "Member couldn't be created succesfully"
         );

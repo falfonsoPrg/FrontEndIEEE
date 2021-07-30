@@ -54,6 +54,11 @@ export default function AppRoutes(props) {
           openSnackbarByType={props.openSnackbarByType} 
         />
       </Route>
+      
+      <Route path="/createEvent">
+        <CreateEvent/>
+      </Route>
+
       <Route default path="/" component={Main} />
     </Switch>
   );
