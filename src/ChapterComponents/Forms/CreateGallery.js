@@ -1,7 +1,9 @@
-import { React,useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
+
 import "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import {
   TextField,
@@ -11,12 +13,10 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import axios from "axios";
-import { id } from "prelude-ls";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -30,29 +30,69 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function UserProfile(props) {
-  let{id}= useParams();
+  let { id } = useParams();
+  const history = useHistory();
 
   const [events, setEvents] = useState([]);
+  const [photoNames, setphotoNames] = useState([]);
 
-  const getEvents = () => {
-    axios
-      .get(process.env.REACT_APP_ENDPOINT + "/chapters/"+id)
-      .then((res) => {
-        console.log(res.data.response.Events);
-        setEvents(res.data.response.Events);
+  const [Photo, setPhoto] = useState();
+  const [photoTitle, setPhotoName] = useState("");
+  
+  const [description, setdescription] = useState("");
+  const { handleLoader, openSnackbarByType } = props;
 
-      })
-      .catch((err) => {
-        //openSnackbarByType(true, "error", "Chapters couldn't be found");
-      });
-     axios.post 
+  const handleCapture = ({ target }) => {
+    const fileReader = new FileReader();
+    const name = target.files[0] !== undefined ? target.files[0].name : "";
+    setPhotoName(name);
+    if (target.files[0] !== undefined) {
+      fileReader.readAsDataURL(target.files[0]);
+      fileReader.onload = (e) => {
+        setPhoto(e.target.result);
+      };
+    }
   };
-  useEffect(getEvents
-         
-, [])
+
+  const submit = () => {
+
+    
+    const gallery = {
+      galley_name: photoNames,
+      path: Photo,
+      description: description,
+    };
+    localStorage.setItem('gallery',JSON.stringify(gallery))
+    console.log(localStorage.getItem('gallery') + "esto es la galeria")
+    handleLoader(true);
+    axios
+      .post(process.env.REACT_APP_ENDPOINT + "/galleries", gallery)
+      .then(() => {
+        openSnackbarByType(
+          true,
+          "success",
+          "the photo has been uploaded successfully"
+        );
+        handleLoader(false);
+        goBack();
+      })
+      .catch((e) => {
+        openSnackbarByType(
+          true,
+          "error",
+          e.response.data.error !== undefined
+            ? e.response.data.error
+            : "the photo could not be uploaded successfully"
+        );
+        handleLoader(false);
+      });
+    console.log(gallery);
+
+  };
+  const goBack = () => {
+    history.goBack();
+  };
 
   return (
     <Container maxWidth="sm" style={{ marginTop: 60, boxShadow: 6 }}>
@@ -67,25 +107,6 @@ export default function UserProfile(props) {
               <b>Create Gallery</b>
             </Box>
             <form noValidate autoComplete="off">
-              <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
-                <b>Event</b>
-              </p>
-
-              <Autocomplete
-                id="combo-box-demo"
-                options={events}
-                getOptionLabel={(option) => option.title}
-                style={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField
-                    style={{ width: 250, marginLeft: 35 }}
-                    {...params}
-                    label="Events"
-                    variant="outlined"
-                  />
-                )}
-              />
-
               <p style={{ textAlign: "center", marginTop: 30, fontSize: 20 }}>
                 <b>Picture</b>
               </p>
@@ -93,6 +114,7 @@ export default function UserProfile(props) {
               <input
                 accept="image/*"
                 id="icon-button-photo"
+                onChange={handleCapture}
                 type="file"
                 hidden
               />
@@ -104,6 +126,7 @@ export default function UserProfile(props) {
                 >
                   <PhotoCamera /> *
                 </IconButton>
+                {photoTitle !== "" && <>{photoTitle}</>}
               </label>
 
               <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
@@ -111,10 +134,11 @@ export default function UserProfile(props) {
               </p>
 
               <TextField
-                id="outlined-basic"
+                id="gallery_name"
                 style={{ marginLeft: 40, marginTop: -3, height: 65 }}
                 label="Title"
                 variant="outlined"
+                onChange={(e) => setphotoNames(e.target.value)}
               />
 
               <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
@@ -131,6 +155,7 @@ export default function UserProfile(props) {
                 maxRows={8}
                 aria-label="maximum height"
                 placeholder="Maximum 8 rows"
+                onChange={(e) => setdescription(e.target.value)}
               />
 
               <div>
@@ -138,6 +163,7 @@ export default function UserProfile(props) {
                   style={{ marginTop: 35, marginLeft: 73, marginRight: 20 }}
                   variant="contained"
                   color="primary"
+                  onClick={submit}
                 >
                   Create
                 </Button>
@@ -158,4 +184,3 @@ export default function UserProfile(props) {
     </Container>
   );
 }
-
