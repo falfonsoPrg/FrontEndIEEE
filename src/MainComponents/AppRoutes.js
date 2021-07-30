@@ -10,6 +10,7 @@ import UserProfile from "./UserProfile";
 import CreateGallery from "../ChapterComponents/Forms/CreateGallery"
 import CreateEvent from "../ChapterComponents/Forms/CreateEvent"
 import AdminRoutes from '../AdminComponents/AdminRoutes'
+import ImgList from "../SharedComponents/ImgList";
 
 export default function AppRoutes(props) {
   return (
@@ -35,7 +36,12 @@ export default function AppRoutes(props) {
           openSnackbarByType={props.openSnackbarByType}
         />
       </Route>
-
+      <Route path="/imageList">
+        <ImgList
+          handleLoader={props.handleLoader}
+          openSnackbarByType={props.openSnackbarByType}
+        />
+      </Route>
       <Route path="/userProfile">
         <UserProfile member={props.member} auth={props.auth} />
       </Route>

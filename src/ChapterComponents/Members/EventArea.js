@@ -1,20 +1,16 @@
 import React, { useEffect } from "react";
 import {
-  Switch,
   useRouteMatch,
   Link as RouterLink,
-  Route,
 } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Grid, Typography, Button } from "@material-ui/core";
 import Card from "../../SharedComponents/Card";
 import SharedTimeline from "../../SharedComponents/Timeline";
 import axios from "axios";
-import CreateGallery from "../Forms/CreateGallery";
-import CreateEvent from "../Forms/CreateEvent";
 
 export default function EventArea(props) {
-  let { path, url } = useRouteMatch();
+  let { url } = useRouteMatch();
   let { id } = useParams();
   const [theEvents, setTheEvents] = React.useState([]);
   const [title, setTitle] = React.useState("Default");
