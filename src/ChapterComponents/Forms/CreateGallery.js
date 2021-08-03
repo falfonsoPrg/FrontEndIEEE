@@ -1,6 +1,9 @@
-import { React } from "react";
+import { React, useState, useEffect } from "react";
+
 import "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import {
   TextField,
@@ -10,10 +13,10 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -28,6 +31,69 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserProfile(props) {
+  let { id } = useParams();
+  const history = useHistory();
+
+  const [events, setEvents] = useState([]);
+  const [photoNames, setphotoNames] = useState([]);
+
+  const [Photo, setPhoto] = useState();
+  const [photoTitle, setPhotoName] = useState("");
+  
+  const [description, setdescription] = useState("");
+  const { handleLoader, openSnackbarByType } = props;
+
+  const handleCapture = ({ target }) => {
+    const fileReader = new FileReader();
+    const name = target.files[0] !== undefined ? target.files[0].name : "";
+    setPhotoName(name);
+    if (target.files[0] !== undefined) {
+      fileReader.readAsDataURL(target.files[0]);
+      fileReader.onload = (e) => {
+        setPhoto(e.target.result);
+      };
+    }
+  };
+
+  const submit = () => {
+
+    
+    const gallery = {
+      galley_name: photoNames,
+      path: Photo,
+      description: description,
+    };
+    localStorage.setItem('gallery',JSON.stringify(gallery))
+    console.log(localStorage.getItem('gallery') + "esto es la galeria")
+    handleLoader(true);
+    axios
+      .post(process.env.REACT_APP_ENDPOINT + "/galleries", gallery)
+      .then(() => {
+        openSnackbarByType(
+          true,
+          "success",
+          "the photo has been uploaded successfully"
+        );
+        handleLoader(false);
+        goBack();
+      })
+      .catch((e) => {
+        openSnackbarByType(
+          true,
+          "error",
+          e.response.data.error !== undefined
+            ? e.response.data.error
+            : "the photo could not be uploaded successfully"
+        );
+        handleLoader(false);
+      });
+    console.log(gallery);
+
+  };
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <Container maxWidth="sm" style={{ marginTop: 60, boxShadow: 6 }}>
       <Paper
@@ -48,6 +114,7 @@ export default function UserProfile(props) {
               <input
                 accept="image/*"
                 id="icon-button-photo"
+                onChange={handleCapture}
                 type="file"
                 hidden
               />
@@ -59,6 +126,7 @@ export default function UserProfile(props) {
                 >
                   <PhotoCamera /> *
                 </IconButton>
+                {photoTitle !== "" && <>{photoTitle}</>}
               </label>
 
               <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
@@ -66,10 +134,11 @@ export default function UserProfile(props) {
               </p>
 
               <TextField
-                id="outlined-basic"
+                id="gallery_name"
                 style={{ marginLeft: 40, marginTop: -3, height: 65 }}
                 label="Title"
                 variant="outlined"
+                onChange={(e) => setphotoNames(e.target.value)}
               />
 
               <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
@@ -86,25 +155,7 @@ export default function UserProfile(props) {
                 maxRows={8}
                 aria-label="maximum height"
                 placeholder="Maximum 8 rows"
-              />
-
-              <p style={{ textAlign: "center", marginTop: 6, fontSize: 20 }}>
-                <b>Event</b>
-              </p>
-
-              <Autocomplete
-                id="combo-box-demo"
-                options={top100Films}
-                getOptionLabel={(option) => option.title}
-                style={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField
-                    style={{ width: 250, marginLeft: 35 }}
-                    {...params}
-                    label="Events"
-                    variant="outlined"
-                  />
-                )}
+                onChange={(e) => setdescription(e.target.value)}
               />
 
               <div>
@@ -112,6 +163,7 @@ export default function UserProfile(props) {
                   style={{ marginTop: 35, marginLeft: 73, marginRight: 20 }}
                   variant="contained"
                   color="primary"
+                  onClick={submit}
                 >
                   Create
                 </Button>
@@ -132,27 +184,3 @@ export default function UserProfile(props) {
     </Container>
   );
 }
-
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "The Usual Suspects", year: 1995 },
-  { title: "Léon: The Professional", year: 1994 },
-  { title: "Spirited Away", year: 2001 },
-  { title: "Saving Private Ryan", year: 1998 },
-  { title: "Once Upon a Time in the West", year: 1968 },
-  { title: "American History X", year: 1998 },
-  { title: "Interstellar", year: 2014 },
-  { title: "Casablanca", year: 1942 },
-  { title: "City Lights", year: 1931 },
-  { title: "Psycho", year: 1960 },
-  { title: "The Green Mile", year: 1999 },
-  { title: "The Intouchables", year: 2011 },
-  { title: "Modern Times", year: 1936 },
-  { title: "Raiders of the Lost Ark", year: 1981 },
-  { title: "Rear Window", year: 1954 },
-  { title: "The Pianist", year: 2002 },
-  { title: "The Departed", year: 2006 },
-];

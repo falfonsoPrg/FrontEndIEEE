@@ -1,86 +1,241 @@
-import 'date-fns';
-import React from 'react'
-import { Grid, Container, Paper, Typography, TextField,makeStyles,CssBaseline  } from '@material-ui/core/';
-import DateFnsUtils from '@date-io/date-fns';
+import React, { useEffect } from "react";
+import "date-fns";
 import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  TextField,
+} from "@material-ui/core/";
+import { useParams } from "react-router";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import ImgList from "../../SharedComponents/ImgList";
+import moment from 'moment'
 
-export default function CreateEvents() {
-    
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2018-08-18T21:11:54'));
+import axios from "axios";
 
-    function handleDateChange(date) {
-        setSelectedDate(date);
-    }
-    return (
-        <Container component="main" maxWidth="sm" style={{ marginTop: 20 }}>
-         <CssBaseline />
-            <Paper elevation={3} style={{ borderRadius: 20, boxShadow: 50 }}>
-                < Grid style={{ margin: 20 }}>
-                    <Typography style={{ textAlign: "center" }} component="h1" variant="h4">
-                        New Event
-                    </Typography>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="eventTitle"
-                                name="eventTitle"
-                                label="Title of Event"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={10}>
-                            <TextField
-                                required
-                                id="eventDescription"
-                                name="eventDescription"
-                                label="Description of the event"
-                                fullWidth
-                                autoComplete="shipping address-line1"
-                            />
-                        </Grid>
 
-                        <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                            <Grid xs={12} sm={6}>
-                                <KeyboardDatePicker
-                                    style={{textAlign:'center', alignItems:'    '}}
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM/dd/yyyy"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Date picker inline"
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
+export default function CreateEvent(props) {
+  let { id } = useParams();
 
-                                />
-                            </Grid>
+  const getEventTypes = () => {
+    axios
+      .get(process.env.REACT_APP_ENDPOINT + "/eventtypes/")
+      .then((res) => {
+        setEventType(res.data.response);
+      })
+      .catch((err) => {
+        //openSnackbarByType(true, "error", "Chapters couldn't be found");
+      });
+  };
+  useEffect(getEventTypes, []);
 
-                            <Grid xs={10} sm={5}>
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [startDate, setStartDate] = React.useState("");
+  const [endDate, setEndDate] = React.useState("");
+  const [eventType, setEventType] = React.useState([]);
+  const [eventTypeId, setEventTypeId] = React.useState(-1);
 
-                                <KeyboardDatePicker
-                                    margin="normal"
-                                    id="date-picker-dialog"
-                                    label="Date picker dialog"
-                                    format="MM/dd/yyyy"
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                />
-                            </Grid>
-                        </MuiPickersUtilsProvider>
+  const itemData = [
+    {
+      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
+      title: "Diferent Image",
+      author: "Diferent author",
+    },
+    {
+      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
+      title: "Diferent Image",
+      author: "Diferent author",
+    },
+    {
+      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
+      title: "Diferent Image",
+      author: "Diferent author",
+    },
+    {
+      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
+      title: "Diferent Image",
+      author: "Diferent author",
+    },
+    {
+      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
+      title: "Diferent Image",
+      author: "Diferent author",
+    },
+    {
+      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
+      title: "Diferent Image",
+      author: "Diferent author",
+    },
+  ];
+  const [selectedDate1, setSelectedDate1] = React.useState(
+    new Date("2021-06-20")
+  );
+  const [selectedDate2, setSelectedDate2] = React.useState(
+    new Date("2021-07-20")
+  );
+ 
+  const submit = (e) => {
+    e.preventDefault();
+    const event = {
+      title: title,
+      description: description,
+      start_date: moment(startDate).format("YYYY-MM-DD"),
+      end_date: moment(endDate).format("YYYY-MM-DD"),
+      event_type_id: eventTypeId,
+      chapter_id: parseInt(id),
+    };
+    console.log(event);
+    props.handleLoader(true);
+     axios.post(process.env.REACT_APP_ENDPOINT + "/events", event).then(() => {
+         props.openSnackbarByType(true, "success", "Event created succesfully")
+         props.handleLoader(false)
+     }).catch((err)=> {
+      props.openSnackbarByType(true, "error", "Event couldn't be created succesfully")
+      props.handleLoader(false)
+     })
+  };
+
+  function handleDateChange1(date) {
+    setSelectedDate1(date);
+    setStartDate(date);
+  }
+  function handleDateChange2(date) {
+    setSelectedDate2(date);
+    setEndDate(date);
+  }
+  return (
+    <div>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="space-between"
+        style={{ height: "500px" }}
+      >
+        <Grid item xs={5}>
+          <Paper xelevation={3}>
+            <br />
+
+            <Grid
+              item
+              xs={12}
+              align="center"
+              style={{ margin: 10, marginRight: 35 }}
+            >
+              <Grid item xs={12} justify="center">
+                <Typography
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                  variant="h4"
+                >
+                  New Event
+                </Typography>
+              </Grid>
+              <Grid item xs={12} style={{ margin: 10 }}>
+                <TextField
+                  required
+                  id="eventTitle"
+                  name="eventTitle"
+                  label="Title of Event"
+                  fullWidth
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} style={{ margin: 10 }}>
+                <TextField
+                  required
+                  id="eventDescription"
+                  name="eventDescription"
+                  label="Description of the event (large)"
+                  fullWidth
+                  multiline
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} style={{ margin: 10 }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    justifyContent="space-between"
+                    align="center"
+                  >
+                    <Grid item xs={5}>
+                      <KeyboardDatePicker
+                        margin="normal"
+                        id="start-date"
+                        label="Start Date"
+                        format="yyyy/MM/dd"
+                        value={selectedDate1}
+                        onChange={handleDateChange1}
+                        KeyboardButtonProps={{
+                          "aria-label": "change date",
+                        }}
+                      />
                     </Grid>
-                </Grid>
-            </Paper>
-        </Container>
-    );
+
+                    <Grid item xs={5}>
+                      <KeyboardDatePicker
+                        margin="normal"
+                        id="end-date"
+                        label="End Date"
+                        format="yyyy/MM/dd"
+                        value={selectedDate2}
+                        onChange={handleDateChange2}
+                        KeyboardButtonProps={{
+                          "aria-label": "change date",
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Autocomplete
+                      id="typeOfEvent"
+                      options={eventType}
+                      getOptionLabel={(option) => option.event_type}
+                      style={{}}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Type of Event"
+                          variant="outlined"
+                        />
+                      )}
+                      onInputChange={(event, eventType) => {
+                        setEventTypeId(eventType.event_type_id);
+                      }}
+                      onChange={(event, eventType) => {
+                        setEventTypeId(eventType.event_type_id);
+                      }}
+                    />
+                    {eventTypeId}
+                  </Grid>
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item xs={12} style={{ margin: 10 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={(e) => submit(e)}
+                  style={{ marginBottom: 30, marginTop: 10 }}
+                >
+                  Submit
+                </Button>
+              </Grid>
+              <br />
+            </Grid>
+          </Paper>
+        </Grid>
+        <Grid item xs={5}>
+          <ImgList items={itemData} />
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
