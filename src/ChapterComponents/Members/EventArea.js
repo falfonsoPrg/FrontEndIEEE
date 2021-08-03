@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import {
   useRouteMatch,
   Link as RouterLink,
+  useParams
 } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { Grid, Typography, Button } from "@material-ui/core";
 import Card from "../../SharedComponents/Card";
 import SharedTimeline from "../../SharedComponents/Timeline";
@@ -51,9 +51,9 @@ export default function EventArea(props) {
       .then((res) => {
         props.handleLoader(false);
         setTheEvents(res.data.response.Events);
-        if (theEvents.length > 0) {
-          setTitle(theEvents[0].title);
-          setDescription(theEvents[0].description);
+        if (res.data.response.Events) {
+          setTitle(res.data.response.Events[0].title);
+          setDescription(res.data.response.Events[0].description);
         }
       })
       .catch((err) => {

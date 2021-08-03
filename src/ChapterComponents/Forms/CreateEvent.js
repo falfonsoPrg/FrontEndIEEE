@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import "date-fns";
-import {
-  Grid,
-  Paper,
-  Typography,
-  Button,
-  TextField,
-} from "@material-ui/core/";
-import { useParams } from "react-router";
+import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
+import { useRouteMatch, Link as RouterLink, useParams } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -15,13 +9,13 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import ImgList from "../../SharedComponents/ImgList";
-import moment from 'moment'
+import moment from "moment";
 
 import axios from "axios";
 
-
 export default function CreateEvent(props) {
   let { id } = useParams();
+  let { url } = useRouteMatch();
 
   const getEventTypes = () => {
     axios
@@ -44,34 +38,14 @@ export default function CreateEvent(props) {
 
   const itemData = [
     {
-      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
-      title: "Diferent Image",
-      author: "Diferent author",
+      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
+      title: "Añadir Imágen",
+      author: "",
     },
     {
-      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
-      title: "Diferent Image",
-      author: "Diferent author",
-    },
-    {
-      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
-      title: "Diferent Image",
-      author: "Diferent author",
-    },
-    {
-      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
-      title: "Diferent Image",
-      author: "Diferent author",
-    },
-    {
-      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
-      title: "Diferent Image",
-      author: "Diferent author",
-    },
-    {
-      img: "https://i.pinimg.com/originals/79/d3/b9/79d3b96e8f3ff6a90105a2e1bdfbc71d.jpg",
-      title: "Diferent Image",
-      author: "Diferent author",
+      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
+      title: "Añadir Imágen",
+      author: "",
     },
   ];
   const [selectedDate1, setSelectedDate1] = React.useState(
@@ -80,7 +54,7 @@ export default function CreateEvent(props) {
   const [selectedDate2, setSelectedDate2] = React.useState(
     new Date("2021-07-20")
   );
- 
+
   const submit = (e) => {
     e.preventDefault();
     const event = {
@@ -93,13 +67,20 @@ export default function CreateEvent(props) {
     };
     console.log(event);
     props.handleLoader(true);
-     axios.post(process.env.REACT_APP_ENDPOINT + "/events", event).then(() => {
-         props.openSnackbarByType(true, "success", "Event created succesfully")
-         props.handleLoader(false)
-     }).catch((err)=> {
-      props.openSnackbarByType(true, "error", "Event couldn't be created succesfully")
-      props.handleLoader(false)
-     })
+    axios
+      .post(process.env.REACT_APP_ENDPOINT + "/events", event)
+      .then(() => {
+        props.openSnackbarByType(true, "success", "Event created succesfully");
+        props.handleLoader(false);
+      })
+      .catch((err) => {
+        props.openSnackbarByType(
+          true,
+          "error",
+          "Event couldn't be created succesfully"
+        );
+        props.handleLoader(false);
+      });
   };
 
   function handleDateChange1(date) {
@@ -115,10 +96,10 @@ export default function CreateEvent(props) {
       <Grid
         container
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="space-around"
         style={{ height: "500px" }}
       >
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <Paper xelevation={3}>
             <br />
 
@@ -126,7 +107,7 @@ export default function CreateEvent(props) {
               item
               xs={12}
               align="center"
-              style={{ margin: 10, marginRight: 35 }}
+              style={{ margin: 10, marginRight: 10 }}
             >
               <Grid item xs={12} justify="center">
                 <Typography
@@ -233,7 +214,11 @@ export default function CreateEvent(props) {
           </Paper>
         </Grid>
         <Grid item xs={5}>
-          <ImgList items={itemData} />
+          <ImgList
+            items={itemData}
+            component={RouterLink}
+            to={`${url}/createGallery`}
+          />
         </Grid>
       </Grid>
     </div>

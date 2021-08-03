@@ -26,42 +26,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ImgList(props) {
   const classes = useStyles();
   let itemData = [
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Image",
-      author: "author",
-    },
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Image",
-      author: "author",
-    },
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Image",
-      author: "author",
-    },
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Image",
-      author: "author",
-    },
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Image",
-      author: "author",
-    },
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Image",
-      author: "author",
-    },
+    
   ];
   if (props.items != undefined) {
     itemData = props.items;
   }
   return (
-    <Grid xs={12}>
+    <Grid xs={11}>
       <div className={classes.root}>
         <ImageList rowHeight={180} className={classes.imageList}>
           <ImageListItem key="Subheader" cols={2} style={{ height: "auto" }}>
