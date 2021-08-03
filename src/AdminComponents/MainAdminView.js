@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import InfoIcon from '@material-ui/icons/Info';
 
 import axios from 'axios'
 
@@ -64,6 +65,9 @@ export default function MainAdminView(props) {
                 </IconButton>
                 <IconButton aria-label="add">
                     <PersonAddIcon />
+                </IconButton>
+                <IconButton aria-label="info">
+                    <InfoIcon />
                 </IconButton>
             </strong>
           ),
@@ -197,6 +201,7 @@ export default function MainAdminView(props) {
             openSnackbarByType(true, "error", "Roles couldn't be found")
             handleLoader(false)
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
       
     return (
@@ -215,7 +220,7 @@ export default function MainAdminView(props) {
                         <Box fontSize={20} textAlign="center" style={{marginTop: 30}}>Chapters</Box>
                     </Grid>
                     <Grid item xs>
-                        <IconButton aria-label="add chapter" style={{marginTop: 30}}>
+                        <IconButton aria-label="add chapter" style={{marginTop: 30}} component={RouterLink} to="/admin/create/chapter/0">
                             New <AddCircleIcon />
                         </IconButton>
                     </Grid>
