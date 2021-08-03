@@ -104,7 +104,7 @@ export default function MainAdminView(props) {
             filterable: false,
             renderCell: (params) => (
               <strong>
-                  <IconButton aria-label="edit">
+                  <IconButton aria-label="edit"  component={RouterLink} to={"/admin/create/member/"+params.value}>
                       <EditIcon />
                   </IconButton>
               </strong>

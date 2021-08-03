@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import { makeStyles } from "@material-ui/core/styles";
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateMember(props) {
   const classes = useStyles();
   const history = useHistory();
+  let { member_id } = useParams();
 
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -89,37 +90,98 @@ export default function CreateMember(props) {
   };
   const submit = (e) => {
     e.preventDefault();
-    const user = {
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      password: generateRandomPassword(),
-      document: document,
-      phone: phone,
-      image_path: photo,
-    };
-    handleLoader(true);
-    axios
-      .post(process.env.REACT_APP_ENDPOINT + "/members", user)
-      .then(() => {
-        openSnackbarByType(true, "success", "Member created succesfully");
-        handleLoader(false);
-        goBack();
-      })
-      .catch((e) => {
-        openSnackbarByType(
-          true,
-          "error",
-          e.response.data.error !== undefined 
-            ? e.response.data.error
-            : "Member couldn't be created succesfully"
-        );
-        handleLoader(false);
-      });
-  };
+    if (member_id === "0") {
+      const user = {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: generateRandomPassword(),
+        document: document,
+        phone: phone,
+        image_path: photo,
+      };
+      handleLoader(true);
+      axios
+        .post(process.env.REACT_APP_ENDPOINT + "/members", user)
+        .then(() => {
+          openSnackbarByType(true, "success", "Member created succesfully");
+          handleLoader(false);
+          goBack();
+        })
+        .catch((e) => {
+          openSnackbarByType(
+            true,
+            "error",
+            e.response.data.error !== undefined
+              ? e.response.data.error
+              : "Member couldn't be created succesfully"
+          );
+          handleLoader(false);
+        });
+    } else {
+      const user = {
+        member_id: member_id,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: generateRandomPassword(),
+        document: document,
+        phone: phone,
+        image_path: photo,
+      }
+      handleLoader(true);
+      axios
+        .put(process.env.REACT_APP_ENDPOINT + "/members", user)
+        .then(() => {
+          openSnackbarByType(true, "success", "Member updated succesfully");
+          handleLoader(false)
+          goBack();
+        })
+        .catch((e) => {
+          openSnackbarByType(
+            true,
+            "error",
+            e.response.data.error !== undefined
+              ? e.response.data.error
+              : "Member couldn't be updated succesfully"
+          )
+          handleLoader(false)
+        })
+    }
+  }
+
+  useEffect(() => {
+    if (member_id !== "0") {
+      handleLoader(true);
+      axios
+        .get(process.env.REACT_APP_ENDPOINT + "/members/" + member_id)
+        .then((res) => {
+          let member = res.data.response
+          setFirstName(member.firstname)
+          setLastName(member.lastname)
+          setDocument(member.document)
+          setEmail(member.email)
+          setPhone(member.phone)
+          setPhoto(member.image_path)
+          handleLoader(false)
+        })
+        .catch((e) => {
+          openSnackbarByType(
+            true,
+            "error",
+            e.response.data.error !== undefined
+              ? e.response.data.error
+              : "Member couldn't be fetched"
+          )
+          handleLoader(false);
+        })
+    }
+  }, [])
+
   const goBack = () => {
     history.goBack();
-  };
+  }
+  
   return (
     <Container maxWidth="sm" style={{ marginTop: 60 }}>
       <Paper elevation={3}>
@@ -127,7 +189,8 @@ export default function CreateMember(props) {
           <Grid item xs></Grid>
           <Grid item xs>
             <Box fontSize={20} textAlign="center" style={{ marginTop: 30 }}>
-              Create Member
+              {member_id === "0" ? "Create" : "Edit"}
+               Member
             </Box>
             <form
               className={classes.form}
@@ -141,6 +204,7 @@ export default function CreateMember(props) {
                 type="text"
                 variant="outlined"
                 onChange={(e) => setFirstName(e.target.value)}
+                value={firstname}
               />
               <TextField
                 id="lastname"
@@ -148,6 +212,7 @@ export default function CreateMember(props) {
                 type="text"
                 variant="outlined"
                 onChange={(e) => setLastName(e.target.value)}
+                value={lastname}
               />
               <TextField
                 id="email"
@@ -157,6 +222,7 @@ export default function CreateMember(props) {
                 error={emailError}
                 onChange={(e) => handleEmailChange(e)}
                 helperText={emailErrorMessage}
+                value={email}
               />
               <TextField
                 id="document"
@@ -164,6 +230,7 @@ export default function CreateMember(props) {
                 type="text"
                 variant="outlined"
                 onChange={(e) => setDocument(e.target.value)}
+                value={document}
               />
               <TextField
                 id="phone"
@@ -171,6 +238,7 @@ export default function CreateMember(props) {
                 type="text"
                 variant="outlined"
                 onChange={(e) => setPhone(e.target.value)}
+                value={phone}
               />
               <input
                 accept="image/*"
