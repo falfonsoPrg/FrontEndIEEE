@@ -30,6 +30,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
+import SecurityIcon from '@material-ui/icons/Security';
 
 import axios from 'axios'
 import AppRoutes from './AppRoutes'
@@ -284,7 +285,7 @@ export default function MiniDrawer() {
               <ListItemText primary={"Contact Us"} />
             </ListItem>
             <ListItem button key={"Dashboard Admin"} component={RouterLink} to="/admin">
-              <ListItemIcon ><MailIcon /></ListItemIcon>
+              <ListItemIcon ><SecurityIcon /></ListItemIcon>
               <ListItemText primary={"Dashboard Admin"} />
             </ListItem>
         </List>

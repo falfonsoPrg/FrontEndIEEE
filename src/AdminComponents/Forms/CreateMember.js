@@ -1,27 +1,15 @@
-import { React, useState, useEffect } from "react";
-import { useHistory,useParams } from "react-router-dom";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  Paper,
-  Container,
-  Grid,
-  Button,
-  Box,
-  Checkbox,
-  FormControlLabel,
-} from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import React,{ useState, useEffect } from 'react'
+import { useHistory, useParams} from "react-router-dom";
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField, Paper, Container, Grid, Button, Box, Checkbox, FormControlLabel } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
-import axios from "axios";
+import axios from 'axios'
+
 
 const useStyles = makeStyles((theme) => ({
   form: {

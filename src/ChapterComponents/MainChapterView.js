@@ -2,9 +2,9 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Typography, Paper, Grid, Box, Container} from '@material-ui/core';
+import Card from '../SharedComponents/Card'
 import axios from 'axios'
 import Slider from '../SharedComponents/MainSlider'
-import bannerImages from '../SharedComponents/sliderImages'
 
 export default function MainChapterView(props) {
     const [chapter, setChapter] = useState({
@@ -20,6 +20,11 @@ export default function MainChapterView(props) {
         Events: [],
         Chapter_Members: [],
         Chapter_Infos: []
+    })
+    const [chapterInfo, setChapterInfo] = useState({
+        mission: "",
+        vission: "",
+        objectives: ""
     })
     const [bannerMembers, setBannerMembers] = useState({
         images: []
@@ -44,6 +49,12 @@ export default function MainChapterView(props) {
                 setBannerMembers(images)
             }else{
                 setBannerMembers({})
+            }
+            if(res.data.response?.Chapter_Infos && res.data.response.Chapter_Infos.length > 0){
+                let filtered = res.data.response.Chapter_Infos.filter(ci => ci.chapter_id === id)
+                if(filtered.length > 0){
+                    setChapterInfo(filtered[0])
+                }
             }
             handleLoader(false)
         }).catch(err => {
@@ -77,7 +88,18 @@ export default function MainChapterView(props) {
                         </Container>
                     </Paper>
                 </Grid>
-                <Grid item xs={12}>
+
+                <Grid item xs={4} style={{marginTop: 50, marginBottom:10}}>
+                    <Card imagePath="../assets/IeeeMission.jpg" imageTitle="Mission" cardTitle="Mission" cardDescription={chapterInfo.mission}/>
+                </Grid>
+                <Grid item xs={4} style={{marginTop: 50, marginBottom:10}}>
+                    <Card imagePath="../assets/IeeeVision.jpg" imageTitle="Vision" cardTitle="Vision" cardDescription={chapterInfo.vission}/>
+                </Grid>
+                <Grid item xs={4} style={{marginTop: 50, marginBottom:10}}>
+                    <Card imagePath="../assets/IeeeGoals.jpg" imageTitle="Goals" cardTitle="Goals" cardDescription={chapterInfo.objectives}/>
+                </Grid>
+                
+                <Grid item xs={12} style={{marginTop: 50}}>
                     <Box fontSize={20} textAlign="center">
                         <Typography variant="h5">Members</Typography>
                     </Box>
