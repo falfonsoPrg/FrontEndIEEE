@@ -69,7 +69,8 @@ export default function EventArea(props) {
 
   return (
     <Grid container spacing={10}>
-      <Grid item xs={3}>
+      <Grid item xs={3}         style={{textAlign: "center"}}
+>
         <Typography
           style={{ fontWeight: "bold", textAlign: "center" }}
           variant="h4"
@@ -84,10 +85,10 @@ export default function EventArea(props) {
         />
         <Button variant="contained" color="primary"component={RouterLink}
           to={`${url}/createEvent`}>
-          Submit
+          Crear Evento
         </Button>
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={9} style={{textAlign:"center"}}>
         <Typography
           style={{ fontWeight: "bold", textAlign: "center" }}
           variant="h4"
@@ -120,6 +121,7 @@ export default function EventArea(props) {
           variant="contained"
           color="primary"
           component={RouterLink}
+          style={{marginTop:"2%"}}
           to={`${url}/createGallery`}
         >
           subir foto

@@ -97,9 +97,9 @@ export default function CreateEvent(props) {
         container
         alignItems="center"
         justifyContent="space-around"
-        style={{ height: "500px" }}
+        style={{ height: "500px" , marginTop:"5%"}}
       >
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <Paper xelevation={3}>
             <br />
 
@@ -195,7 +195,6 @@ export default function CreateEvent(props) {
                         setEventTypeId(eventType.event_type_id);
                       }}
                     />
-                    {eventTypeId}
                   </Grid>
                 </MuiPickersUtilsProvider>
               </Grid>
