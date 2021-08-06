@@ -85,7 +85,7 @@ export default function EventArea(props) {
         />
         <Button variant="contained" color="primary"component={RouterLink}
           to={`${url}/createEvent`}>
-          Crear Evento
+          Create Event
         </Button>
       </Grid>
       <Grid item xs={9} style={{textAlign:"center"}}>
@@ -124,7 +124,7 @@ export default function EventArea(props) {
           style={{marginTop:"2%"}}
           to={`${url}/createGallery`}
         >
-          subir foto
+          upload photo
         </Button>
       </Grid>
     </Grid>

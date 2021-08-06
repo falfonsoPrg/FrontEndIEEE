@@ -57,10 +57,10 @@ export default function MainAdminView(props) {
           filterable: false,
           renderCell: (params) => (
             <strong>
-                <IconButton aria-label="view">
+                <IconButton aria-label="view" component={RouterLink} to={"/chapter/"+params.value}>
                     <VisibilityIcon />
                 </IconButton>
-                <IconButton aria-label="edit">
+                <IconButton aria-label="edit"  component={RouterLink} to={"/admin/create/chapter/"+params.value}>
                     <EditIcon />
                 </IconButton>
                 <IconButton aria-label="add">
