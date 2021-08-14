@@ -7,8 +7,6 @@ import Main from "./Main";
 import ContactUs from "./ContactUs";
 import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
 import UserProfile from "./UserProfile";
-import CreateGallery from "../ChapterComponents/Forms/CreateGallery"
-import CreateEvent from "../ChapterComponents/Forms/CreateEvent"
 import AdminRoutes from '../AdminComponents/AdminRoutes'
 import ImgList from "../SharedComponents/ImgList";
 
@@ -54,9 +52,7 @@ export default function AppRoutes(props) {
           openSnackbarByType={props.openSnackbarByType} 
         />
       </Route>
-      <Route path="/createEvent">
-        <CreateEvent/>
-      </Route>
+      
       
       <Route default path="/" component={Main} />
     </Switch>

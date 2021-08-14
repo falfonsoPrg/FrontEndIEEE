@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
 import "date-fns";
-import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  red,
+  green,
+} from "@material-ui/core/";
 import { useRouteMatch, Link as RouterLink, useParams } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import DateFnsUtils from "@date-io/date-fns";
@@ -10,7 +18,6 @@ import {
 } from "@material-ui/pickers";
 import ImgList from "../../SharedComponents/ImgList";
 import moment from "moment";
-
 import axios from "axios";
 
 export default function CreateEvent(props) {
@@ -29,13 +36,19 @@ export default function CreateEvent(props) {
   };
   useEffect(getEventTypes, []);
 
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
+  const [title, setTitle] = React.useState({ input: "a", error: false });
+  const [description, setDescription] = React.useState({
+    input: "",
+    error: false,
+  });
+  const [startDate, setStartDate] = React.useState({ input: "", error: false });
+  const [endDate, setEndDate] = React.useState({ input: "", error: false });
   const [eventType, setEventType] = React.useState([]);
-  const [eventTypeId, setEventTypeId] = React.useState(-1);
-
+  const [eventTypeId, setEventTypeId] = React.useState({
+    input: -1,
+    error: false,
+  });
+  const [verification, setVerification] = React.useState(false);
   const itemData = [
     {
       img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
@@ -58,46 +71,104 @@ export default function CreateEvent(props) {
   const submit = (e) => {
     e.preventDefault();
     const event = {
-      title: title,
-      description: description,
+      title: title.input,
+      description: description.input,
       start_date: moment(startDate).format("YYYY-MM-DD"),
       end_date: moment(endDate).format("YYYY-MM-DD"),
-      event_type_id: eventTypeId,
+      event_type_id: eventTypeId.input,
       chapter_id: parseInt(id),
     };
-    console.log(event);
-    props.handleLoader(true);
-    axios
-      .post(process.env.REACT_APP_ENDPOINT + "/events", event)
-      .then(() => {
-        props.openSnackbarByType(true, "success", "Event created succesfully");
-        props.handleLoader(false);
-      })
-      .catch((err) => {
-        props.openSnackbarByType(
-          true,
-          "error",
-          "Event couldn't be created succesfully"
-        );
-        props.handleLoader(false);
-      });
+    verificationForm();
+    if (verification) {
+      props.handleLoader(true);
+      axios
+        .post(process.env.REACT_APP_ENDPOINT + "/events", event)
+        .then(() => {
+          props.openSnackbarByType(
+            true,
+            "success",
+            "Event created succesfully"
+          );
+          props.handleLoader(false);
+        })
+        .catch((err) => {
+          props.openSnackbarByType(
+            true,
+            "error",
+            "Event couldn't be created succesfully"
+          );
+
+          props.handleLoader(false);
+        });
+    }
   };
 
   function handleDateChange1(date) {
     setSelectedDate1(date);
-    setStartDate(date);
+    setStartDate((error) => ({ ...error, input: date }));
   }
   function handleDateChange2(date) {
     setSelectedDate2(date);
-    setEndDate(date);
+    setEndDate((error) => ({ ...error, input: date }));
   }
+  const verificationForm = () => {
+    console.log(title.input);
+    if (!title.input || title.input.length < 7) {
+      setVerification(false);
+      props.openSnackbarByType(
+        true,
+        "error",
+        "You need to provide a title with almost 7 characters"
+      );
+      setTitle((input) => ({ ...input, error: true }));
+    } else if (!description.input || description.input.split(" ").length < 80) {
+      setVerification(false);
+      props.openSnackbarByType(
+        true,
+        "error",
+        "You need to provide a description with almost 80 words"
+      );
+      setDescription((input) => ({ ...input, error: true }));
+    } else if (!startDate.input) {
+      setVerification(false);
+      props.openSnackbarByType(
+        true,
+        "error",
+        "You need to select a start date"
+      );
+      setStartDate((input) => ({ ...input, error: true }));
+    } else if (!endDate.input) {
+      setVerification(false);
+      props.openSnackbarByType(true, "error", "You need to select a end date");
+      setEndDate((input) => ({ ...input, error: true }));
+    } else if (startDate.input > endDate.input) {
+      setVerification(false);
+      props.openSnackbarByType(
+        true,
+        "error",
+        "End date must be greater than start date"
+      );
+      setStartDate((input) => ({ ...input, error: true }));
+      setEndDate((input) => ({ ...input, error: true }));
+    } else if (eventTypeId.input < 0) {
+      setVerification(false);
+      props.openSnackbarByType(
+        true,
+        "error",
+        "You must select an type of event"
+      );
+      setEventType((input) => ({ ...input, error: true }));
+    } else {
+      setVerification(true);
+    }
+  };
   return (
     <div>
       <Grid
         container
         alignItems="center"
         justifyContent="space-around"
-        style={{ height: "500px" , marginTop:"5%"}}
+        style={{ height: "500px", marginTop: "5%" }}
       >
         <Grid item xs={5}>
           <Paper xelevation={3}>
@@ -120,22 +191,38 @@ export default function CreateEvent(props) {
               <Grid item xs={12} style={{ margin: 10 }}>
                 <TextField
                   required
+                  onClick={() =>
+                    setTitle((input) => ({ ...input, error: false }))
+                  }
+                  error={title.error}
                   id="eventTitle"
                   name="eventTitle"
                   label="Title of Event"
+                  style={{ borderColor: "yellow" }}
                   fullWidth
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) =>
+                    setTitle((error) => ({ ...error, input: e.target.value }))
+                  }
                 />
               </Grid>
               <Grid item xs={12} style={{ margin: 10 }}>
                 <TextField
                   required
+                  onClick={() =>
+                    setDescription((input) => ({ ...input, error: false }))
+                  }
+                  error={description.error}
                   id="eventDescription"
                   name="eventDescription"
                   label="Description of the event (large)"
                   fullWidth
                   multiline
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) =>
+                    setDescription((error) => ({
+                      ...error,
+                      input: e.target.value,
+                    }))
+                  }
                 />
               </Grid>
               <Grid item xs={12} style={{ margin: 10 }}>
@@ -149,6 +236,10 @@ export default function CreateEvent(props) {
                   >
                     <Grid item xs={5}>
                       <KeyboardDatePicker
+                        onClick={() =>
+                          setStartDate((input) => ({ ...input, error: false }))
+                        }
+                        error={startDate.error}
                         margin="normal"
                         id="start-date"
                         label="Start Date"
@@ -163,6 +254,10 @@ export default function CreateEvent(props) {
 
                     <Grid item xs={5}>
                       <KeyboardDatePicker
+                        onClick={() =>
+                          setEndDate((input) => ({ ...input, error: false }))
+                        }
+                        error={endDate.error}
                         margin="normal"
                         id="end-date"
                         label="End Date"
@@ -178,21 +273,28 @@ export default function CreateEvent(props) {
                   <Grid item xs={12}>
                     <Autocomplete
                       id="typeOfEvent"
+                      onClick={() =>{
+                        try{setEventTypeId((input) => ({ ...input, error: false }))}catch(e){}}
+                      }
                       options={eventType}
                       getOptionLabel={(option) => option.event_type}
-                      style={{}}
                       renderInput={(params) => (
                         <TextField
                           {...params}
+                          error={eventTypeId.error}
+
                           label="Type of Event"
                           variant="outlined"
                         />
                       )}
+                      
                       onInputChange={(event, eventType) => {
-                        setEventTypeId(eventType.event_type_id);
-                      }}
-                      onChange={(event, eventType) => {
-                        setEventTypeId(eventType.event_type_id);
+                        try {
+                          setEventTypeId((error) => ({
+                            ...error,
+                            input: eventType.event_type_id,
+                          }));
+                        } catch (e) {}
                       }}
                     />
                   </Grid>
