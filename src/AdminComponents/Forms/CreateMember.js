@@ -113,7 +113,6 @@ export default function CreateMember(props) {
         firstname: firstname,
         lastname: lastname,
         email: email,
-        password: password,
         document: document,
         phone: phone,
         image_path: photo,
