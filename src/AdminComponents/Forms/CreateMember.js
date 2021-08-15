@@ -35,6 +35,7 @@ export default function CreateMember(props) {
   const [phone, setPhone] = useState("");
   const [photo, setPhoto] = useState();
   const [photoName, setPhotoName] = useState("");
+  const [password, setPassword] = useState("");
 
   const [active, setActive] = useState(true);
 
@@ -112,7 +113,7 @@ export default function CreateMember(props) {
         firstname: firstname,
         lastname: lastname,
         email: email,
-        password: generateRandomPassword(),
+        password: password,
         document: document,
         phone: phone,
         image_path: photo,
@@ -151,6 +152,7 @@ export default function CreateMember(props) {
           setEmail(member.email)
           setPhone(member.phone)
           setPhoto(member.image_path)
+          setPassword(member.password)
           handleLoader(false)
         })
         .catch((e) => {
