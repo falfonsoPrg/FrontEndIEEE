@@ -45,7 +45,7 @@ export default function MainAdminView(props) {
         },
         {
             field: 'isActive',
-            headerName: 'Is active',
+            headerName: 'Active',
             flex: 1,
             type: 'boolean',
         },
@@ -63,7 +63,7 @@ export default function MainAdminView(props) {
                 <IconButton aria-label="edit"  component={RouterLink} to={"/admin/create/chapter/"+params.value}>
                     <EditIcon />
                 </IconButton>
-                <IconButton aria-label="add">
+                <IconButton aria-label="add" component={RouterLink} to={"/admin/add/chapter/"+params.value}>
                     <PersonAddIcon />
                 </IconButton>
                 <IconButton aria-label="info">

@@ -30,15 +30,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const defaultProps = {
-    bgcolor: 'background.paper',
-    borderColor: 'text.primary',
-    m: 1,
-    border: 1,
-};
-
 export default function ContactUs() {
-    const [spacing, setSpacing] = React.useState(2);
     const classes = useStyles();
     return (
         <div className={classes.root}>

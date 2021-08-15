@@ -6,8 +6,6 @@ import {
   Typography,
   Button,
   TextField,
-  red,
-  green,
 } from "@material-ui/core/";
 import { useRouteMatch, Link as RouterLink, useParams } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";

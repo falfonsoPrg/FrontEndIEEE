@@ -50,6 +50,7 @@ export default function AppRoutes(props) {
           auth={props.auth} 
           handleLoader={props.handleLoader}
           openSnackbarByType={props.openSnackbarByType} 
+          getChapters={props.getChapters} 
         />
       </Route>
       

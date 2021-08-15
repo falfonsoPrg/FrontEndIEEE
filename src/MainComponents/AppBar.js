@@ -162,7 +162,8 @@ export default function MiniDrawer() {
     setSnackBarMessage(pMessage)
   };
 
-  useEffect(() => {
+  const getChapters = () => {
+    console.log("Executed")
     setOpenLoader(true)
     axios.get(process.env.REACT_APP_ENDPOINT + "/chapters")
     .then((res) => {
@@ -172,6 +173,11 @@ export default function MiniDrawer() {
       setOpenLoader(false)
       openSnackbarByType(true,"error","Something wrong happen!")
     })
+  }
+
+  useEffect(() => {
+    getChapters()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -319,7 +325,7 @@ export default function MiniDrawer() {
             )}
           </div>
         </Snackbar>
-        <AppRoutes auth={auth} handleAuth={setAuth} handleLoader={setOpenLoader} openSnackbarByType={openSnackbarByType} setMember={setMember} member={member}/>
+        <AppRoutes auth={auth} handleAuth={setAuth} handleLoader={setOpenLoader} openSnackbarByType={openSnackbarByType} setMember={setMember} member={member} getChapters={getChapters}/>
       </main>
     </div>
   );

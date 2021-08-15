@@ -1,8 +1,6 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 
 import "date-fns";
-import { makeStyles } from "@material-ui/core/styles";
-import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -18,23 +16,10 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
 
 export default function UserProfile(props) {
-  let { id } = useParams();
   const history = useHistory();
 
-  const [events, setEvents] = useState([]);
   const [photoNames, setphotoNames] = useState([]);
 
   const [Photo, setPhoto] = useState();

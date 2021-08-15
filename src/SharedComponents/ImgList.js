@@ -28,7 +28,7 @@ export default function ImgList(props) {
   let itemData = [
     
   ];
-  if (props.items != undefined) {
+  if (props.items !== undefined) {
     itemData = props.items;
   }
   return (

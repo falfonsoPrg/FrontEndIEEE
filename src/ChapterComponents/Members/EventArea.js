@@ -16,7 +16,7 @@ export default function EventArea(props) {
   const [title, setTitle] = React.useState("Default");
   const [description, setDescription] = React.useState("Default");
 
-  const [thegallery2, setTheGallery2] = React.useState([
+  const [thegallery2] = React.useState([
     {
       title: "name",
       path: "https://www.enter.co/wp-content/uploads/2019/05/Astronauta.jpg",
@@ -43,7 +43,6 @@ export default function EventArea(props) {
     );
   });
   //En caso de usar las peticiones al back para las fotos y los eventos se guardan en constantes
-  const [thegallery, setThegallery] = React.useState([]);
   useEffect(() => {
     props.handleLoader(true);
     axios
@@ -60,6 +59,7 @@ export default function EventArea(props) {
         props.openSnackbarByType(true, "error", "Chapter couldn't be fetched");
         props.handleLoader(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeEvent = (nEvent) => {

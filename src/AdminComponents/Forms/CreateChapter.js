@@ -79,8 +79,9 @@ export default function CreateChapter(props) {
       axios
         .post(process.env.REACT_APP_ENDPOINT + "/chapters", chapter)
         .then(() => {
-          openSnackbarByType(true, "success", "Chapter edited succesfully");
+          openSnackbarByType(true, "success", "Chapter created succesfully");
           handleLoader(false);
+          props.getChapters()
           goBack();
         })
         .catch((e) => {
@@ -109,6 +110,7 @@ export default function CreateChapter(props) {
         .then(() => {
           openSnackbarByType(true, "success", "Chapter updated succesfully");
           handleLoader(false);
+          props.getChapters()
           goBack();
         })
         .catch((e) => {
@@ -136,7 +138,7 @@ export default function CreateChapter(props) {
             setSelectedStartDate(chapter.start_date)
             setSelectedEndDate(chapter.end_date)
         }).catch((e)=> {
-            openSnackbarByType(true,"error", e.response.data.error !== undefined ? e.response.data.error : "Role couldn't be fetched")
+            openSnackbarByType(true,"error", e.response.data.error !== undefined ? e.response.data.error : "Chapters couldn't be fetched")
             handleLoader(false)
         })
     }
