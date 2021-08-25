@@ -1,4 +1,4 @@
-import React, {useEffect, useState}from "react";
+import React, {useEffect, useState} from "react";
 import {
   useRouteMatch,
   Link as RouterLink,
@@ -14,13 +14,32 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
 import moment from "moment";
 
-console.log(moment("2021-08-25T18:03:00.000Z").utc().format('YYYY-MM-DD'));
-
 export default function CalendarArea(props) {
   let { url } = useRouteMatch();
   let { id } = useParams();
 
-  const [chapters, setChapters] = useState([])
+  const [events, setEvents] = useState([])
+  const {handleLoader, openSnackbarByType} = props
+
+  useEffect(() => {
+    props.handleLoader(true);
+    axios
+      .get(process.env.REACT_APP_ENDPOINT + "/chapters/" + id)
+      .then((res) => {
+        let even = res.data.response.Events
+        let aux = []
+        even.forEach(e => {
+            e.id = e.event_id
+            aux.push({ title: e.title, date: moment(e.start_date).utc().format('YYYY-MM-DD') })
+          });
+        props.handleLoader(false);
+        setEvents(aux);
+      })
+      .catch((err) => {
+        props.openSnackbarByType(true, "error", "Chapter couldn't be fetched");
+        props.handleLoader(false);
+      });
+  }, []);
 
   return (
     <Grid container spacing={10}>
@@ -30,10 +49,7 @@ export default function CalendarArea(props) {
             <FullCalendar
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"
-              events={[
-                { title: 'event 1', date: '2021-08-02 01:00:00' },
-                { title: 'event 2', date: '2021-08-02' }
-              ]}
+              events={events}
             />
           </div>
       </Grid>
