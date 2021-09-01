@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import clsx from 'clsx';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import Drawer from '@material-ui/core/Drawer';
@@ -34,6 +34,7 @@ import SecurityIcon from '@material-ui/icons/Security';
 
 import axios from 'axios'
 import AppRoutes from './AppRoutes'
+import ValidatePermissions from "../ValidatePermissions"
 
 const drawerWidth = 240;
 
@@ -113,10 +114,14 @@ function Alert(props) {
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
+
   const [open, setOpen] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
   const [auth, setAuth] = React.useState(localStorage.getItem('auth') ? localStorage.getItem('auth') : false);
   const [member, setMember] = React.useState(localStorage.getItem('member') ? JSON.parse(localStorage.getItem('member')) : {firstname:"Default",phone:"0",document:"0",lastname:"User",email:"na@na.com",member_id:-1});
+
+  const [roles, setRoles] = React.useState(localStorage.getItem('roles') ? JSON.parse(localStorage.getItem('roles')) : []);
 
   const [chapters, setChapters] = React.useState([]);
 
@@ -163,7 +168,6 @@ export default function MiniDrawer() {
   };
 
   const getChapters = () => {
-    console.log("Executed")
     setOpenLoader(true)
     axios.get(process.env.REACT_APP_ENDPOINT + "/chapters")
     .then((res) => {
@@ -240,9 +244,12 @@ export default function MiniDrawer() {
                     setAnchorEl(null);
                     setOpenMenu(false);
                     setAuth(false);
+                    setRoles([]);
                     localStorage.removeItem('auth')
                     localStorage.removeItem('member')
+                    localStorage.removeItem('roles')
                     openSnackbarByType(true,"info","Logout successfully!");
+                    history.push('/');
                     }}>Log out</MenuItem>
               </Menu>
             </div>
@@ -290,10 +297,11 @@ export default function MiniDrawer() {
               <ListItemIcon ><MailIcon /></ListItemIcon>
               <ListItemText primary={"Contact Us"} />
             </ListItem>
+            {ValidatePermissions.isAdmin(roles) && 
             <ListItem button key={"Dashboard Admin"} component={RouterLink} to="/admin">
               <ListItemIcon ><SecurityIcon /></ListItemIcon>
               <ListItemText primary={"Dashboard Admin"} />
-            </ListItem>
+            </ListItem>}
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -325,7 +333,17 @@ export default function MiniDrawer() {
             )}
           </div>
         </Snackbar>
-        <AppRoutes auth={auth} handleAuth={setAuth} handleLoader={setOpenLoader} openSnackbarByType={openSnackbarByType} setMember={setMember} member={member} getChapters={getChapters}/>
+        <AppRoutes 
+          auth={auth}
+          handleAuth={setAuth}
+          handleLoader={setOpenLoader}
+          openSnackbarByType={openSnackbarByType}
+          setMember={setMember}
+          member={member}
+          getChapters={getChapters}
+          roles={roles}
+          setRoles={setRoles}
+        />
       </main>
     </div>
   );

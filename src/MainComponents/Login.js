@@ -51,12 +51,20 @@ export default function Login(props) {
                 password: password
             })
             .then((response) => {
-                console.log(response)
                 localStorage.setItem('auth', true)
                 props.setAuth(true)
 
                 localStorage.setItem('member', JSON.stringify(response.data.member))
                 props.setMember(response.data.member)
+
+                let roles = []
+                if(response.data.member.Chapter_Members && response.data.member.Chapter_Members.length > 0){
+                    response.data.member.Chapter_Members.forEach(cm => {
+                        roles.push(cm.Role)
+                    });
+                }
+                localStorage.setItem('roles', JSON.stringify(roles))
+                props.setRoles(roles)
 
                 props.openSnackbarByType(true,"success","Login successfully!")
                 props.handleLoader(false)

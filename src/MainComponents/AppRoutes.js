@@ -9,8 +9,10 @@ import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
 import UserProfile from "./UserProfile";
 import AdminRoutes from '../AdminComponents/AdminRoutes'
 import ImgList from "../SharedComponents/ImgList";
+import ValidatePermissions from "../ValidatePermissions"
 
 export default function AppRoutes(props) {
+
   return (
     <Switch>  
       <Route path="/login">
@@ -20,6 +22,7 @@ export default function AppRoutes(props) {
           handleLoader={props.handleLoader}
           openSnackbarByType={props.openSnackbarByType}
           setMember={props.setMember}
+          setRoles={props.setRoles}
         />
       </Route>
       <Route path="/forgotPassword">
@@ -43,7 +46,7 @@ export default function AppRoutes(props) {
       <Route path="/userProfile">
         <UserProfile member={props.member} auth={props.auth} />
       </Route>
-
+      {ValidatePermissions.isAdmin(props.roles) &&
       <Route path="/admin">
         <AdminRoutes 
           member={props.member} 
@@ -52,7 +55,7 @@ export default function AppRoutes(props) {
           openSnackbarByType={props.openSnackbarByType} 
           getChapters={props.getChapters} 
         />
-      </Route>
+      </Route>}
       
       
       <Route default path="/" component={Main} />
