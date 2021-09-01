@@ -13,6 +13,8 @@ import MainChapterView from "./MainChapterView";
 import CreateEvent from "./Forms/CreateEvent";
 import CreateGallery from "./Forms/CreateGallery";
 
+import CalendarArea from "./Calendars/CalendarArea";
+
 const useStyles = makeStyles((theme) => ({
   appbar: {
     alignItems: "center",
@@ -45,11 +47,15 @@ export default function ChapterRoutes(props) {
           >
             Gallery & Events
           </Button>
+          <Button
+            className={classes.mt} component={RouterLink} to={`${url}/calendar`}>
+            Calendar
+          </Button>
         </ButtonGroup>
       </AppBar>
       <Switch>
       <Route path={`${path}/events/createGallery`}>
-          <CreateGallery    
+          <CreateGallery
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
           />
@@ -66,13 +72,19 @@ export default function ChapterRoutes(props) {
             openSnackbarByType={props.openSnackbarByType}
           />
         </Route>
+        <Route path={`${path}/calendar`}>
+          <CalendarArea
+            handleLoader={props.handleLoader}
+            openSnackbarByType={props.openSnackbarByType}
+          />
+        </Route>
         <Route path={path}>
           <MainChapterView
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
           />
         </Route>
-      
+
       </Switch>
     </div>
   );
