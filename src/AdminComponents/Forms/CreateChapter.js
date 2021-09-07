@@ -127,7 +127,7 @@ export default function CreateChapter(props) {
   };
   useEffect(() => {
     if(chapter_id !== "0"){
-        handleLoader(true)
+        handleLoader(false)
         axios.get(process.env.REACT_APP_ENDPOINT + "/chapters/" + chapter_id).then((res) => {
             console.log(JSON.stringify(res))
             let chapter = res.data.response
