@@ -40,7 +40,7 @@ export default function MainChapterView(props) {
                 let mem = res.data.response.Chapter_Members.map(m => {
                     return {
                         path: m.Member.image_path,
-                        legend: m.Member.firstname
+                        legend: m.Role.role_name + " - " + m.Member.firstname + " " + m.Member.lastname
                     }
                 })
                 let images = {
@@ -89,14 +89,11 @@ export default function MainChapterView(props) {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={4} style={{marginTop: 50, marginBottom:10}}>
-                    <Card imagePath="../assets/IeeeMission.jpg" imageTitle="Mission" cardTitle="Mission" cardDescription={chapterInfo.mission}/>
+                <Grid item xs style={{marginTop: 50, marginBottom:10}}>
+                    <Card width={600} imagePath="../assets/IeeeMission.jpg" imageTitle="Mission" cardTitle="Mission" cardDescription={chapterInfo.mission}/>
                 </Grid>
-                <Grid item xs={4} style={{marginTop: 50, marginBottom:10}}>
-                    <Card imagePath="../assets/IeeeVision.jpg" imageTitle="Vision" cardTitle="Vision" cardDescription={chapterInfo.vission}/>
-                </Grid>
-                <Grid item xs={4} style={{marginTop: 50, marginBottom:10}}>
-                    <Card imagePath="../assets/IeeeGoals.jpg" imageTitle="Goals" cardTitle="Goals" cardDescription={chapterInfo.objectives}/>
+                <Grid item xs style={{marginTop: 50, marginBottom:10}}>
+                    <Card width={600} imagePath="../assets/IeeeVision.jpg" imageTitle="Vision" cardTitle="Vision" cardDescription={chapterInfo.vission}/>
                 </Grid>
                 
                 <Grid item xs={12} style={{marginTop: 50}}>
