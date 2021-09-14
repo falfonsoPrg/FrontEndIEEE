@@ -1,20 +1,24 @@
 const images = {
     images: [
         {
+            path: "assets/Members/ClaraComputer.jpg",
+            legend: "Clara - Computer Chapter And Student branch"
+        },
+        {
             path: "assets/Members/AndresControl.jpg",
-            legend: "Andres Control Chapter"
+            legend: "Andres - Control Chapter"
         },
         {
             path: "assets/Members/CarlosCastilloIot.jpeg",
-            legend: "Carlos IOT Chapter"
+            legend: "Carlos - IOT Chapter"
         },
         {
             path: "assets/Members/IvanComsoc.jpeg",
-            legend: "Ivan Comsoc Chapter"
+            legend: "Ivan - Comsoc Chapter"
         },
         {
             path: "assets/Members/LizVegaEMBS.png",
-            legend: "Liz Vega EMBS Chapter"
+            legend: "Liz Vega - EMBS Chapter"
         },
         {
             path: "assets/Members/APS.jpeg",
@@ -22,15 +26,15 @@ const images = {
         },
         {
             path: "assets/Members/CeciliaRAS.jpeg",
-            legend: "Cecilia RAS Chapter"
+            legend: "Cecilia - RAS Chapter"
         },
         {
             path: "assets/Members/IsabelSSIT.jpeg",
-            legend: "Isabel SSIT Chapter"
+            legend: "Isabel - SSIT Chapter"
         },
         {
-            path: "assets/Members/ClaraComputer.jpg",
-            legend: "Clara Computer Chapter"
+            path: "assets/Members/LuisFernandoIAS.jpg",
+            legend: "Luis Fenando Ospina Granada  - IAS Chapter"
         },
     ]
 }

@@ -3,13 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Card,CardActionArea,CardContent,CardMedia,Typography} from '@material-ui/core/';
 
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-});
+
 
 export default function ImgMediaCard(props) {
+  const useStyles = makeStyles({
+    root: {
+      maxWidth: props.width ? props.width : 345  ,
+    },
+  });
   const classes = useStyles();
 
   return (

@@ -29,18 +29,21 @@ export default function Main() {
             </Container>
             <Container style={{marginTop: 60,marginBottom:60}}>
                 <Grid container spacing={5}>
-                    <Grid item xs>
-                        <Card imagePath="assets/IeeeMission.jpg" imageTitle="Mission" cardTitle="Mission" cardDescription="The IEEE Branch of Universidad El Bosque, attached to the INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS (IEEE) integrates students, graduates and academics of the university around research through creativity, ingenuity, motivation and dedication, reflecting in its results the interdisciplinary and impacting society through continuous improvement in health and quality of life, under a bio-psycho-social and cultural approach that achieves the advancement, application and dissemination of knowledge from different areas of study."/>
+                    <Grid item xs style={{marginLeft: 50}}>
+                        <Card width={600} imagePath="assets/IeeeMission.jpg" imageTitle="Mission" cardTitle="Mission" cardDescription="The IEEE Branch of Universidad El Bosque, attached to the INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS (IEEE) integrates students, graduates and academics of the university around research through creativity, ingenuity, motivation and dedication, reflecting in its results the interdisciplinary and impacting society through continuous improvement in health and quality of life, under a bio-psycho-social and cultural approach that achieves the advancement, application and dissemination of knowledge from different areas of study."/>
                     </Grid>
                     <Grid item xs>
-                        <Card imagePath="assets/IeeeVision.jpg" imageTitle="Vision" cardTitle="Vision" cardDescription="By the year 2022 to be a nationally recognized student branch, standing out for the results in the dissemination, application and impact of the activities developed from research."/>
-                    </Grid>
-                    <Grid item xs>
-                        <Card imagePath="assets/IeeeGoals.jpg" imageTitle="Goals" cardTitle="Goals" cardDescription="This are the goals"/>
+                        <Card width={600} imagePath="assets/IeeeVision.jpg" imageTitle="Vision" cardTitle="Vision" cardDescription="By the year 2022 to be a nationally recognized student branch, standing out for the results in the dissemination, application and impact of the activities developed from research."/>
                     </Grid>
                 </Grid>
             </Container>
             <Grid container spacing={3}>
+            
+                <Grid container justifyContent="center" alignItems="center" direction="row">
+                    <Typography variant="h3" >
+                        Our Counselors
+                    </Typography>
+                </Grid>
                 <Grid item xs={2}>
                 </Grid>
                 <Grid item xs={10}>
