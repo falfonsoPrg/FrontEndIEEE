@@ -7,14 +7,13 @@ import Main from "./Main";
 import ContactUs from "./ContactUs";
 import ChapterRoutes from "../ChapterComponents/ChapterRoutes";
 import UserProfile from "./UserProfile";
-import AdminRoutes from '../AdminComponents/AdminRoutes'
+import AdminRoutes from "../AdminComponents/AdminRoutes";
 import ImgList from "../SharedComponents/ImgList";
-import ValidatePermissions from "../ValidatePermissions"
+import ValidatePermissions from "../ValidatePermissions";
 
 export default function AppRoutes(props) {
-
   return (
-    <Switch>  
+    <Switch>
       <Route path="/login">
         <Login
           auth={props.auth}
@@ -26,7 +25,12 @@ export default function AppRoutes(props) {
         />
       </Route>
       <Route path="/forgotPassword">
-        <ForgotPassword auth={props.auth} setAuth={props.handleAuth} />
+        <ForgotPassword
+          auth={props.auth}
+          setAuth={props.handleAuth}
+          handleLoader={props.handleLoader}
+          openSnackbarByType={props.openSnackbarByType}
+        />
       </Route>
       <Route path="/contactUs">
         <ContactUs />
@@ -46,18 +50,18 @@ export default function AppRoutes(props) {
       <Route path="/userProfile">
         <UserProfile member={props.member} auth={props.auth} />
       </Route>
-      {ValidatePermissions.isAdmin(props.roles) &&
-      <Route path="/admin">
-        <AdminRoutes 
-          member={props.member} 
-          auth={props.auth} 
-          handleLoader={props.handleLoader}
-          openSnackbarByType={props.openSnackbarByType} 
-          getChapters={props.getChapters} 
-        />
-      </Route>}
-      
-      
+      {ValidatePermissions.isAdmin(props.roles) && (
+        <Route path="/admin">
+          <AdminRoutes
+            member={props.member}
+            auth={props.auth}
+            handleLoader={props.handleLoader}
+            openSnackbarByType={props.openSnackbarByType}
+            getChapters={props.getChapters}
+          />
+        </Route>
+      )}
+
       <Route default path="/" component={Main} />
     </Switch>
   );
