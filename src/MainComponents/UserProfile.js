@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
+import { flexbox } from "@material-ui/system";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -16,47 +17,54 @@ import { Redirect } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   first_box: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    marginLeft: "20%",
-    height: 300,
-    width: "55%",
-    borderRadius: 10,
+    borderRadius: 15,
+    height: 250,
+    width: 550,
+    marginTop: "15px",
   },
 
   second_box: {
-    alignContent: "center",
-    marginLeft: "25%",
-    marginTop: "3%",
+    background: "white",
     borderRadius: 15,
-    height: 815,
-    width: "45%",
+    height: 780,
+    width: 500,
+    marginLeft: "4%",
   },
 
   third_box: {
-    marginLeft: "31%",
-    marginTop: "30%",
-    width: "33%",
-    height: 320,
+    width: "390px",
+    height: "270px",
+    background: "white",
+    top: "-400px",
+    left: "78px",
   },
 
   Title: {
     fontFamily: ["Quicksand", "sans-serif"],
     textAlign: "center",
-    fontSize: 28,
+    position:"relative",
+    top:"28%" , 
+    left:"-33%",
+    fontSize: 30,
   },
 
   Sub_Title: {
-    marginTop: "4%",
-    textAlign: "center",
-    fontSize: 20,
+    fontFamily: ["Quicksand", "sans-serif"],
+    position:"relative", 
+    top: "32%",
+    left: "-56%",
+    fontSize: 28,
   },
   input: {
     display: "none",
   },
 
   large: {
-    position: "absolute",
-    top: "2%",
-    left: "34%",
+    display: "flex",
+    justifyContent: "center",
+    position:"relative",
+    marginLeft:"230px",
+    marginTop: "12px",
     width: theme.spacing(28),
     height: theme.spacing(28),
   },
@@ -72,79 +80,83 @@ export default function UserProfile(props) {
   const [visibility, setvisibility] = useState(true);
   const [hidden, sethidden] = useState(true);
   return (
-    <Box Container m={5}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+    >
       {!props.auth && <Redirect to="/" />}
-
-      <Box className={classes.first_box} position="absolute">
-        <div className={classes.btn_edit}>
+      <Box></Box>
+      <Box className={classes.first_box}>
+        <div>
           <input
             className={classes.input}
             id="icon-button-edit"
             type="button"
           />
-        </div>
-        <label htmlFor="icon-button-edit">
-          <IconButton
-            color="primary"
-            aria-label="Edit"
-            style={{ marginLeft: "93%" }}
-            component="span"
-            onClick={() => {
-              setvisibility(false);
-              sethidden(false);
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-        </label>
-      </Box>
-
-      <Box
-        className={classes.second_box}
-        boxShadow={8}
-        bgcolor="white"
-        color="BLACK"
-        position="absolute"
-      >
-        <Avatar
-          src="https://cutewallpaper.org/21/kobe-bryant-cartoon-wallpaper/Kobe-Bryant-24-Sports-Nba-basketball-Kobe-bryant-nba-.jpg"
-          className={classes.large}
-        />
-        <input
-          accept="image/*"
-          className={classes.input}
-          id="icon-button-file"
-          type="file"
-        />
-        {!hidden && (
-          <label htmlFor="icon-button-file">
+          <label htmlFor="icon-button-edit">
             <IconButton
-              position="absolute"
-              left={"41%"}
               color="primary"
-              aria-label="upload picture"
+              aria-label="Edit"
+              display="flex"
+              justify-content="flex-end"
               component="span"
+              onClick={() => {
+                setvisibility(false);
+                sethidden(false);
+              }}
             >
-              <PhotoCamera />
+              <EditIcon />
             </IconButton>
           </label>
-        )}
-       
-        <p className={classes.Title} style={{ marginTop: 240 }}>
+        </div>
+        <Box></Box>
+        <Box
+          className={classes.second_box}
+          display="flex"
+          justifyContent="center"
+          boxShadow={8}
+          bgcolor="white"
+          color="BLACK"
+        >
+          <Avatar
+            src="https://cutewallpaper.org/21/kobe-bryant-cartoon-wallpaper/Kobe-Bryant-24-Sports-Nba-basketball-Kobe-bryant-nba-.jpg"
+            className={classes.large}
+          />
+
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="icon-button-file"
+            type="file"
+          />
+          {!hidden && (
+            <label htmlFor="icon-button-file">
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+              >
+                <PhotoCamera />
+              </IconButton>
+            </label>
+          )}
+          
+        <p className={classes.Title}>
           <b>{props.member.firstname}</b>
         </p>
-        <p className={classes.Title} style={{ marginTop: -25 }}>
+        <p className={classes.Sub_Title} style={{width:"200"}}>
           <b>{props.member.lastname}</b>
         </p>
-        
-      </Box>
-
-      <Box className={classes.third_box} boxShadow={10} position="absolute">
-        <p className={classes.Sub_Title}>
+        </Box>
+        <Box  className={classes.third_box}
+        boxShadow={10}
+        position="relative">
+           <p style={{position:"relative", left:"136px",top:"13px",fontSize: 24}}>
           <b>Cellphone</b>
-        </p>
-        <TextField
-          style={{ marginLeft: "40.2%", marginTop: "-2%", width: "21%" }}
+          <TextField
+          style={{ position:"relative",left: "-106px", top: "40px", width: "27%" }}
           disabled={visibility}
           id="standard-number"
           type="number"
@@ -153,49 +165,33 @@ export default function UserProfile(props) {
             shrink: true,
           }}
         />
-
-        <p className={classes.Sub_Title}>
+         <p style={{position:"relative",alignItems:"center", left:"22.5px",top:"22px",fontSize: 24}}>
           <b>Email</b>
         </p>
 
         <TextField
           id="standard"
           disabled={visibility}
-          style={{ marginLeft: "32%", marginTop: "-4%", width: "42%" }}
+          style={{  position:"relative",left: "-55px", top: "2px", width: "61%" }}
           defaultValue={props.member.email}
         />
-
-        <p className={classes.Sub_Title}>
+        
+        <p style={{position:"relative", left:"2px",top:"-13px",fontSize: 24}}>
           <b>Document</b>
         </p>
 
         <TextField
           id="standard"
           disabled={visibility}
-          style={{ marginLeft: "41.5% ", marginTop: "-4%", width: "18%" }}
+          style={{  position:"relative",left: "13px", top: "-30px", width: "24%" }}
           defaultValue={props.member.document}
         />
 
-        <p
-          className={classes.Sub_Title}
-          style={{ marginTop: "12%" }}
-        >
-          <b>Chapter</b>
-        </p>
-      </Box>
 
-      {!hidden && (
-        <Button
-          style={{ marginLeft: "50.5%", marginTop: "62%" }}
-          hidden={true}
-          variant="contained"
-          color="default"
-          className={classes.button}
-          startIcon={<CloudUploadIcon />}
-        >
-          Upload
-        </Button>
-      )}
+        </p>
+       </Box>
+      </Box>
+      <Box></Box>
     </Box>
   );
 }
