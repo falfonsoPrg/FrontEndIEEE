@@ -286,7 +286,7 @@ export default function MiniDrawer() {
           {chapters && chapters.length >0 && chapters.map((chapter, index) => (
             <ListItem button key={index} component={RouterLink} to={"/chapter/"+chapter.chapter_id}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={chapter.chapter_name} />
+              <ListItemText primary={chapter.acronym} />
             </ListItem>
           ))}
         </List>
