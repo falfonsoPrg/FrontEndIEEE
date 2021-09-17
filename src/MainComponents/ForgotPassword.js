@@ -35,10 +35,9 @@ export default function ForgotPassword(props) {
                 email: email,
             })
             .then((response) => {
-                console.log("We send you an email, password change")
+                props.openSnackbarByType(true,"error", "You password has been changed, please see your email")
                 props.handleLoader(false)
             }).catch((e) => {
-                console.log(e.response.data.error)
                 props.openSnackbarByType(true,"error", e.response.data.error !== undefined ? e.response.data.error : "The email you supplied is not an active member of the chapter ")
                 props.handleLoader(false)
             })
