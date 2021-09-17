@@ -43,6 +43,8 @@ export default function CreateChapter(props) {
 
   const [chapterName, setChapterName] = useState("");
   const [description, setDescription] = useState("");
+  const [acronym, setAcronym] = useState("");
+  const [icon, setIcon] = useState("");
   const [photo, setPhoto] = useState();
   const [photoName, setPhotoName] = useState("");
   const [active, setActive] = useState(true);
@@ -70,6 +72,8 @@ export default function CreateChapter(props) {
       const chapter = {
         chapter_name: chapterName,
         description: description,
+        acronym: acronym,
+        icon: icon,
         logo_path: photo,
         isActive: active,
         start_date: selectedStartDate,
@@ -99,6 +103,8 @@ export default function CreateChapter(props) {
         chapter_id: chapter_id,
         chapter_name: chapterName,
         description: description,
+        acronym: acronym,
+        icon: icon,
         logo_path: photo,
         isActive: active,
         start_date: selectedStartDate,
@@ -133,6 +139,8 @@ export default function CreateChapter(props) {
             let chapter = res.data.response
             setChapterName(chapter.chapter_name)
             setDescription(chapter.description)
+            setAcronym(chapter.acronym)
+            setIcon(chapter.icon)
             setPhoto(chapter.logo_path)
             setActive(chapter.isActive)
             setSelectedStartDate(chapter.start_date)
@@ -178,6 +186,22 @@ export default function CreateChapter(props) {
                 type="text"
                 variant="outlined"
                 onChange={(e) => setDescription(e.target.value)}
+              />
+              <TextField
+                id="acronym"
+                value={acronym}
+                label="Acronym *"
+                type="text"
+                variant="outlined"
+                onChange={(e) => setAcronym(e.target.value)}
+              />
+              <TextField
+                id="icon"
+                value={icon}
+                label="Icon *"
+                type="text"
+                variant="outlined"
+                onChange={(e) => setIcon(e.target.value)}
               />
               <input
                 accept="image/*"
