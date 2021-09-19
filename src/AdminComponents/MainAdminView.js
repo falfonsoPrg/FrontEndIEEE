@@ -11,14 +11,30 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import InfoIcon from '@material-ui/icons/Info';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 import axios from 'axios'
 
-export default function MainAdminView(props) {
+export default function MainAdminView({handleLoader, openSnackbarByType}) {
 
     const [chapters, setChapters] = useState([])
     const [members, setMembers] = useState([])
     const [roles, setRoles] = useState([])
+
+    const deleteMember = (id) => {
+        handleLoader(true)
+        axios.delete(process.env.REACT_APP_ENDPOINT + "/members/"+id).then(res => {
+            handleLoader(false)
+            openSnackbarByType(true, "success", "Member deleted successfully")
+            getMembers()
+        }).catch(e => {
+            console.log(e.response)
+            handleLoader(false)
+            openSnackbarByType(true, "error", 
+                e.response.data.error ? e.response.data.error : "Member couldn't be deleted")
+        })
+    }
 
     const chapterColumns = [
         {
@@ -111,6 +127,9 @@ export default function MainAdminView(props) {
                   <IconButton aria-label="edit"  component={RouterLink} to={"/admin/create/member/"+params.value}>
                       <EditIcon />
                   </IconButton>
+                  <IconButton aria-label="delete" onClick={() => deleteMember(params.value)}>
+                      <DeleteIcon />
+                  </IconButton>
               </strong>
             ),
           },
@@ -160,10 +179,7 @@ export default function MainAdminView(props) {
             ),
           },
     ]
-
-    const {handleLoader, openSnackbarByType} = props
-
-    useEffect(() => {
+    const getChapters = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/chapters").then((res) => {
             let chap = res.data.response
@@ -176,6 +192,8 @@ export default function MainAdminView(props) {
             openSnackbarByType(true, "error", "Chapters couldn't be found")
             handleLoader(false)
         })
+    }
+    const getMembers = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/members").then((res) => {
             let mem = res.data.response
@@ -188,7 +206,8 @@ export default function MainAdminView(props) {
             openSnackbarByType(true, "error", "Members couldn't be found")
             handleLoader(false)
         })
-
+    }
+    const getRoles = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/roles").then((res) => {
             let rol = res.data.response
@@ -201,6 +220,12 @@ export default function MainAdminView(props) {
             openSnackbarByType(true, "error", "Roles couldn't be found")
             handleLoader(false)
         })
+    }
+
+    useEffect(() => {
+        getChapters()
+        getMembers()
+        getRoles()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
       

@@ -25,7 +25,7 @@ export default function Login(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-
+    const [needReset, setNeedReset] = useState(false)
 
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -51,8 +51,6 @@ export default function Login(props) {
                 password: password
             })
             .then((response) => {
-                localStorage.setItem('auth', true)
-                props.setAuth(true)
 
                 localStorage.setItem('member', JSON.stringify(response.data.member))
                 props.setMember(response.data.member)
@@ -68,6 +66,11 @@ export default function Login(props) {
 
                 props.openSnackbarByType(true,"success","Login successfully!")
                 props.handleLoader(false)
+                if(response.data.member.update_password){
+                    setNeedReset(response.data.member.update_password)
+                }
+                localStorage.setItem('auth', true)
+                props.setAuth(true)
             }).catch((e) => {
                 console.log(e.response.data.error)
                 props.openSnackbarByType(true,"error", e.response.data.error !== undefined ? e.response.data.error : "Error while login!")
@@ -80,6 +83,7 @@ export default function Login(props) {
     }
     return (
         <Container maxWidth="sm" style={{marginTop: 60}}>
+            {needReset && (<Redirect to="/resetPassword" /> )}
             {props.auth && (<Redirect to="/" /> )}
             <Paper elevation={3}>
                 <Grid container spacing={3}>

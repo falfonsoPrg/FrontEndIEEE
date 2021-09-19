@@ -304,12 +304,12 @@ export default function AddMemberToChapter(props) {
                 List of members
             </Box>
             <Grid container spacing={3}>
-                <Grid item xs style={{height: 300, width: '95%', margin:20}}>
+                <Grid item xs style={{height: 800, width: '95%', margin:20}}>
                     <DataGrid
                         loading={memberList.length === 0}
                         rows={memberList}
                         columns={memberColumns}
-                        pageSize={5}
+                        pageSize={15}
                         disableSelectionOnClick
                     /></Grid>
             </Grid>

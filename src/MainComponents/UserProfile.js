@@ -8,7 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import EditIcon from "@material-ui/icons/Edit";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link as RouterLink } from "react-router-dom";
+
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
@@ -189,6 +190,9 @@ export default function UserProfile(props) {
 
 
         </p>
+        
+        <Button component={RouterLink} to={"/resetPassword"}>Reset password</Button>
+
        </Box>
       </Box>
       <Box></Box>
