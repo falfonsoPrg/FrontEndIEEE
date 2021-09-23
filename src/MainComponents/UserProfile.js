@@ -9,6 +9,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import EditIcon from "@material-ui/icons/Edit";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
@@ -42,28 +43,30 @@ const useStyles = makeStyles((theme) => ({
   Title: {
     fontFamily: ["Quicksand", "sans-serif"],
     textAlign: "center",
-    position:"relative",
-    top:"28%" , 
-    left:"-33%",
-    fontSize: 30,
+    position: "relative",
+    width: 250,
+    top: "28%",
+    left: "-95%",
+    fontSize: 29,
   },
 
   Sub_Title: {
     fontFamily: ["Quicksand", "sans-serif"],
-    position:"relative", 
-    top: "32%",
-    left: "-56%",
+    textAlign: "center",
+    position: "relative",
+    top: "25%",
+    left: "-92%",
+    width: 250,
     fontSize: 28,
   },
   input: {
     display: "none",
+    left: 100,
   },
 
   large: {
-    display: "flex",
-    justifyContent: "center",
-    position:"relative",
-    marginLeft:"230px",
+    position: "relative",
+    marginLeft: "245px",
     marginTop: "12px",
     width: theme.spacing(28),
     height: theme.spacing(28),
@@ -71,14 +74,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserProfile(props) {
+ 
+
   const classes = useStyles();
-  const [name, setname] = useState("Cristian David");
-  const [lastname, setlastname] = useState("Sanchez Malagon");
-  const [email, setemail] = useState("cdsanchezm@unbosque.edu.co");
-  const [cellphone, setcellphone] = useState("3216985412");
-  const [document, setdocument] = useState("1245789635");
+  
   const [visibility, setvisibility] = useState(true);
   const [hidden, sethidden] = useState(true);
+
+  const[hiddenL, sethiddenl] = useState(true);
+
   return (
     <Box
       display="flex"
@@ -142,54 +146,115 @@ export default function UserProfile(props) {
               </IconButton>
             </label>
           )}
-          
-        <p className={classes.Title}>
-          <b>{props.member.firstname}</b>
-        </p>
-        <p className={classes.Sub_Title} style={{width:"200"}}>
-          <b>{props.member.lastname}</b>
-        </p>
+          <div display="flex" flexDirection="column" alignItems="center">
+            <p className={classes.Title}>
+              <b>{props.member.firstname}</b>
+            </p>
+            <p className={classes.Sub_Title}>
+              <b>{props.member.lastname}</b>
+            </p>
+          </div>
         </Box>
-        <Box  className={classes.third_box}
-        boxShadow={10}
-        position="relative">
-           <p style={{position:"relative", left:"136px",top:"13px",fontSize: 24}}>
-          <b>Cellphone</b>
+        <Box className={classes.third_box} boxShadow={10} position="relative">
+          <p
+            style={{
+              position: "relative",
+              left: "136px",
+              top: "13px",
+              fontSize: 24,
+            }}
+          >
+            <b>Cellphone</b>
+          </p>
+
           <TextField
-          style={{ position:"relative",left: "-106px", top: "40px", width: "27%" }}
-          disabled={visibility}
-          id="standard-number"
-          type="number"
-          defaultValue={props.member.phone}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-         <p style={{position:"relative",alignItems:"center", left:"22.5px",top:"22px",fontSize: 24}}>
-          <b>Email</b>
-        </p>
+            style={{ position: "relative", left: "105px", width: "auto" }}
+            disabled={visibility}
+            id="standard-number"
+            type="number"
+            defaultValue={props.member.phone}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            textAlign="center"
+          />
+          <p
+            style={{
+              position: "relative",
+              left: "160px",
+              top: "-5px",
+              fontSize: 24,
+            }}
+          >
+            <b>Email</b>
+          </p>
 
-        <TextField
-          id="standard"
-          disabled={visibility}
-          style={{  position:"relative",left: "-55px", top: "2px", width: "61%" }}
-          defaultValue={props.member.email}
-        />
-        
-        <p style={{position:"relative", left:"2px",top:"-13px",fontSize: 24}}>
-          <b>Document</b>
-        </p>
+          <TextField
+            id="standard"
+            disabled={visibility}
+            style={{
+              position: "relative",
+              left: "75px",
+              top: "-25px",
+              width: "260px",
+            }}
+            defaultValue={props.member.email}
+          />
 
-        <TextField
-          id="standard"
-          disabled={visibility}
-          style={{  position:"relative",left: "13px", top: "-30px", width: "24%" }}
-          defaultValue={props.member.document}
-        />
+          <p
+            style={{
+              position: "relative",
+              left: "136px",
+              top: "-40px",
+              fontSize: 24,
+            }}
+          >
+            <b>Document</b>
+          </p>
 
+          <TextField
+            id="standard"
+            disabled={visibility}
+            style={{
+              position: "relative",
+              left: "105px",
+              top: "-60px",
+              width: "auto",
+              textAlign: "center",
+            }}
+            defaultValue={props.member.document}
+          />
+        {hidden && (
+           <p
+           style={{
+             position: "relative",
+             left: "152px",
+             top: "-70px",
+             fontSize: 24,
+           }}
+         >
+           <b>Chapter</b>
+         </p>
+        )}
+         
+          {console.log(props.member.Chapter_Members[0].Chapter.logo_path)}  
+          
+          <img src={props.member.Chapter_Members[0].Chapter.logo_path} alt='logo' width='550'></img>
+          
+      {!hidden && (
+        <Button
+          style={{ position: "relative", left:"-85px", top:"20px"}}
+          hidden={true}
+          variant="contained"
+          color="default"
+          className={classes.button}
+          startIcon={<CloudUploadIcon />}
+        >
+          Upload
+        </Button>
+      )}
 
-        </p>
-       </Box>
+        </Box>
       </Box>
       <Box></Box>
     </Box>

@@ -48,7 +48,7 @@ export default function AppRoutes(props) {
         />
       </Route>
       <Route path="/userProfile">
-        <UserProfile member={props.member} auth={props.auth} />
+        <UserProfile member={props.member} auth={props.auth} chapters={props.chapters} />
       </Route>
       {ValidatePermissions.isAdmin(props.roles) && (
         <Route path="/admin">
