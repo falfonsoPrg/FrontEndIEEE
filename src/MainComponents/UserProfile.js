@@ -74,14 +74,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserProfile(props) {
- 
-
   const classes = useStyles();
-  
+
   const [visibility, setvisibility] = useState(true);
   const [hidden, sethidden] = useState(true);
 
-  const[hiddenL, sethiddenl] = useState(true);
+  const [hiddenL, sethiddenl] = useState(true);
 
   return (
     <Box
@@ -149,6 +147,7 @@ export default function UserProfile(props) {
           <div display="flex" flexDirection="column" alignItems="center">
             <p className={classes.Title}>
               <b>{props.member.firstname}</b>
+            
             </p>
             <p className={classes.Sub_Title}>
               <b>{props.member.lastname}</b>
@@ -168,15 +167,17 @@ export default function UserProfile(props) {
           </p>
 
           <TextField
-            style={{ position: "relative", left: "105px", width: "auto" }}
+            style={{ posistion: "relative",left: "105px", width: "auto"}}
             disabled={visibility}
             id="standard-number"
             type="number"
-            defaultValue={props.member.phone}
+            defaultValue={props.member.phone} 
             InputLabelProps={{
               shrink: true,
             }}
-            textAlign="center"
+
+            inputProps={{min: 0, style: { textAlign: 'center' }}}
+           
           />
           <p
             style={{
@@ -199,8 +200,10 @@ export default function UserProfile(props) {
               width: "260px",
             }}
             defaultValue={props.member.email}
-          />
 
+            inputProps={{min: 0, style: { textAlign: 'center' }}}
+          />
+            
           <p
             style={{
               position: "relative",
@@ -223,37 +226,43 @@ export default function UserProfile(props) {
               textAlign: "center",
             }}
             defaultValue={props.member.document}
-          />
-        {hidden && (
-           <p
-           style={{
-             position: "relative",
-             left: "152px",
-             top: "-70px",
-             fontSize: 24,
-           }}
-         >
-           <b>Chapter</b>
-         </p>
-        )}
-         
-          {console.log(props.member.Chapter_Members[0].Chapter.logo_path)}  
-          
-          <img src={props.member.Chapter_Members[0].Chapter.logo_path} alt='logo' width='550'></img>
-          
-      {!hidden && (
-        <Button
-          style={{ position: "relative", left:"-85px", top:"20px"}}
-          hidden={true}
-          variant="contained"
-          color="default"
-          className={classes.button}
-          startIcon={<CloudUploadIcon />}
-        >
-          Upload
-        </Button>
-      )}
 
+            inputProps={{min: 0, style: { textAlign: 'center' }}}
+          />
+          {hidden && (
+            <p
+              style={{
+                position: "relative",
+                left: "152px",
+                top: "-70px",
+                fontSize: 24,
+              }}
+            >
+              <b>Chapter</b>
+            </p>
+          )}
+
+          {console.log(props.member.Chapter_Members[0].Chapter.logo_path)}
+          {hidden && (
+            <img
+              src={props.member.Chapter_Members[0].Chapter.logo_path}
+              alt="logo"
+              width="550"
+            ></img>
+          )}
+
+          {!hidden && (
+            <Button
+              style={{ position: "relative", left: "-85px", top: "20px" }}
+              hidden={true}
+              variant="contained"
+              color="default"
+              className={classes.button}
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload
+            </Button>
+          )}
         </Box>
       </Box>
       <Box></Box>
