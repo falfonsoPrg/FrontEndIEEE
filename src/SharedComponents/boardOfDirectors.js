@@ -2,35 +2,35 @@ const images = {
     images: [
         {
             path: "assets/Members/ClaraComputer.jpg",
-            legend: "Clara - Computer Chapter And Student branch"
+            legend: "Clara Nensthiel Zorro - Computer Chapter And Student branch"
         },
         {
             path: "assets/Members/AndresControl.jpg",
-            legend: "Andres - Control Chapter"
+            legend: "Jorger Andres Puerto - Control Chapter"
         },
         {
             path: "assets/Members/CarlosCastilloIot.jpeg",
-            legend: "Carlos - IOT Chapter"
+            legend: "Carlos Castillo - IOT Chapter"
         },
         {
             path: "assets/Members/IvanComsoc.jpeg",
-            legend: "Ivan - Comsoc Chapter"
+            legend: "Ivan Diaz - Comsoc Chapter"
         },
         {
             path: "assets/Members/LizVegaEMBS.png",
-            legend: "Liz Vega - EMBS Chapter"
+            legend: "Lizeth Vega - EMBS Chapter"
         },
         {
             path: "assets/Members/APS.jpeg",
-            legend: "APS Chapter"
+            legend: "Hector Guarnizo - APS Chapter"
         },
         {
             path: "assets/Members/CeciliaRAS.jpeg",
-            legend: "Cecilia - RAS Chapter"
+            legend: "Cecilia Murrugarra - RAS Chapter"
         },
         {
             path: "assets/Members/IsabelSSIT.jpeg",
-            legend: "Isabel - SSIT Chapter"
+            legend: "Isabel Narvaez - SSIT Chapter"
         },
         {
             path: "assets/Members/LuisFernandoIAS.jpg",

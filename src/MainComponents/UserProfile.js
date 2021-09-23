@@ -8,8 +8,13 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import EditIcon from "@material-ui/icons/Edit";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+<<<<<<< HEAD
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+=======
+import { Redirect, Link as RouterLink } from "react-router-dom";
+
+>>>>>>> 9fc18ad4d7b9f835bf09598063dc1bebbb79ef9b
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
@@ -216,6 +221,7 @@ export default function UserProfile(props) {
           </p>
 
           <TextField
+<<<<<<< HEAD
             id="standard"
             disabled={visibility}
             style={{
@@ -264,6 +270,45 @@ export default function UserProfile(props) {
             </Button>
           )}
         </Box>
+=======
+          style={{ position:"relative",left: "-106px", top: "40px", width: "27%" }}
+          disabled={visibility}
+          id="standard-number"
+          type="number"
+          defaultValue={props.member.phone}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+         <p style={{position:"relative",alignItems:"center", left:"22.5px",top:"22px",fontSize: 24}}>
+          <b>Email</b>
+        </p>
+
+        <TextField
+          id="standard"
+          disabled={visibility}
+          style={{  position:"relative",left: "-55px", top: "2px", width: "61%" }}
+          defaultValue={props.member.email}
+        />
+        
+        <p style={{position:"relative", left:"2px",top:"-13px",fontSize: 24}}>
+          <b>Document</b>
+        </p>
+
+        <TextField
+          id="standard"
+          disabled={visibility}
+          style={{  position:"relative",left: "13px", top: "-30px", width: "24%" }}
+          defaultValue={props.member.document}
+        />
+
+
+        </p>
+        
+        <Button component={RouterLink} to={"/resetPassword"}>Reset password</Button>
+
+       </Box>
+>>>>>>> 9fc18ad4d7b9f835bf09598063dc1bebbb79ef9b
       </Box>
       <Box></Box>
     </Box>

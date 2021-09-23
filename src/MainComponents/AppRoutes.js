@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import Login from "./Login";
+import ResetPassword from "./ResetPassword";
 import ForgotPassword from "./ForgotPassword";
 import Main from "./Main";
 import ContactUs from "./ContactUs";
@@ -22,6 +23,14 @@ export default function AppRoutes(props) {
           openSnackbarByType={props.openSnackbarByType}
           setMember={props.setMember}
           setRoles={props.setRoles}
+        />
+      </Route>
+      <Route path="/resetPassword">
+        <ResetPassword
+          auth={props.auth}
+          handleLoader={props.handleLoader}
+          openSnackbarByType={props.openSnackbarByType}
+          member={props.member}
         />
       </Route>
       <Route path="/forgotPassword">

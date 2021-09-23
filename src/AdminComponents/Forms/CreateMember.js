@@ -38,6 +38,7 @@ export default function CreateMember(props) {
   const [password, setPassword] = useState("");
 
   const [active, setActive] = useState(true);
+  const [defaultImage, setDefaultImage] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
@@ -74,8 +75,10 @@ export default function CreateMember(props) {
       };
     }
   };
-  const generateRandomPassword = () => {
-    return "1234";
+  const generateRandomPassword = (lu, n, lc) => {
+    var chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ","0123456789", "abcdefghijklmnopqrstuvwxyz"];
+    var randPwd = [lu,n,lc].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
+    return randPwd
   };
   const submit = (e) => {
     e.preventDefault();
@@ -84,10 +87,11 @@ export default function CreateMember(props) {
         firstname: firstname,
         lastname: lastname,
         email: email,
-        password: generateRandomPassword(),
+        password: generateRandomPassword(3,2,3),
         document: document,
         phone: phone,
-        image_path: photo,
+        image_path: defaultImage ? "Default Image" : photo,
+        default_image: defaultImage,
       };
       handleLoader(true);
       axios
@@ -244,6 +248,20 @@ export default function CreateMember(props) {
                 {photoName !== "" && <>{photoName}</>}
               </label>
 
+              <FormControlLabel
+                value="Use default image?"
+                control={
+                  <Checkbox
+                    color="primary"
+                    checked={defaultImage}
+                    onChange={() => {
+                      setDefaultImage(!defaultImage);
+                    }}
+                  />
+                }
+                label="Use default image?"
+                labelPlacement="Use default image?"
+              />
               <FormControlLabel
                 value="Active *"
                 control={
