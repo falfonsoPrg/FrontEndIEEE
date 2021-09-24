@@ -66,7 +66,7 @@ export default function MainChapterView(props) {
     return (
         <Paper style={{marginTop: 60}}> 
                 <Box fontSize={20} textAlign="center" style={{marginTop: 30}}>
-                    <Typography variant="h4">{chapter.chapter_name}</Typography>
+                    <Typography style={{ fontWeight: "bold"}}variant="h4">{chapter.chapter_name}</Typography>
                 </Box>
             <Grid container spacing={1} style={{marginTop: 30}}>
                 <Grid item xs={5} style={{marginLeft: 30}}>
@@ -98,11 +98,14 @@ export default function MainChapterView(props) {
                 
                 <Grid item xs={12} style={{marginTop: 50}}>
                     <Box fontSize={20} textAlign="center">
-                        <Typography variant="h5">Members</Typography>
+                        <Typography style={{ fontWeight: "bold"}} variant="h4">Members of {chapter.chapter_name}</Typography>
                     </Box>
-                    <Slider images={bannerMembers} imageHeight={450} centerSlidePercentage={50} showLegend={true}/>
+                    <Grid style={{marginTop:20}}>
+                    <Slider images={bannerMembers} marginRight={10} imageHeight={244} centerSlidePercentage={25} showLegend={true}  />
+                    </Grid>
+                    <br/>
                 </Grid>
             </Grid>
         </Paper>
-    )
+    )   
 }

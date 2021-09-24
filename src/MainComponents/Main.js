@@ -8,12 +8,12 @@ import Card from '../SharedComponents/Card'
 export default function Main() {
     return (
         <div>
-            <Slider images={bannerImages} imageHeight={450}/>
-            <Container style={{marginTop: 60,marginBottom:60}}>
-                <Grid container spacing={5}>
+            <Slider images={bannerImages} imageHeight={480}/>
+            <Container style={{marginTop: 50,marginBottom:60}}>
+                <Grid container spacing={5} justifyContent="center" alignItems="center" direction="row">
                 
-                <Box fontSize={30} textAlign="center" style={{marginTop: 30}}>What is the student branch of the El Bosque University?</Box>
-                    <Typography paragraph style={{textAlign: "justify"}}>
+                <Box fontSize={30}justifyContent="center" alignItems="center" direction="row"  style={{marginTop: 30, fontWeight: "bold"}}>What is the student branch of the El Bosque University?</Box>
+                    <Typography paragraph style={{marginTop:10,textAlign: "justify"}}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
                         facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
@@ -40,14 +40,13 @@ export default function Main() {
             <Grid container spacing={3}>
             
                 <Grid container justifyContent="center" alignItems="center" direction="row">
-                    <Typography variant="h3" >
+                    <Typography variant="h4" >
                         Our Counselors
                     </Typography>
                 </Grid>
-                <Grid item xs={2}>
-                </Grid>
-                <Grid item xs={10}>
-                <Slider width={"70%"} images={boardOfDirectorImages} showThumb={false} thumbWidth={100} showLegend={true} centerSlidePercentage={50} imageHeight={500}/>
+              
+                <Grid style={{marginLeft:'5%'}}item xs={12}>
+                <Slider width={"95%"} marginRight={1} images={boardOfDirectorImages}  showLegend={true} centerSlidePercentage={25} imageHeight={300}/>
                 </Grid>
             </Grid>
         </div>
