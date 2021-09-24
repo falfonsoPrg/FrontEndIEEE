@@ -1,76 +1,25 @@
 import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import { flexbox } from "@material-ui/system";
+import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import EditIcon from "@material-ui/icons/Edit";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { Redirect,Link as RouterLink  } from "react-router-dom";
 import axios from "axios";
 
-<style>
-  @import
-  url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
-</style>;
-
 const useStyles = makeStyles((theme) => ({
-  first_box: {
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    borderRadius: 15,
-    height: 250,
-    width: 550,
-    marginTop: "15px",
-  },
-
-  second_box: {
-    background: "white",
-    borderRadius: 15,
-    height: 780,
-    width: 500,
-    marginLeft: "4%",
-  },
-
-  third_box: {
-    width: "390px",
-    height: "270px",
-    background: "white",
-    top: "-400px",
-    left: "78px",
-  },
-
-  Title: {
-    fontFamily: ["Quicksand", "sans-serif"],
-    textAlign: "center",
-    position: "relative",
-    width: 250,
-    top: "28%",
-    left: "-95%",
-    fontSize: 29,
-  },
-
-  Sub_Title: {
-    fontFamily: ["Quicksand", "sans-serif"],
-    textAlign: "center",
-    position: "relative",
-    top: "25%",
-    left: "-92%",
-    width: 250,
-    fontSize: 28,
-  },
-  input: {
-    display: "none",
-    left: 100,
-  },
-
   large: {
-    position: "relative",
-    marginLeft: "245px",
-    marginTop: "12px",
     width: theme.spacing(28),
     height: theme.spacing(28),
+  },
+  small: {
+    width: theme.spacing(10),
+    height: theme.spacing(10),
   },
 }));
 
@@ -80,194 +29,134 @@ export default function UserProfile(props) {
   const [visibility, setvisibility] = useState(true);
   const [hidden, sethidden] = useState(true);
 
-  const [hiddenL, sethiddenl] = useState(true);
+  const [firstname, setFirstName] = useState(props.member.firstname)
+  const [lastname, setLastname] = useState(props.member.lastname)
+  const [cellphone, setCellphone] = useState(props.member.phone)
+  const [email, setEmail] = useState(props.member.email)
+
+  const [disabled, setDisabled] = useState(true)
+
+  const userChapters =  props.member.Chapter_Members.length > 0 ? props.member.Chapter_Members : [] 
+
+  const { handleLoader, openSnackbarByType } = props
+
+  const sendData = (e) => {
+    const userToUpdate = {
+      member_id: props.member.member_id,
+      firstname: firstname,
+      lastname: lastname,
+      phone: cellphone,
+      email: email
+    }
+    handleLoader(true)
+    axios.put(process.env.REACT_APP_ENDPOINT + "/members", userToUpdate).then(res => {
+      handleLoader(false)
+      openSnackbarByType(true, "success", "Your data has been uptaded succesfully")
+    }).catch(err => {
+      handleLoader(false)
+      openSnackbarByType(true, "error", "Something wrong happened! Try again")
+    })
+  }
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-    >
+    <Grid container style={{marginTop:20}}>
       {!props.auth && <Redirect to="/" />}
-      <Box></Box>
-      <Box className={classes.first_box}>
-        <div>
-          <input
-            className={classes.input}
-            id="icon-button-edit"
-            type="button"
-          />
-          <label htmlFor="icon-button-edit">
-            <IconButton
-              color="primary"
-              aria-label="Edit"
-              display="flex"
-              justify-content="flex-end"
-              component="span"
-              onClick={() => {
-                setvisibility(false);
-                sethidden(false);
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          </label>
-        </div>
-        <Box></Box>
-        <Box
-          className={classes.second_box}
-          display="flex"
-          justifyContent="center"
-          boxShadow={8}
-          bgcolor="white"
-          color="BLACK"
-        >
+      <Grid item xs={4}>
+      <Grid container justifyContent="center" alignItems="center" direction="row">
+        <Paper elevation={3} >
           <Avatar
-            src="https://cutewallpaper.org/21/kobe-bryant-cartoon-wallpaper/Kobe-Bryant-24-Sports-Nba-basketball-Kobe-bryant-nba-.jpg"
-            className={classes.large}
-          />
+              src={props.member.image_path}
+              className={classes.large}
+            />
+        </Paper>
+      </Grid>
+      </Grid>
+      <Grid item xs={8}>
 
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="icon-button-file"
-            type="file"
-          />
-          {!hidden && (
-            <label htmlFor="icon-button-file">
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>
-          )}
-          <div display="flex" flexDirection="column" alignItems="center">
-            <p className={classes.Title}>
-              <b>{props.member.firstname}</b>
-            
-            </p>
-            <p className={classes.Sub_Title}>
-              <b>{props.member.lastname}</b>
-            </p>
-          </div>
-        </Box>
-        <Box className={classes.third_box} boxShadow={10} position="relative">
-          <p
-            style={{
-              position: "relative",
-              left: "136px",
-              top: "13px",
-              fontSize: 24,
-            }}
-          >
-            <b>Cellphone</b>
-          </p>
+      <Grid container justifyContent="center" alignItems="center" direction="column" >
+        <Paper style={{width:"100%"}}>
+          <Box fontSize={20} textAlign="center" style={{ marginTop: 30 }}>
+            Your data:
+          </Box>
+          <Grid item xs style={{ marginTop: 30 }}>
+            <TextField
+              id="firstname"
+              label="First name"
+              type="text"
+              variant="outlined"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstname}
+              disabled={disabled}
+            />
+          </Grid>
+          <Grid item xs style={{ marginTop: 30 }}>
+            <TextField
+              id="lastname"
+              label="Last name"
+              type="text"
+              variant="outlined"
+              onChange={(e) => setLastname(e.target.value)}
+              value={lastname}
+              disabled={disabled}
+            />
+          </Grid>
+          <Grid item xs style={{ marginTop: 30 }}>
+            <TextField
+              id="cellphone"
+              label="Cellphone"
+              type="text"
+              variant="outlined"
+              onChange={(e) => setCellphone(e.target.value)}
+              value={cellphone}
+              disabled={disabled}
+            />
+          </Grid>
+          <Grid item xs style={{ marginTop: 30 }}>
+            <TextField
+              id="email"
+              label="Email"
+              type="text"
+              variant="outlined"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              disabled={disabled}
+            />
+          </Grid>
 
-          <TextField
-            style={{ posistion: "relative",left: "105px", width: "auto"}}
-            disabled={visibility}
-            id="standard-number"
-            type="number"
-            defaultValue={props.member.phone} 
-            InputLabelProps={{
-              shrink: true,
-            }}
 
-            inputProps={{min: 0, style: { textAlign: 'center' }}}
-           
-          />
-          <p
-            style={{
-              position: "relative",
-              left: "160px",
-              top: "-5px",
-              fontSize: 24,
-            }}
-          >
-            <b>Email</b>
-          </p>
+          <Grid item xs>
+            {disabled && <Button onClick={() => setDisabled(false)}>Edit</Button>}
+            {!disabled && <Button onClick={() => {
+              setDisabled(true)
+              sendData()
+              }}>Send</Button>}
+              <Button component={RouterLink} to={"/resetPassword"}>Reset password</Button>
+          </Grid>
+          
+          <Box fontSize={20} textAlign="center" style={{ marginTop: 30 }}>
+            Your chapters:
+          </Box>
+          <Grid item xs>
+          {userChapters && userChapters.length > 0 && userChapters.map(e => (
+            <List key={e.chapter_id}>
+              <ListItem>
+                <ListItemAvatar style={{width:"20%", height:"20%", marginRight:30}}>
+                  {/* <Avatar src={e.Chapter.logo_path}
+                    className={classes.small}
+                    >
+                  </Avatar> */}
+                  <img src={e.Chapter.logo_path} width="100%" height="100%"></img>
+                </ListItemAvatar>
+                <ListItemText primary={e.Chapter.chapter_name} secondary={e.Role.role_name} />
+              </ListItem>
+            </List>
+          ))}
+          </Grid>
 
-          <TextField
-            id="standard"
-            disabled={visibility}
-            style={{
-              position: "relative",
-              left: "75px",
-              top: "-25px",
-              width: "260px",
-            }}
-            defaultValue={props.member.email}
+        </Paper>
+      </Grid>
 
-            inputProps={{min: 0, style: { textAlign: 'center' }}}
-          />
-            
-          <p
-            style={{
-              position: "relative",
-              left: "136px",
-              top: "-40px",
-              fontSize: 24,
-            }}
-          >
-            <b>Document</b>
-          </p>
-
-          <TextField
-            id="standard"
-            disabled={visibility}
-            style={{
-              position: "relative",
-              left: "105px",
-              top: "-60px",
-              width: "auto",
-              textAlign: "center",
-            }}
-            defaultValue={props.member.document}
-
-            inputProps={{min: 0, style: { textAlign: 'center' }}}
-          />
-          {hidden && (
-            <p
-              style={{
-                position: "relative",
-                left: "152px",
-                top: "-70px",
-                fontSize: 24,
-              }}
-            >
-              <b>Chapter</b>
-            </p>
-          )}
-
-          {console.log(props.member.Chapter_Members[0].Chapter.logo_path)}
-          {hidden && (
-            <img
-              src={props.member.Chapter_Members[0].Chapter.logo_path}
-              alt="logo"
-              width="550"
-            ></img>
-          )}
-
-          {!hidden && (
-            <Button
-              style={{ position: "relative", left: "-85px", top: "20px" }}
-              hidden={true}
-              variant="contained"
-              color="default"
-              className={classes.button}
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload
-            </Button>
-          )}
-          <Button component={RouterLink} to={"/resetPassword"}>Reset password</Button>
-        </Box>
-      </Box>
-      <Box></Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
