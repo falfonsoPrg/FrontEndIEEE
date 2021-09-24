@@ -46,7 +46,7 @@ export default function Main() {
                 </Grid>
               
                 <Grid style={{marginLeft:'5%'}}item xs={12}>
-                <Slider width={"95%"} marginRight={1} images={boardOfDirectorImages}  showLegend={true} centerSlidePercentage={25} imageHeight={300}/>
+                <Slider  timeTransition={380} width={"95%"} marginRight={1} images={boardOfDirectorImages}  showLegend={true} centerSlidePercentage={25} imageHeight={300}/>
                 </Grid>
             </Grid>
         </div>

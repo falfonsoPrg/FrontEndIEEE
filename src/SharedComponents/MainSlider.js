@@ -10,8 +10,9 @@ export default function MainSlider(props) {
     const centerSlidePercentage = props.centerSlidePercentage ? props.centerSlidePercentage : 100
     const marginRight = props.marginRight ? props.marginRight : 0
     const width = props.width ? props.width : "100%"
+    const timeTransition = props.timeTransition ? props.timeTransition : 1010
     return (
-        <Carousel autoPlay={true} transitionTime={1010} interval= {4800} showThumbs={showThumb} emulateTouch={true} infiniteLoop={true} thumbWidth={thumbWidth} centerSlidePercentage={centerSlidePercentage} centerMode={true} width={width}>
+        <Carousel autoPlay={true} transitionTime={timeTransition} interval= {4800} showThumbs={showThumb} emulateTouch={true} infiniteLoop={true} thumbWidth={thumbWidth} centerSlidePercentage={centerSlidePercentage} centerMode={true} width={width}>
             {props.images.images && props.images.images.length>0 && props.images.images.map((p, index) => {
                 return(
                 <div style={{marginRight}} key={index}>
