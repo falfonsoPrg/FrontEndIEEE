@@ -11,15 +11,19 @@ export default function MainSlider(props) {
     const marginRight = props.marginRight ? props.marginRight : 0
     const width = props.width ? props.width : "100%"
     const timeTransition = props.timeTransition ? props.timeTransition : 1010
+    const selectedItem = props.selectedItem ? props.selectedItem : 0
+
     return (
-        <Carousel autoPlay={true} transitionTime={timeTransition} interval= {4800} showThumbs={showThumb} emulateTouch={true} infiniteLoop={true} thumbWidth={thumbWidth} centerSlidePercentage={centerSlidePercentage} centerMode={true} width={width}>
-            {props.images.images && props.images.images.length>0 && props.images.images.map((p, index) => {
-                return(
-                <div style={{marginRight}} key={index}>
-                    <img  src={p.path} height={imageHeight}  alt=""/>
-                    {showLegend && (<p className="legend">{p.legend}</p>)}
-                </div>)
-            })}
-        </Carousel>
+        <div >
+            <Carousel showStatus={false}selectedItem={selectedItem} autoPlay={true} transitionTime={timeTransition} interval= {4800} showThumbs={showThumb} emulateTouch={true} infiniteLoop={true} thumbWidth={thumbWidth} centerSlidePercentage={centerSlidePercentage} centerMode={true} width={width}>
+                {props.images.images && props.images.images.length>0 && props.images.images.map((p, index) => {
+                    return(
+                    <div style={{marginRight}} key={index}>
+                        <img  src={p.path} height={imageHeight}  alt=""/>
+                        {showLegend && (<p className="legend">{p.legend}</p>)}
+                    </div>)
+                })}
+            </Carousel>
+        </div>
     )
 }

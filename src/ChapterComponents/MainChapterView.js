@@ -64,27 +64,27 @@ export default function MainChapterView(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
     return (
-        <Paper style={{marginTop: 60}}> 
-                <Box fontSize={20} textAlign="center" style={{marginTop: 30}}>
+        <Paper style={{marginTop: 20, padding:20}}> 
+                <Box fontSize={20} textAlign="center" >
                     <Typography style={{ fontWeight: "bold"}}variant="h4">{chapter.chapter_name}</Typography>
                 </Box>
-            <Grid container spacing={1} style={{marginTop: 30}}>
-                <Grid item xs={5} style={{marginLeft: 30}}>
+            <Grid container spacing={1} style={{marginTop: 20}}>
+                <Grid item xs={6} >
                     <Box fontSize={20} textAlign="center">
-                        <Typography variant="h5">General description</Typography>
+                        <Typography style={{ fontWeight: "bold"}} variant="h5">General description</Typography>
                     </Box>
-                    <Paper elevation={3} variant="outlined" style={{padding: 10}}>
+                    <Paper elevation={0}  style={{padding: 10}}>
                         <Box fontSize={10} textAlign="center">
-                            <Typography>
+                            <Typography style={{textAlign:"justify"}}>
                                 {chapter.description}
                             </Typography>
                         </Box>
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper elevation={3} variant="outlined" style={{padding: 10}}>
+                    <Paper elevation={2} style={{padding: 10}}>
                         <Container>
-                                <img src={chapter.logo_path} alt='logo' width='550'></img>
+                                <img src={chapter.logo_path} alt='logo' width='100%'></img>
                         </Container>
                     </Paper>
                 </Grid>
@@ -101,7 +101,7 @@ export default function MainChapterView(props) {
                         <Typography style={{ fontWeight: "bold"}} variant="h4">Members of {chapter.chapter_name}</Typography>
                     </Box>
                     <Grid style={{marginTop:20}}>
-                    <Slider timeTransition={500} images={bannerMembers} marginRight={10} imageHeight={244} centerSlidePercentage={25} showLegend={true}  />
+                    <Slider selectedItem={1} timeTransition={500} images={bannerMembers} marginRight={10} imageHeight={244} centerSlidePercentage={25} showLegend={true}  />
                     </Grid>
                     <br/>
                 </Grid>

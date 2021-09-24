@@ -40,13 +40,13 @@ export default function Main() {
             <Grid container spacing={3}>
             
                 <Grid container justifyContent="center" alignItems="center" direction="row">
-                    <Typography variant="h4" >
+                    <Typography style={{ fontWeight: "bold"}} variant="h5" >
                         Our Counselors
                     </Typography>
                 </Grid>
               
                 <Grid style={{marginLeft:'5%'}}item xs={12}>
-                <Slider  timeTransition={380} width={"95%"} marginRight={1} images={boardOfDirectorImages}  showLegend={true} centerSlidePercentage={25} imageHeight={300}/>
+                <Slider selectedItem={1}  timeTransition={380} width={"95%"} marginRight={1} images={boardOfDirectorImages}  showLegend={true} centerSlidePercentage={25} imageHeight={300}/>
                 </Grid>
             </Grid>
         </div>

@@ -18,6 +18,7 @@ import CalendarArea from "./Calendars/CalendarArea";
 const useStyles = makeStyles((theme) => ({
   appbar: {
     alignItems: "center",
+    paddingLeft: "10%"
   },
   mt: {
     marginRight: 100,
@@ -29,7 +30,7 @@ export default function ChapterRoutes(props) {
   const classes = useStyles();
   return (
     <div>
-      <AppBar position="static" color="primary" className={classes.appbar}>
+      <AppBar  position="static" color="primary" className={classes.appbar}>
         <ButtonGroup
           size="large"
           disableElevation
