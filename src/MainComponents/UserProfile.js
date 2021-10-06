@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export default function UserProfile(props) {
   const classes = useStyles();
 
-  const [visibility, setvisibility] = useState(true);
-  const [hidden, sethidden] = useState(true);
-
   const [firstname, setFirstName] = useState(props.member.firstname)
   const [lastname, setLastname] = useState(props.member.lastname)
   const [cellphone, setCellphone] = useState(props.member.phone)
@@ -145,7 +142,7 @@ export default function UserProfile(props) {
                     className={classes.small}
                     >
                   </Avatar> */}
-                  <img src={e.Chapter.logo_path} width="100%" height="100%"></img>
+                  <img alt={e.Chapter.logo_path} src={e.Chapter.logo_path} width="100%" height="100%"></img>
                 </ListItemAvatar>
                 <ListItemText primary={e.Chapter.chapter_name} secondary={e.Role.role_name} />
               </ListItem>

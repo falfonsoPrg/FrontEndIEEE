@@ -77,8 +77,8 @@ export default function CreateMember(props) {
   };
   const generateRandomPassword = (lu, n, lc) => {
     var chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ","0123456789", "abcdefghijklmnopqrstuvwxyz"];
-    var randPwd = [lu,n,lc].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join('');
-    return randPwd
+    setPassword([lu,n,lc].map(function(len, i) { return Array(len).fill(chars[i]).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('') }).concat().join('').split('').sort(function(){return 0.5-Math.random()}).join(''))
+    return password
   };
   const submit = (e) => {
     e.preventDefault();

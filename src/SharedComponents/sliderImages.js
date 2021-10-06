@@ -32,6 +32,10 @@ const images = {
             path: "assets/bannerImages/BannerIEEE8.png",
             legend: "Computer"
         },
+        {
+            path: "assets/bannerImages/BannerIEEE9.png",
+            legend: "Computer"
+        },
     ]
 }
 export default images;

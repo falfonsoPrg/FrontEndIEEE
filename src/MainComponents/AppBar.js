@@ -25,8 +25,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
@@ -35,6 +33,7 @@ import SecurityIcon from '@material-ui/icons/Security';
 import axios from 'axios'
 import AppRoutes from './AppRoutes'
 import ValidatePermissions from "../ValidatePermissions"
+import CustomIcon from "../SharedComponents/CustomIcon"
 
 const drawerWidth = 240;
 
@@ -285,7 +284,7 @@ export default function MiniDrawer() {
         <List>
           {chapters && chapters.length >0 && chapters.map((chapter, index) => (
             <ListItem button key={index} component={RouterLink} to={"/chapter/"+chapter.chapter_id}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon><CustomIcon name={chapter.icon} /></ListItemIcon>
               <ListItemText primary={chapter.acronym} />
             </ListItem>
           ))}
@@ -293,12 +292,12 @@ export default function MiniDrawer() {
         <Divider />
         <List>
             <ListItem button key={"Contact Us"} component={RouterLink} to="/contactUs">
-              <ListItemIcon ><MailIcon /></ListItemIcon>
+              <ListItemIcon ><CustomIcon name="fas fa-mail-bulk" /></ListItemIcon>
               <ListItemText primary={"Contact Us"} />
             </ListItem>
             {ValidatePermissions.isAdmin(roles) && 
             <ListItem button key={"Dashboard Admin"} component={RouterLink} to="/admin">
-              <ListItemIcon ><SecurityIcon /></ListItemIcon>
+              <ListItemIcon ><CustomIcon name="fas fa-user-shield" /></ListItemIcon>
               <ListItemText primary={"Dashboard Admin"} />
             </ListItem>}
         </List>

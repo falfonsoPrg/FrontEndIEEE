@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {
-  useRouteMatch,
-  Link as RouterLink,
   useParams
 } from "react-router-dom";
-import { Grid, Typography, Button } from "@material-ui/core";
-import Card from "../../SharedComponents/Card";
-import SharedTimeline from "../../SharedComponents/Timeline";
+import { Grid } from "@material-ui/core";
 import axios from "axios";
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
@@ -14,15 +10,13 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
 import moment from "moment";
 
-export default function CalendarArea(props) {
-  let { url } = useRouteMatch();
+export default function CalendarArea({handleLoader, openSnackbarByType}) {
   let { id } = useParams();
 
   const [events, setEvents] = useState([])
-  const {handleLoader, openSnackbarByType} = props
 
   useEffect(() => {
-    props.handleLoader(true);
+    handleLoader(true);
     axios
       .get(process.env.REACT_APP_ENDPOINT + "/chapters/" + id)
       .then((res) => {
@@ -32,14 +26,15 @@ export default function CalendarArea(props) {
             e.id = e.event_id
             aux.push({ title: e.title, date: moment(e.start_date).utc().format('YYYY-MM-DD') })
           });
-        props.handleLoader(false);
+        handleLoader(false);
         setEvents(aux);
       })
       .catch((err) => {
-        props.openSnackbarByType(true, "error", "Chapter couldn't be fetched");
-        props.handleLoader(false);
+        openSnackbarByType(true, "error", "Chapter couldn't be fetched");
+        handleLoader(false);
       });
-  }, []);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <Grid container spacing={10}>
