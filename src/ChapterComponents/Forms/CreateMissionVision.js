@@ -10,6 +10,8 @@ import {
   Box,
 } from "@material-ui/core/";
 import { useParams } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+
 import SendTwoToneIcon from "@material-ui/icons/Send";
 
 export default function CreateMission(props) {
@@ -66,9 +68,10 @@ export default function CreateMission(props) {
       setVerification(true);
     }
   };
+
   return (
     <div>
-      <Box fontSize={20} textAlign="center" marginTop={"1%"}>
+      <Box fontSize={20} textAlign="center" marginTop={"1%"}  >
         <Typography style={{ fontWeight: "bold" }} variant="h4">
           Update the mission and vision
         </Typography>
