@@ -12,13 +12,14 @@ import MainChapterView from "./MainChapterView";
 
 import CreateEvent from "./Forms/CreateEvent";
 import CreateGallery from "./Forms/CreateGallery";
+import CreateMissionVision from "./Forms/CreateMissionVision";
 
 import CalendarArea from "./Calendars/CalendarArea";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
     alignItems: "center",
-    paddingLeft: "10%"
+    paddingLeft: "5%",
   },
   mt: {
     marginRight: 100,
@@ -30,7 +31,7 @@ export default function ChapterRoutes(props) {
   const classes = useStyles();
   return (
     <div>
-      <AppBar  position="static" color="primary" className={classes.appbar}>
+      <AppBar position="static" color="primary" className={classes.appbar}>
         <ButtonGroup
           size="large"
           disableElevation
@@ -49,13 +50,16 @@ export default function ChapterRoutes(props) {
             Gallery & Events
           </Button>
           <Button
-            className={classes.mt} component={RouterLink} to={`${url}/calendar`}>
+            className={classes.mt}
+            component={RouterLink}
+            to={`${url}/calendar`}
+          >
             Calendar
           </Button>
         </ButtonGroup>
       </AppBar>
       <Switch>
-      <Route path={`${path}/events/createGallery`}>
+        <Route path={`${path}/events/createGallery`}>
           <CreateGallery
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
@@ -79,13 +83,18 @@ export default function ChapterRoutes(props) {
             openSnackbarByType={props.openSnackbarByType}
           />
         </Route>
+        <Route path={`${path}/createMissionAndVision`}>
+          <CreateMissionVision
+            handleLoader={props.handleLoader}
+            openSnackbarByType={props.openSnackbarByType}
+          />
+        </Route>
         <Route path={path}>
           <MainChapterView
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
           />
         </Route>
-
       </Switch>
     </div>
   );

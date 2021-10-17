@@ -82,7 +82,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                 <IconButton aria-label="add" component={RouterLink} to={"/admin/add/chapter/"+params.value}>
                     <PersonAddIcon />
                 </IconButton>
-                <IconButton aria-label="info">
+                <IconButton aria-label="info" component={RouterLink} to={"/chapter/"+params.value+"/mision"}>
                     <InfoIcon />
                 </IconButton>
             </strong>

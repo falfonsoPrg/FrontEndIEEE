@@ -101,7 +101,7 @@ export default function MainChapterView(props) {
                         <Typography style={{ fontWeight: "bold"}} variant="h4">Members of {chapter.chapter_name}</Typography>
                     </Box>
                     <Grid style={{marginTop:20}}>
-                    <Slider selectedItem={1} timeTransition={500} images={bannerMembers} marginRight={10} imageHeight={244} centerSlidePercentage={25} showLegend={true}  />
+                    <Slider selectedItem={1} timeTransition={500} images={bannerMembers} marginRight={10} imageHeight={290} centerSlidePercentage={25} showLegend={true}  />
                     </Grid>
                     <br/>
                 </Grid>
