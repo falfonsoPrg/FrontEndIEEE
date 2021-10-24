@@ -59,7 +59,7 @@ export default function ChapterRoutes(props) {
         </ButtonGroup>
       </AppBar>
       <Switch>
-        <Route path={`${path}/events/createGallery`}>
+        <Route path={`${path}/events/createGallery/:event_id`}>
           <CreateGallery
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
@@ -75,6 +75,7 @@ export default function ChapterRoutes(props) {
           <EventArea
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
+            roles={props.roles}
           />
         </Route>
         <Route path={`${path}/calendar`}>
@@ -93,6 +94,7 @@ export default function ChapterRoutes(props) {
           <MainChapterView
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
+            roles={props.roles}
           />
         </Route>
       </Switch>

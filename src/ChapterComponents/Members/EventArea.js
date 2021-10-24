@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useRouteMatch,
   Link as RouterLink,
@@ -8,13 +8,19 @@ import { Grid, Typography, Button } from "@material-ui/core";
 import Card from "../../SharedComponents/Card";
 import SharedTimeline from "../../SharedComponents/Timeline";
 import axios from "axios";
+import ValidatePermissions from '../../ValidatePermissions'
 
 export default function EventArea(props) {
   let { url } = useRouteMatch();
   let { id } = useParams();
-  const [theEvents, setTheEvents] = React.useState([]);
-  const [title, setTitle] = React.useState("Default");
-  const [description, setDescription] = React.useState("Default");
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState({
+    event_id: -1,
+    chapter_id: id,
+    title: "Default title",
+    description: "Default description",
+    Galleries: []
+  })
 
   const [thegallery2] = React.useState([
     {
@@ -42,33 +48,34 @@ export default function EventArea(props) {
       </Grid>
     );
   });
-  //En caso de usar las peticiones al back para las fotos y los eventos se guardan en constantes
+
   useEffect(() => {
     props.handleLoader(true);
-    axios
-      .get(process.env.REACT_APP_ENDPOINT + "/chapters/" + id)
-      .then((res) => {
-        props.handleLoader(false);
-        setTheEvents(res.data.response.Events);
-        if (res.data.response.Events) {
-          setTitle(res.data.response.Events[0].title);
-          setDescription(res.data.response.Events[0].description);
-        }
-      })
-      .catch((err) => {
-        props.openSnackbarByType(true, "error", "Chapter couldn't be fetched");
-        props.handleLoader(false);
-      });
+    axios.get(process.env.REACT_APP_ENDPOINT + "/events/byChapter/" + id)
+    .then((res) => {
+      props.handleLoader(false);
+      setEvents(res.data.response);
+      console.log(res.data.response)
+      if (res.data.response) {
+        setSelectedEvent(res.data.response[0])
+      }
+    })
+    .catch((err) => {
+      props.openSnackbarByType(true, "error", "Chapter couldn't be fetched");
+      props.handleLoader(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setSelectedEvent]);
 
   const changeEvent = (nEvent) => {
-    setTitle(nEvent.title);
-    setDescription(nEvent.description);
+    setSelectedEvent(nEvent)
   };
 
   return (
     <Grid container spacing={10} style={{marginTop: "-1%"}}>
+
+
+
       <Grid item xs={3} style={{textAlign: "center"}}>
         <Typography
           style={{ fontWeight: "bold", textAlign: "center" }}
@@ -77,22 +84,32 @@ export default function EventArea(props) {
           Events
         </Typography>
         <br />
-        <SharedTimeline
-          align={"right"}
-          content={theEvents}
-          changeFunction={changeEvent}
-        />
-        <Button variant="contained" color="primary"component={RouterLink}
+        {ValidatePermissions.canCreate(props.roles) && (<Button variant="contained" color="primary"component={RouterLink}
           to={`${url}/createEvent`}>
           Create Event
-        </Button>
+        </Button>)}
+        <SharedTimeline
+          align={"right"}
+          content={events}
+          changeFunction={changeEvent}
+        />
+        
       </Grid>
-      <Grid item xs={9} >
+      {!selectedEvent && (
+        <Grid item xs={9}>
+        <Typography
+          style={{ fontWeight: "bold", textAlign: "center" }}
+          variant="h5"
+        >
+          This chapter has no events!
+        </Typography>
+        </Grid>)}
+      {selectedEvent && <Grid item xs={9} >
         <Typography
           style={{ fontWeight: "bold", textAlign: "center" }}
           variant="h4"
         >
-          {title}
+          {selectedEvent && (selectedEvent.title+"")}
         </Typography>
         <br />
         <Typography style={{ fontWeight: "bold" }} variant="h5">
@@ -103,29 +120,46 @@ export default function EventArea(props) {
           paragraph
           style={{ textAlign: "justify", alignContent: "left" }}
         >
-          {description}
+          {selectedEvent && (<div>{selectedEvent.description}</div>)}
         </Typography>
 
         <Typography
-          style={{ fontWeight: "bold", marginTop: "5%", marginBottom: "3%" }}
+          style={{ fontWeight: "bold", marginTop: "5%", marginBottom: "3%"}}
           variant="h5"
         >
           Gallery
+          {ValidatePermissions.canCreate(props.roles) &&<Button
+                  variant="contained"
+                  color="primary"
+                  component={RouterLink}
+                  style={{marginLeft: 25}}
+                  to={`${url}/createGallery/${selectedEvent.event_id}`}
+                >
+              Upload photos
+            </Button>}
         </Typography>
-        <Grid container spacing={9}>
-          {props.gallery ? props.gallery : myGallery}
+        <Grid container>
+            {selectedEvent && selectedEvent.Galleries && selectedEvent.Galleries.length > 0 && selectedEvent.Galleries.map(g => {
+              return(
+
+                  <Grid item xs={4} style={{margin:5}} key={g.gallery_id}>
+                    <Card
+                      title={g.gallery_name}
+                      cardTitle={g.gallery_name}
+                      imagePath={g.path}
+                      cardDescription={g.description}
+                      width={1000}
+                    ></Card>
+                    <br></br>
+                  </Grid>
+              )
+            })}
+            {selectedEvent && selectedEvent.Galleries && selectedEvent.Galleries.length == 0 && ("This event has no images")}
+
+
         </Grid>
 
-        <Button
-          variant="contained"
-          color="primary"
-          component={RouterLink}
-          style={{marginTop:"2%"}}
-          to={`${url}/createGallery`}
-        >
-          upload photo
-        </Button>
-      </Grid>
+      </Grid>}
     </Grid>
   );
 }

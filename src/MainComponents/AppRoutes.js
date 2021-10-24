@@ -48,6 +48,7 @@ export default function AppRoutes(props) {
         <ChapterRoutes
           handleLoader={props.handleLoader}
           openSnackbarByType={props.openSnackbarByType}
+          roles={props.roles}
         />
       </Route>
       <Route path="/imageList">

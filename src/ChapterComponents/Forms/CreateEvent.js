@@ -7,34 +7,21 @@ import {
   Button,
   TextField,
 } from "@material-ui/core/";
-import { useRouteMatch, Link as RouterLink, useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import ImgList from "../../SharedComponents/ImgList";
 import moment from "moment";
 import axios from "axios";
 
 export default function CreateEvent(props) {
   let { id } = useParams();
-  let { url } = useRouteMatch();
+  const history = useHistory();
 
-  const getEventTypes = () => {
-    axios
-      .get(process.env.REACT_APP_ENDPOINT + "/eventtypes/")
-      .then((res) => {
-        setEventType(res.data.response);
-      })
-      .catch((err) => {
-        //openSnackbarByType(true, "error", "Chapters couldn't be found");
-      });
-  };
-  useEffect(getEventTypes, []);
-
-  const [title, setTitle] = React.useState({ input: "a", error: false });
+  const [title, setTitle] = React.useState({ input: "", error: false });
   const [description, setDescription] = React.useState({
     input: "",
     error: false,
@@ -42,29 +29,26 @@ export default function CreateEvent(props) {
   const [startDate, setStartDate] = React.useState({ input: "", error: false });
   const [endDate, setEndDate] = React.useState({ input: "", error: false });
   const [eventType, setEventType] = React.useState([]);
-  const [eventTypeId, setEventTypeId] = React.useState({
-    input: -1,
-    error: false,
-  });
+  const [eventTypeId, setEventTypeId] = React.useState(null);
   const [verification, setVerification] = React.useState(false);
-  const itemData = [
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Añadir Imágen",
-      author: "",
-    },
-    {
-      img: "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
-      title: "Añadir Imágen",
-      author: "",
-    },
-  ];
-  const [selectedDate1, setSelectedDate1] = React.useState(
-    new Date("2021-06-20")
-  );
-  const [selectedDate2, setSelectedDate2] = React.useState(
-    new Date("2021-07-20")
-  );
+  const [selectedDate1, setSelectedDate1] = React.useState(null);
+  const [selectedDate2, setSelectedDate2] = React.useState(null);
+
+  const getEventTypes = () => {
+    axios
+      .get(process.env.REACT_APP_ENDPOINT + "/eventtypes/")
+      .then((res) => {
+        setEventType(res.data.response);
+      })
+      .catch(() => {
+        //openSnackbarByType(true, "error", "Chapters couldn't be found");
+      });
+  };
+  useEffect(getEventTypes, []);
+
+  const goBack = () => {
+    history.goBack();
+  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -73,7 +57,7 @@ export default function CreateEvent(props) {
       description: description.input,
       start_date: moment(startDate).format("YYYY-MM-DD"),
       end_date: moment(endDate).format("YYYY-MM-DD"),
-      event_type_id: eventTypeId.input,
+      event_type_id: eventTypeId.event_type_id,
       chapter_id: parseInt(id),
     };
     verificationForm();
@@ -88,8 +72,9 @@ export default function CreateEvent(props) {
             "Event created succesfully"
           );
           props.handleLoader(false);
+          goBack()
         })
-        .catch((err) => {
+        .catch(() => {
           props.openSnackbarByType(
             true,
             "error",
@@ -110,7 +95,6 @@ export default function CreateEvent(props) {
     setEndDate((error) => ({ ...error, input: date }));
   }
   const verificationForm = () => {
-    console.log(title.input);
     if (!title.input || title.input.length < 7) {
       setVerification(false);
       props.openSnackbarByType(
@@ -135,27 +119,6 @@ export default function CreateEvent(props) {
         "You need to select a start date"
       );
       setStartDate((input) => ({ ...input, error: true }));
-    } else if (!endDate.input) {
-      setVerification(false);
-      props.openSnackbarByType(true, "error", "You need to select a end date");
-      setEndDate((input) => ({ ...input, error: true }));
-    } else if (startDate.input > endDate.input) {
-      setVerification(false);
-      props.openSnackbarByType(
-        true,
-        "error",
-        "End date must be greater than start date"
-      );
-      setStartDate((input) => ({ ...input, error: true }));
-      setEndDate((input) => ({ ...input, error: true }));
-    } else if (eventTypeId.input < 0) {
-      setVerification(false);
-      props.openSnackbarByType(
-        true,
-        "error",
-        "You must select an type of event"
-      );
-      setEventType((input) => ({ ...input, error: true }));
     } else {
       setVerification(true);
     }
@@ -169,7 +132,7 @@ export default function CreateEvent(props) {
         style={{ height: "500px", marginTop: "5%" }}
       >
         <Grid item xs={5}>
-          <Paper xelevation={3}>
+          <Paper elevation={3}>
             <br />
 
             <Grid
@@ -178,7 +141,7 @@ export default function CreateEvent(props) {
               align="center"
               style={{ margin: 10, marginRight: 10 }}
             >
-              <Grid item xs={12} justify="center">
+              <Grid item xs={12}>
                 <Typography
                   style={{ fontWeight: "bold", textAlign: "center" }}
                   variant="h4"
@@ -226,8 +189,6 @@ export default function CreateEvent(props) {
               <Grid item xs={12} style={{ margin: 10 }}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid
-                    item
-                    xs={12}
                     container
                     justifyContent="space-between"
                     align="center"
@@ -271,34 +232,33 @@ export default function CreateEvent(props) {
                   <Grid item xs={12}>
                     <Autocomplete
                       id="typeOfEvent"
-                      onClick={() =>{
-                        try{setEventTypeId((input) => ({ ...input, error: false }))}catch(e){}}
-                      }
                       options={eventType}
                       getOptionLabel={(option) => option.event_type}
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          error={eventTypeId.error}
-
                           label="Type of Event"
                           variant="outlined"
                         />
                       )}
-                      
-                      onInputChange={(event, eventType) => {
-                        try {
-                          setEventTypeId((error) => ({
-                            ...error,
-                            input: eventType.event_type_id,
-                          }));
-                        } catch (e) {}
+                
+                      onChange={(event, eventType) => {
+                          console.log(eventType)
+                          setEventTypeId(eventType);
                       }}
                     />
                   </Grid>
                 </MuiPickersUtilsProvider>
               </Grid>
               <Grid item xs={12} style={{ margin: 10 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginBottom: 30, marginTop: 10, marginRight: 30 }}
+                  onClick={goBack}
+                >
+                  Back
+                </Button>
                 <Button
                   variant="contained"
                   color="primary"
@@ -311,13 +271,6 @@ export default function CreateEvent(props) {
               <br />
             </Grid>
           </Paper>
-        </Grid>
-        <Grid item xs={5}>
-          <ImgList
-            items={itemData}
-            component={RouterLink}
-            to={`${url}/createGallery`}
-          />
         </Grid>
       </Grid>
     </div>

@@ -13,8 +13,6 @@ export default function CustomIcon(props) {
             node.parentNode.removeChild(node);
         };
     }, []);
-    
-    console.log(props.name)
     return (
         <Icon className={props.name} fontSize="small"  style={{width:"100%"}}/>
     )

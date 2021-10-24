@@ -32,7 +32,7 @@ export default function ImgList(props) {
     itemData = props.items;
   }
   return (
-    <Grid xs={11}>
+    <Grid item xs={11}>
       <div className={classes.root}>
         <ImageList rowHeight={180} className={classes.imageList}>
           <ImageListItem key="Subheader" cols={2} style={{ height: "auto" }}>
