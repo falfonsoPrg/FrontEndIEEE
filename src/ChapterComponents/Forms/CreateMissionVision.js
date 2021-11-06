@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import "date-fns";
 import {
@@ -9,70 +9,60 @@ import {
   TextField,
   Box,
 } from "@material-ui/core/";
-import { useParams } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-
+import { useParams}  from "react-router-dom";
 import SendTwoToneIcon from "@material-ui/icons/Send";
+import axios from "axios";
 
-export default function CreateMission(props) {
-  let { chapter_id } = useParams();
 
-  const [title, setTitle] = React.useState({ input: "a", error: false });
-  const [description, setDescription] = React.useState({
-    input: "",
-    error: false,
-  });
 
-  const [verification, setVerification] = React.useState(false);
+export default function CreateMissionVision(props) {
+  let   {id}  = useParams();
+  //Creating the mission, vision and goals
+  const [mission,setMission] = React.useState({input: "",
+  error: false});
+  const [vision,setVision] = React.useState({input: "", error: false});
+  const goals = 'This are the goals of the chapter'
 
   const submit = (e) => {
     e.preventDefault();
 
-    verificationForm();
-    /*  
-      axios
-        .post(process.env.REACT_APP_ENDPOINT + "/chapters/"+chapter_id)
-        .then((res) => {
-          console.log(res)
-          props.openSnackbarByType(
-            true,
-            "success",
-            "Event created succesfully"
-          );
-          props.handleLoader(false);
-        })
-        .catch((err) => {
-          console.log(err+"err")
-          props.openSnackbarByType(
-            true,
-            "error",
-            "Event couldn't be created succesfully"
-          );
-
-          props.handleLoader(false);
-        });
-    */
+    const MissionandVision = {
+      mission: mission.input,
+      vission: vision.input,
+      objectives: goals,
+      chapter_id:parseInt(id)
+    };
+    if(verificationForm()){
+    axios
+      .post(process.env.REACT_APP_ENDPOINT+`/chaptersinfo/`, MissionandVision)
+      .then(() => {
+        props.openSnackbarByType(true, "success", "Mission and vision created successfully.");
+      })
+      .catch((res) => {
+        props.openSnackbarByType(true, "error", "Error creating mission and vision");
+      });
+    }
   };
 
   const verificationForm = () => {
-    console.log(title.input);
-    if (!description.input || description.input.split(" ").length < 80) {
-      setVerification(false);
+    if (vision.input.split(" ").length < 10 || mission.input.split(" ").length < 10) {
       props.openSnackbarByType(
         true,
         "error",
-        "You need to provide a description with almost 80 words"
+        "The vision and the mission should have at least 50 words"
       );
-      setDescription((input) => ({ ...input, error: true }));
+      setVision((input) => ({ ...input, error: true }));
+      setMission((input) => ({ ...input, error: true }));
+      return false;
     } else {
-      setVerification(true);
+      return true;
     }
   };
 
   return (
     <div>
-      <Box fontSize={20} textAlign="center" marginTop={"1%"}  >
-        <Typography style={{ fontWeight: "bold" }} variant="h4">
+      <Box fontSize={20}  marginTop={"1%"}  >
+        <Typography style={{ fontWeight: "bold", textAlign: "center"  }} variant="h4">
           Update the mission and vision
         </Typography>
       </Box>
@@ -94,8 +84,6 @@ export default function CreateMission(props) {
               <Grid
                 item
                 xs={12}
-                textAlign="center"
-                justifyContent="center"
                 style={{
                   width: "100%",
                   height: "120px",
@@ -107,7 +95,6 @@ export default function CreateMission(props) {
                 <Typography
                   style={{
                     fontWeight: "bold",
-                    textAlign: "center",
                     color: "white",
                   }}
                   variant="h4"
@@ -119,15 +106,15 @@ export default function CreateMission(props) {
               <Grid item xs={12} style={{ margin: 10 }}>
                 <TextField
                   onClick={() =>
-                    setTitle((input) => ({ ...input, error: false }))
+                    setMission((input) => ({ ...input, error: false }))
                   }
                   multiline
-                  error={title.error}
+                  error={mission.error}
                   label="Mission of the Chapter"
                   rows={8}
                   fullWidth
                   onChange={(e) =>
-                    setTitle((error) => ({ ...error, input: e.target.value }))
+                    setMission((error) => ({ ...error, input: e.target.value }))
                   }
                 />
               </Grid>
@@ -149,8 +136,7 @@ export default function CreateMission(props) {
               <Grid
                 item
                 xs={12}
-                textAlign="center"
-                justifyContent="center"
+                
                 style={{
                   width: "100%",
                   height: "130px",
@@ -162,7 +148,6 @@ export default function CreateMission(props) {
                 <Typography
                   style={{
                     fontWeight: "bold",
-                    textAlign: "center",
                     color: "white",
                   }}
                   variant="h4"
@@ -174,15 +159,15 @@ export default function CreateMission(props) {
               <Grid item xs={12} style={{ margin: 10 }}>
                 <TextField
                   onClick={() =>
-                    setTitle((input) => ({ ...input, error: false }))
+                    setVision((input) => ({ ...input, error: false }))
                   }
                   multiline
-                  error={title.error}
+                  error={vision.error}
                   label="Vision of the Chapter"
                   rows={8}
                   fullWidth
                   onChange={(e) =>
-                    setTitle((error) => ({ ...error, input: e.target.value }))
+                    setVision((error) => ({ ...error, input: e.target.value }))
                   }
                 />
               </Grid>
@@ -195,7 +180,7 @@ export default function CreateMission(props) {
       <Grid
         item
         xs={12}
-        style={{ justifyContent: "center", alignItems: "center" }}
+        style={{  alignItems: "center" }}
       >
         <Button
           variant="contained"

@@ -22,32 +22,6 @@ export default function EventArea(props) {
     Galleries: []
   })
 
-  const [thegallery2] = React.useState([
-    {
-      title: "name",
-      path: "https://www.enter.co/wp-content/uploads/2019/05/Astronauta.jpg",
-      description: "Había una vez asdsadsa 0",
-    },
-    {
-      title: "name",
-      path: "https://www.enter.co/wp-content/uploads/2019/05/Astronauta.jpg",
-      description: "Había una vez asdsadsa 3",
-    },
-  ]);
-
-  const myGallery = thegallery2.map((gallery) => {
-    return (
-      <Grid item xs={4} key={gallery.description}>
-        <Card
-          title={gallery.title}
-          cardTitle={gallery.title}
-          imagePath={gallery.path}
-          cardDescription={gallery.description}
-        ></Card>
-        <br></br>
-      </Grid>
-    );
-  });
 
   useEffect(() => {
     props.handleLoader(true);

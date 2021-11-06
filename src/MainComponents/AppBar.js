@@ -4,20 +4,23 @@ import clsx from "clsx";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
+import {
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  CssBaseline,
+  Typography,
+  Divider,
+  ListItem,
+  ListItemText,
+  MenuItem,
+  Menu,
+  Backdrop,
+  CircularProgress,
+  Snackbar,
+} from "@material-ui/core/";
+
 import MuiAlert from "@material-ui/lab/Alert";
 
 //ICONS
@@ -311,7 +314,14 @@ export default function MiniDrawer() {
         }}
       >
         <div className={classes.toolbar}>
-          {handleDrawerClose ? <Typography variant="h6"  style={{ fontWeight: "bold"}}> Chapters</Typography> : ""}
+          {handleDrawerClose ? (
+            <Typography variant="h6" style={{ fontWeight: "bold" }}>
+              {" "}
+              Chapters
+            </Typography>
+          ) : (
+            ""
+          )}
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />

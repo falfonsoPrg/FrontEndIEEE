@@ -19,7 +19,7 @@ export default function AdminRoutes(props) {
                 <AddMemberToChapter handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
             </Route>
             <Route path="/admin/create/role/:role_id">
-                <CreateRole handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
+                <CreateRole handleLoader ={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
             </Route>
             <Route default path="/admin">
                 <MainAdminView handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>

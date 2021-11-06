@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-const useStyles = makeStyles((theme) => ({
+    const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
