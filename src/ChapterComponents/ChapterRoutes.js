@@ -4,6 +4,7 @@ import {
   useRouteMatch,
   Route,
   Link as RouterLink,
+  Redirect
 } from "react-router-dom";
 
 import { makeStyles, AppBar, ButtonGroup, Button } from "@material-ui/core/";
@@ -13,6 +14,7 @@ import MainChapterView from "./MainChapterView";
 import CreateEvent from "./Forms/CreateEvent";
 import CreateGallery from "./Forms/CreateGallery";
 import CreateMissionVision from "./Forms/CreateMissionVision";
+import ValidatePermissions from "../ValidatePermissions";
 
 import CalendarArea from "./Calendars/CalendarArea";
 
@@ -60,36 +62,41 @@ export default function ChapterRoutes(props) {
       </AppBar>
       <Switch>
         <Route path={`${path}/events/createGallery/:event_id`}>
+        {ValidatePermissions.canUpdate(props.roles) ? (
           <CreateGallery
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
-          />
+          />  ) : (  <Redirect to={`${url}/events`} />)}
         </Route>
         <Route path={`${path}/events/createEvent`}>
+        {ValidatePermissions.canUpdate(props.roles) ? (
           <CreateEvent
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
-          />
+          />) : ( <Redirect to={`${url}/events`} />)}
         </Route>
-        <Route path={`${path}/events`}>
+        <Route path={`${url}/events`}>
           <EventArea
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
             roles={props.roles}
           />
         </Route>
-        <Route path={`${path}/calendar`}>
+        <Route path={`${url}/calendar`}>
           <CalendarArea
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
           />
         </Route>
         <Route path={`${path}/createMissionAndVision`}>
-          <CreateMissionVision
-            handleLoader={props.handleLoader}
-            openSnackbarByType={props.openSnackbarByType}
-          />
+          {ValidatePermissions.canUpdate(props.roles) ? (
+            <CreateMissionVision
+              handleLoader={props.handleLoader}
+              openSnackbarByType={props.openSnackbarByType}
+            />
+          ) : ( <Redirect to={`${url}`} />)}
         </Route>
+
         <Route path={path}>
           <MainChapterView
             handleLoader={props.handleLoader}
