@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import InfoIcon from '@material-ui/icons/Info';
+// import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
@@ -82,9 +82,9 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                 <IconButton aria-label="add" component={RouterLink} to={"/admin/add/chapter/"+params.value}>
                     <PersonAddIcon />
                 </IconButton>
-                <IconButton aria-label="info" component={RouterLink} to={"/chapter/"+params.value+"/mision"}>
+                {/* <IconButton aria-label="info" component={RouterLink} to={"/chapter/"+params.value+"/mision"}>
                     <InfoIcon />
-                </IconButton>
+                </IconButton> */}
             </strong>
           ),
         },

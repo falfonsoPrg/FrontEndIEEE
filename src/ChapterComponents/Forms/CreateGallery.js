@@ -104,9 +104,9 @@ export default function UserProfile(props) {
       }
       await axios.post(process.env.REACT_APP_ENDPOINT + "/galleries/",gallery)
       .then(res => {
-        succeded = succeded +1
+        succeded = succeded + 1
       }).catch(err => {
-        error++
+        error = error + 1
       })
       setProgress(parseInt( ((succeded+error) / photosToUpload.length)*100 ))
     }
@@ -252,7 +252,7 @@ export default function UserProfile(props) {
                 })
               )}
 
-          {isUploading && photosToUpload.length != 0 && (<LinearProgressWithLabel style={{marginBottom:10,marginLeft:10, marginTop: 30}} value={progress} />)}
+          {isUploading && photosToUpload.length !== 0 && (<LinearProgressWithLabel style={{marginBottom:10,marginLeft:10, marginTop: 30}} value={progress} />)}
             {summary}<br/>
               {photosToUpload && photosToUpload.length > 0 && (
                 <Button
@@ -265,7 +265,7 @@ export default function UserProfile(props) {
               </Button>
               )}  
 
-              {photosToUpload && photosToUpload.length == 0 && ("There are no photos to upload")}
+              {photosToUpload && photosToUpload.length === 0 && ("There are no photos to upload")}
             </ul>
           </div>
           

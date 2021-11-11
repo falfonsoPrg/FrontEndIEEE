@@ -128,7 +128,7 @@ export default function EventArea(props) {
                   </Grid>
               )
             })}
-            {selectedEvent && selectedEvent.Galleries && selectedEvent.Galleries.length == 0 && ("This event has no images")}
+            {selectedEvent && selectedEvent.Galleries && selectedEvent.Galleries.length === 0 && ("This event has no images")}
 
 
         </Grid>

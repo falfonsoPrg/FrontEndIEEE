@@ -49,7 +49,7 @@ export default function MainChapterView(props) {
       .then((response) => {
         let info = response.data.response;
         for (const i in info) {
-          if (response.data.response[i].chapter_id == id) {
+          if (response.data.response[i].chapter_id === id) {
             setChapterInfo(response.data.response[i]);
             break;
           } else {

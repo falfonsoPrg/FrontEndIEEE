@@ -75,14 +75,14 @@ export default function ChapterRoutes(props) {
             openSnackbarByType={props.openSnackbarByType}
           />) : ( <Redirect to={`${url}/events`} />)}
         </Route>
-        <Route path={`${url}/events`}>
+        <Route path={`${path}/events`}>
           <EventArea
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
             roles={props.roles}
           />
         </Route>
-        <Route path={`${url}/calendar`}>
+        <Route path={`${path}/calendar`}>
           <CalendarArea
             handleLoader={props.handleLoader}
             openSnackbarByType={props.openSnackbarByType}
