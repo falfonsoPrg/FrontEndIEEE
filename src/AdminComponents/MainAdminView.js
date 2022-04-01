@@ -35,7 +35,21 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                 e.response.data.error ? e.response.data.error : "Member couldn't be deleted")
         })
     }
-
+    const deleteRol = (id) => {
+        console.log(id)
+        handleLoader(true)
+        axios.delete(process.env.REACT_APP_ENDPOINT + "/roles/"+id).then(res => {
+            handleLoader(false)
+            openSnackbarByType(true, "success", "Rol deleted successfully")
+            getRoles()
+        }).catch(e => {
+            console.log(e)
+            console.log(e.response)
+            handleLoader(false)
+            openSnackbarByType(true, "error", 
+                e.response.data.error ? e.response.data.error : "Rol couldn't be deleted")
+        })
+    }
     const chapterColumns = [
         {
             field: 'chapter_name',
@@ -174,6 +188,9 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
               <strong>
                   <IconButton aria-label="edit" component={RouterLink} to={"/admin/create/role/"+params.value}>
                       <EditIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete" onClick={() => deleteRol(params.value)}>
+                      <DeleteIcon />
                   </IconButton>
               </strong>
             ),
