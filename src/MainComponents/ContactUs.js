@@ -1,10 +1,11 @@
-import React from 'react'
+import React,{ useEffect, useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import InfoCard from '../SharedComponents/infoCard'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import axios from 'axios';
 
     const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +31,24 @@ import Divider from '@material-ui/core/Divider';
     }
 }));
 
+
 export default function ContactUs() {
+    const [chapters,setChapter] = React.useState([]);
+    
+    const getChapters = () => {
+        axios.get(process.env.REACT_APP_ENDPOINT +'/chapters/')
+        .then(res => {
+            setChapter(res.data.response)
+            console.log(res.data.response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+   
+    useEffect(() => {
+        getChapters();
+    }, [])
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -50,30 +68,28 @@ export default function ContactUs() {
                     </Paper>
                 </Grid>
             </Grid>
-            <InfoCard title="Chapter Computer"
-                ImgCounselor="assets/ClaraComputer.jpg"
-                descriptionCounselor="Name  :  Clara Nensthiel Zorro"
-                emailCounselor="Email  :  clarathielz@ieee.org"
-                ImgPresident="assets/AndresComputer.jpg"
-                descriptionPresident="Name  :  Andres Galvis Bolivar"
-                emailPresident="Email  :  agalvisb@unbosque.edu.co "
-                ImgVicePresident="assets/CristianComputer.jpg"
-                descriptionVicePresident="Name  :  Cristian David Sanchez "
-                emailVicePresident="Email  :  cdsanchezm@unbosque.edu.co "
-            />
+            {
+                chapters.map(chapter => {
+                    console.log(chapter.Chapter_Members.filter(member =>  member.role_id === 1))
+                    return (
+                    <InfoCard title={chapter.chapter_name} 
+                    ImgCounselor={chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.image_path}
+                    descriptionCounselor ={"Name: "+ chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.firstname + " " + chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.lastname}
+                    emailCounselor={"Email :" + chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.email}
+                     
+                    ImgPresident={chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.image_path}
+                    descriptionPresident ={"Name: "+ chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.firstname + " " + chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.lastname}
+                    emailPresident={"Email :" + chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.email}
+                    
+                    ImgVicePresident={chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.image_path}
+                    descriptionVicePresident ={"Name: "+ chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.firstname + " " + chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.lastname}
+                    emailVicePresident={"Email :" + chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.email}
+                    
+                    />
+                    )
+                })
 
-<InfoCard title="Chapter SSIT"
-                ImgCounselor="assets/IsabelSSIT.jpg"
-                descriptionCounselor="Name  :  Clara Nensthiel Zorro"
-                emailCounselor="Email  :  clarathielz@ieee.org"
-                ImgPresident="assets/YinedSSIT.jpg"
-                descriptionPresident="Name  :  Yined Carolina Caicedo"
-                emailPresident="Email  :  ycaicedov@unbosque.edu.co "
-                ImgVicePresident="assets/CristianComputer.jpg"
-                descriptionVicePresident="Name  :  Cristian David Sanchez "
-                emailVicePresident="Email  :  cdsanchezm@unbosque.edu.co "
-            />
-          <InfoCard></InfoCard>
+            }
         </div>
 
     );
