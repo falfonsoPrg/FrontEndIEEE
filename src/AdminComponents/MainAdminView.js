@@ -12,6 +12,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 // import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Alert from '../SharedComponents/Alert';
 
 
 import axios from 'axios'
@@ -21,7 +22,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
     const [chapters, setChapters] = useState([])
     const [members, setMembers] = useState([])
     const [roles, setRoles] = useState([])
-
+    const [rolToDelete, setRoleToDelete] = useState('')
     const deleteMember = (id) => {
         handleLoader(true)
         axios.delete(process.env.REACT_APP_ENDPOINT + "/members/"+id).then(res => {
@@ -36,9 +37,13 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
         })
     }
     const deleteRol = (id) => {
-        console.log(id)
+        handleClickOpen()
+        setRoleToDelete(id)
+    }
+    const yesDeleteRol = () => {
+        handleClose()
         handleLoader(true)
-        axios.delete(process.env.REACT_APP_ENDPOINT + "/roles/"+id).then(res => {
+        axios.delete(process.env.REACT_APP_ENDPOINT + "/roles/"+rolToDelete).then(res => {
             handleLoader(false)
             openSnackbarByType(true, "success", "Rol deleted successfully")
             getRoles()
@@ -224,6 +229,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             handleLoader(false)
         })
     }
+    
     const getRoles = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/roles").then((res) => {
@@ -238,7 +244,16 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             handleLoader(false)
         })
     }
+    const [open, setOpen] = React.useState(false);
 
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+     setRoleToDelete(false)
+      setOpen(false);
+    };
     useEffect(() => {
         getChapters()
         getMembers()
@@ -330,6 +345,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                     </Grid>
                 </Grid>
             </Paper>
+            <Alert open={open} onClose={handleClose} clickYes = {yesDeleteRol}  clickNo= {handleClose} title="Sure you want to delete?" description="This action cannot be undone" yes="Yes" no = "No"/>
         </div>
     )
 }
