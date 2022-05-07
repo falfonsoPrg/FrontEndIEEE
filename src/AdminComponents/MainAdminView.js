@@ -12,6 +12,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 // import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Alert from '../SharedComponents/Alert';
 
 
 import axios from 'axios'
@@ -21,8 +22,10 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
     const [chapters, setChapters] = useState([])
     const [members, setMembers] = useState([])
     const [roles, setRoles] = useState([])
+    
     const [events, setEvents] = useState([]) 
 
+    const [rolToDelete, setRoleToDelete] = useState('')
     const deleteMember = (id) => {
         handleLoader(true)
         axios.delete(process.env.REACT_APP_ENDPOINT + "/members/"+id).then(res => {
@@ -36,7 +39,27 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                 e.response.data.error ? e.response.data.error : "Member couldn't be deleted")
         })
     }
-   
+
+    const deleteRol = (id) => {
+        handleClickOpen()
+        setRoleToDelete(id)
+    }
+    const yesDeleteRol = () => {
+        handleClose()
+        handleLoader(true)
+        axios.delete(process.env.REACT_APP_ENDPOINT + "/roles/"+rolToDelete).then(res => {
+            handleLoader(false)
+            openSnackbarByType(true, "success", "Rol deleted successfully")
+            getRoles()
+        }).catch(e => {
+            console.log(e)
+            console.log(e.response)
+            handleLoader(false)
+            openSnackbarByType(true, "error", 
+                e.response.data.error ? e.response.data.error : "Rol couldn't be deleted")
+        })
+    }
+
     const chapterColumns = [
         {
             field: 'chapter_name',
@@ -176,6 +199,9 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                   <IconButton aria-label="edit" component={RouterLink} to={"/admin/create/role/"+params.value}>
                       <EditIcon />
                   </IconButton>
+                  <IconButton aria-label="delete" onClick={() => deleteRol(params.value)}>
+                      <DeleteIcon />
+                  </IconButton>
               </strong>
             ),
           },
@@ -251,6 +277,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             handleLoader(false)
         })
     }
+    
     const getRoles = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/roles").then((res) => {
@@ -265,6 +292,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             handleLoader(false)
         })
     }
+ 
     const getEvents = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/eventtypes").then((res) => {
@@ -280,6 +308,17 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
         })
     }
 
+    const [open, setOpen] = React.useState(false);
+
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+     setRoleToDelete(false)
+      setOpen(false);
+    };
     useEffect(() => {
         getChapters()
         getMembers()
@@ -394,6 +433,8 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                     </Grid>
                 </Grid>
             </Paper>
+
+            <Alert open={open} onClose={handleClose} clickYes = {yesDeleteRol}  clickNo= {handleClose} title="Sure you want to delete?" description="This action cannot be undone" yes="Yes" no = "No"/>
         </div>
     )
 }
