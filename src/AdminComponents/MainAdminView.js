@@ -21,6 +21,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
     const [chapters, setChapters] = useState([])
     const [members, setMembers] = useState([])
     const [roles, setRoles] = useState([])
+    const [events, setEvents] = useState([]) 
 
     const deleteMember = (id) => {
         handleLoader(true)
@@ -35,7 +36,7 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                 e.response.data.error ? e.response.data.error : "Member couldn't be deleted")
         })
     }
-
+   
     const chapterColumns = [
         {
             field: 'chapter_name',
@@ -179,6 +180,49 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             ),
           },
     ]
+
+    const eventColums = [
+
+        {
+            field: 'event_type',
+            headerName: 'Event Type Name',
+            flex: 1,
+        },
+        {
+            field: 'canCreate',
+            headerName: 'Can create',
+            flex: 1,
+            type: 'boolean',
+        },
+        {
+            field: 'canUpdate',
+            headerName: 'Can update',
+            flex: 1,
+            type: 'boolean',
+        },
+        {
+            field: 'canDelete',
+            headerName: 'Can delete',
+            flex: 1,
+            type: 'boolean',
+        },
+
+        {
+            field: 'event_type_id',
+            headerName: 'Actions',
+            flex: 0.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (
+              <strong>
+                  <IconButton aria-label="edit" component={RouterLink} to={"/admin/create/event/"+params.value}>
+                      <EditIcon />
+                  </IconButton>
+              </strong>
+            ),
+          },
+
+    ]
     const getChapters = () => {
         handleLoader(true)
         axios.get(process.env.REACT_APP_ENDPOINT + "/chapters").then((res) => {
@@ -221,11 +265,26 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             handleLoader(false)
         })
     }
+    const getEvents = () => {
+        handleLoader(true)
+        axios.get(process.env.REACT_APP_ENDPOINT + "/eventtypes").then((res) => {
+            let eve = res.data.response
+            eve.forEach(e => {
+                e.id = e.event_type_id
+            });
+            setEvents(eve)
+            handleLoader(false)
+        }).catch((err) => {
+            openSnackbarByType(true, "error", "Events couldn't be found")
+            handleLoader(false)
+        })
+    }
 
     useEffect(() => {
         getChapters()
         getMembers()
         getRoles()
+        getEvents()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
       
@@ -307,6 +366,28 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
                             loading={roles.length === 0}
                             rows={roles}
                             columns={roleColumns}
+                            pageSize={10}
+                            disableSelectionOnClick
+                        />
+                    </Grid>
+                </Grid>
+            </Paper>
+
+            <Paper elevation={3} style={{marginTop: 30}}> 
+                <Grid container>
+                    <Grid item xs></Grid>
+                    <Grid item xs>
+                        <Box fontSize={20} textAlign="center" style={{marginTop: 30}}>Event Type</Box>
+                    </Grid>
+                    <Grid item xs>
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid item style={{height: 300, width: '95%', margin:20}}>
+                        <DataGrid
+                            loading={events.length === 0}
+                            rows={events}s
+                            columns={eventColums}
                             pageSize={10}
                             disableSelectionOnClick
                         />

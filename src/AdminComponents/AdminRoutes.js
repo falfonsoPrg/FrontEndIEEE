@@ -5,6 +5,7 @@ import MainAdminView from './MainAdminView'
 import CreateRole from './Forms/CreateRole'
 import CreateMember from './Forms/CreateMember'
 import CreateChapter from './Forms/CreateChapter';
+import CreateEvent from '../ChapterComponents/Forms/CreateEvent';
 import AddMemberToChapter from './Forms/AddMemberToChapter'
 export default function AdminRoutes(props) {
     return (
@@ -20,6 +21,9 @@ export default function AdminRoutes(props) {
             </Route>
             <Route path="/admin/create/role/:role_id">
                 <CreateRole handleLoader ={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
+            </Route>
+            <Route path="/admin/create/event/:event_id">
+                <CreateEvent handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>
             </Route>
             <Route default path="/admin">
                 <MainAdminView handleLoader={props.handleLoader} openSnackbarByType={props.openSnackbarByType}/>

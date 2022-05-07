@@ -13,6 +13,7 @@ import axios from "axios";
 
 export default function CreateEvent(props) {
   let { id } = useParams();
+  
   const history = useHistory();
   const [newTypeEvent, setNewTypeEvent] = React.useState({
     input: "",
