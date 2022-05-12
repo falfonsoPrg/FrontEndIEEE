@@ -29,6 +29,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function InfiMediaCard(props) {
+ 
+  //verificar los props de counselor presidente y vice presidente
+  const verification = () => {
+    if (!props.ImgPresident && !props.descriptionPresident && !props.emailPresident) {
+      return false
+    } else if (!props.ImgCounselor && !props.descriptionCounselor && !props.emailCounselor) {
+      return false
+    } else if (!props.ImgVicePresident && !props.descriptionVicePresident && !props.emailVicePresident) {
+      return false
+    } else {
+      return true
+    }
+  }
+  console.log(props.descriptionVicePresident)
+    
+
+    
   const classes = useStyles();
   return (
       <div className={classes.root}>
@@ -44,13 +61,13 @@ export default function InfiMediaCard(props) {
             </Paper>
           </Grid>
           <Grid item xs={4}>
-            <Card imageHeight="230" imagePath={props.ImgCounselor ? props.ImgCounselor : "assets/prueba.png"} imageTitle="Counselor" cardTitle="Counselor" cardDescription={props.descriptionCounselor ? props.descriptionCounselor : "Name  :  name of test advisor"} cardEmail={props.emailCounselor ? props.emailCounselor : "Email  : test advisor email "} />
+            <Card imageHeight="230" imagePath={props.ImgCounselor ? props.ImgCounselor : "assets/prueba.png"} imageTitle="Counselor" cardTitle="Counselor" cardDescription={props.firstNameCounselor  + props.firstNameCounselor ? "Name: "+  props.firstNameCounselor  + " "+props.firstNameCounselor : "Name: No name " + props.lastNameCounselor ? props.lastNameCounselor : ""}  cardEmail={props.emailCounselor ? "Email: " + props.emailCounselor : "Email: No email  "} />
           </Grid>
           <Grid item xs={4}>
-            <Card imageHeight="230" imagePath={props.ImgPresident ? props.ImgPresident : "assets/prueba.png"} imageTitle="President" cardTitle="President" cardDescription={props.descriptionPresident ? props.descriptionPresident : "Name  :  name test chairman "} cardEmail={props.emailPresident ? props.emailPresident : "Email  :  president's test email "} />
+            <Card imageHeight="230" imagePath={props.ImgPresident ? props.ImgPresident : "assets/prueba.png"} imageTitle="President" cardTitle="President" cardDescription={props.firstNamePresident + props.lastnamePresident ? "Name: "+  props.firstNamePresident +" " + props.lastNamePresident : "Name: No name"} cardEmail={props.emailPresident ? "Email: " +  props.emailPresident : "Email:  No email "} />
           </Grid>
           <Grid item xs={4}>
-            <Card imageHeight="230" imagePath={props.ImgVicePresident ? props.ImgVicePresident : "assets/prueba.png"} imageTitle="vice-president" cardTitle="Vice President" cardDescription={props.descriptionVicePresident ? props.descriptionVicePresident : "Name  :  name vice president of test "} cardEmail={props.emailVicePresident ? props.emailVicePresident : "Email  :  vice president's test email "} />
+            <Card imageHeight="230" imagePath={props.ImgVicePresident ? props.ImgVicePresident : "assets/prueba.png"} imageTitle="vice-president" cardTitle="Vice President" cardDescription={props.firstNameVicePresident + props.lastNameVicePresident ? "Name: "+  props.firstNameVicePresident + " " + props.lastNameVicePresident : "Name: No name "}  cardEmail={props.emailVicePresident ? "Email: " +  props.emailVicePresident : "Email  :  No email "} />
           </Grid>  
         </Grid>
       </div>

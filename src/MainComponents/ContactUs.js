@@ -74,16 +74,19 @@ export default function ContactUs() {
                     return (
                     <InfoCard title={chapter.chapter_name} 
                     ImgCounselor={chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.image_path}
-                    descriptionCounselor ={"Name: "+ chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.firstname + " " + chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.lastname}
-                    emailCounselor={"Email :" + chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.email}
+                    firstNameCounselor ={chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.firstname}
+                    lastNameCounselor ={chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.lastname}
+                    emailCounselor={chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.email}
                      
                     ImgPresident={chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.image_path}
-                    descriptionPresident ={"Name: "+ chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.firstname + " " + chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.lastname}
-                    emailPresident={"Email :" + chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.email}
+                    firstNamePresident ={chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.firstname}
+                    lastNamePresident ={chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.lastname}
+                    emailPresident={chapter.Chapter_Members.filter(member => member.role_id === 1)[0]?.Member.email}
                     
                     ImgVicePresident={chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.image_path}
-                    descriptionVicePresident ={"Name: "+ chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.firstname + " " + chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.lastname}
-                    emailVicePresident={"Email :" + chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.email}
+                    firstNameVicePresident ={chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.firstname}
+                    lastNameVicePresident ={chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.lastname}
+                    emailVicePresident={chapter.Chapter_Members.filter(member => member.role_id === 2)[0]?.Member.email}
                     
                     />
                     )

@@ -14,7 +14,7 @@ export default function ImgMediaCard(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card >
       <CardActionArea>
         <CardMedia
           component="img"
