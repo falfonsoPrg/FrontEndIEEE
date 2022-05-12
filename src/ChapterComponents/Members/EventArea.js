@@ -146,7 +146,7 @@ export default function EventArea(props) {
 
 
         </Grid>
-        
+        <Grid container>
         {
             //Tiene permisos para eliminar eventos
             ValidatePermissions.canDelete(props.roles) && (
@@ -163,8 +163,21 @@ export default function EventArea(props) {
           )
         }
         <Alert open={open} onClose={handleClose} clickYes = {() => {deleteEvent(selectedEvent.event_id)}}  clickNo= {handleClose} title="Sure you want to delete?" description="This action cannot be undone" yes="Yes" no = "No"/>
+        {
+          ValidatePermissions.canUpdate(props.roles) && (
+            <Button
 
-        
+              variant="contained"
+              color="primary"
+              component={RouterLink}
+              style={{marginLeft: 25}}
+              to={`${url}/createEvent/${selectedEvent.event_id}`}
+            >
+              Edit Event
+            </Button>
+          )
+        }
+        </Grid>
         
 
       </Grid>}

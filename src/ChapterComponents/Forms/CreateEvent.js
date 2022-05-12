@@ -1,8 +1,15 @@
 import React, { useEffect } from "react";
 import "date-fns";
-import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Select,
+} from "@material-ui/core/";
 import { useParams, useHistory } from "react-router-dom";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -12,8 +19,8 @@ import moment from "moment";
 import axios from "axios";
 
 export default function CreateEvent(props) {
-  let { id } = useParams();
-  
+  let { id, id_event } = useParams();
+
   const history = useHistory();
   const [newTypeEvent, setNewTypeEvent] = React.useState({
     input: "",
@@ -30,7 +37,6 @@ export default function CreateEvent(props) {
   const [endDate, setEndDate] = React.useState({ input: "", error: false });
   const [eventType, setEventType] = React.useState([]);
   const [eventTypeId, setEventTypeId] = React.useState(null);
-  const [hidden, sethidden] = React.useState("none");
   const [selectedDate1, setSelectedDate1] = React.useState(null);
   const [selectedDate2, setSelectedDate2] = React.useState(null);
 
@@ -38,29 +44,61 @@ export default function CreateEvent(props) {
     event_type_id: -1,
     event_type: "other",
   };
+  const getEvent = () => {
+    //si useParams es diferente de undefined, es porque estamos editando un evento
+    if (id_event !== undefined) {
+      axios
+        .get(process.env.REACT_APP_ENDPOINT + `/events/${id_event}`)
+        .then((res) => {
+          setTitle({ input: res.data.response.title, error: false });
+          setDescription({
+            input: res.data.response.description,
+            error: false,
+          });
+          setEventTypeId(res.data.response.event_type_id);
+          setStartDate({
+            input: moment(res.data.response.start_date).format("YYYY-MM-DD"),
+            error: false,
+          });
+          setEndDate({
+            input: moment(res.data.response.end_date).format("YYYY-MM-DD"),
+            error: false,
+          });
+          setSelectedDate1(new Date(res.data.response.start_date));
+          setSelectedDate2(new Date(res.data.response.end_date));
+          setEventTypeId(res.data.response.Event_Type.event_type_id);
 
+          setNewTypeEvent({
+            input: res.data.response.Event_Type.event_type,
+            error: false,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   const getEventTypes = () => {
     axios
       .get(process.env.REACT_APP_ENDPOINT + "/eventtypes/")
       .then((res) => {
         res.data.response.push(newType);
         setEventType(res.data.response);
+
+        getEvent();
       })
       .catch(() => {
         //openSnackbarByType(true, "error", "Chapters couldn't be found");
       });
   };
-  useEffect(getEventTypes, []);
 
   const goBack = () => {
     history.goBack();
   };
 
-  
   const submit = (e) => {
     e.preventDefault();
-    
-    isNewType();
+
     const event = {
       title: title.input,
       description: description.input,
@@ -69,7 +107,18 @@ export default function CreateEvent(props) {
       event_type_id: eventTypeId,
       chapter_id: parseInt(id),
     };
-    if (verification) {
+
+    const event2 = {
+      event_id: (id_event = parseInt(id_event)),
+      title: title.input,
+      description: description.input,
+      start_date: moment(startDate).format("YYYY-MM-DD"),
+      end_date: moment(endDate).format("YYYY-MM-DD"),
+      event_type_id: eventTypeId,
+      chapter_id: parseInt(id),
+    };
+
+    if (verificationForm() && !id_event) {
       props.handleLoader(true);
       axios
         .post(process.env.REACT_APP_ENDPOINT + "/events", event)
@@ -91,6 +140,27 @@ export default function CreateEvent(props) {
 
           props.handleLoader(false);
         });
+    } else if (verificationForm() && id_event) {
+      props.handleLoader(true);
+      axios
+        .put(process.env.REACT_APP_ENDPOINT + `/events/`, event2)
+        .then(() => {
+          props.openSnackbarByType(
+            true,
+            "success",
+            "Event updated succesfully"
+          );
+          props.handleLoader(false);
+          goBack();
+        })
+        .catch((error) => {
+          props.openSnackbarByType(
+            true,
+            "error",
+            "Event couldn't be updated succesfully"
+          );
+          props.handleLoader(false);
+        });
     }
   };
 
@@ -102,77 +172,48 @@ export default function CreateEvent(props) {
     setSelectedDate2(date);
     setEndDate((error) => ({ ...error, input: date }));
   }
-  function verificationForm () {
+  function verificationForm() {
     if (title.input.length < 7) {
-      setVerification(false);
       props.openSnackbarByType(
         true,
         "error",
         "You need to provide a title with almost 7 characters"
       );
       setTitle((input) => ({ ...input, error: true }));
+      return false;
     } else if (description.input.split(" ").length < 70) {
-      setVerification(false);
       props.openSnackbarByType(
         true,
         "error",
         "You need to provide a description with almost 70 words"
       );
       setDescription((input) => ({ ...input, error: true }));
+      return false;
     } else if (!startDate.input) {
-      setVerification(false);
       props.openSnackbarByType(
         true,
         "error",
         "You need to select a start date"
       );
       setStartDate((input) => ({ ...input, error: true }));
-    }else if (!endDate.input) {
-      setVerification(false);
+      return false;
+    } else if (!endDate.input) {
+      props.openSnackbarByType(true, "error", "You need to select a endS date");
+      setEndDate((input) => ({ ...input, error: true }));
+      return false;
+    } else if (!newTypeEvent.input) {
       props.openSnackbarByType(
         true,
         "error",
-        "You need to select a endS date"
+        "You need to select an event type"
       );
-      setEndDate((input) => ({ ...input, error: true }));
-    } else {
-      setVerification(true);         
+      setNewTypeEvent((input) => ({ ...input, error: true }));
+      return false;
     }
-  };
-  function isNewType()  {
-    verificationForm();
-    if (verification) {
-      try {
-        if (newTypeEvent.input !== "") {
-          const newE = {
-            event_type: newTypeEvent.input,
-          };
-          axios
-          .post(process.env.REACT_APP_ENDPOINT + "/eventtypes/", newE)
-          .then(() => {
-            props.openSnackbarByType(
-              true,
-              "success",
-              "Type of even created succesfully"
-            );
-            props.handleLoader(false);
-            
-            setEventTypeId(eventType.length);
-          })
-          .catch((error) => {
-            props.openSnackbarByType(
-              true,
-              "error",
-              "Type of even couldn't be created succesfully"
-            );
-          })      
-        }
-      } catch (error) {
-        setVerification(false);
-      }
-    } 
-  };
-  
+    return true;
+  }
+
+  useEffect(getEventTypes, []);
   return (
     <div>
       <Grid
@@ -195,7 +236,7 @@ export default function CreateEvent(props) {
                   style={{ fontWeight: "bold", textAlign: "center" }}
                   variant="h4"
                 >
-                  New Event
+                  Event
                 </Typography>
               </Grid>
               <Grid item xs={12} style={{ margin: 10 }}>
@@ -208,6 +249,7 @@ export default function CreateEvent(props) {
                   id="eventTitle"
                   name="eventTitle"
                   label="Title of Event"
+                  value={title.input}
                   style={{ borderColor: "yellow" }}
                   fullWidth
                   onChange={(e) =>
@@ -226,6 +268,7 @@ export default function CreateEvent(props) {
                   name="eventDescription"
                   label="Description of the event (large)"
                   fullWidth
+                  value={description.input}
                   multiline
                   onChange={(e) =>
                     setDescription((error) => ({
@@ -275,47 +318,36 @@ export default function CreateEvent(props) {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} style={{ marginTop: 20 }}>
-                    <Autocomplete
+                    <Select
                       id="typeOfEvent"
-                      options={eventType}
-                      getOptionLabel={(option) => option.event_type}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Type of Event"
-                          variant="outlined"
-                        />
-                      )}
-                      onChange={(event, eventType) => {
-                        setEventTypeId(eventType.event_type_id);
-                        if (eventType.event_type_id === -1) {
-                          sethidden("block")
-                        } else {
-                          setNewTypeEvent((error) => ({...error,input:""}))
-                          sethidden("none")
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} style={{ margin: 10, display: hidden }}>
-                    <TextField
-                      required
-                      onClick={() =>
-                        setNewTypeEvent((input) => ({ ...input, error: false }))
+                      fullWidth
+                      defaultValue={
+                        newTypeEvent.input ? newTypeEvent.input : ""
                       }
                       error={newTypeEvent.error}
-                      id="newTypeEvent"
-                      name="new type of event"
-                      label="Add the new type of event"
-                      style={{ borderColor: "yellow" }}
-                      fullWidth
-                      onChange={(e) =>
-                        setNewTypeEvent((error) => ({
-                          ...error,
-                          input: e.target.value,
-                        }))
-                      }
-                    />
+                      value={newTypeEvent.input ? newTypeEvent.input : ""}
+                      onChange={(event, eventType2) => {
+                        setEventTypeId(eventType2.props.event_type_id);
+                        if (eventType2.event_type_id === -1) {
+                          setNewTypeEvent((error) => ({ ...error, input: "" }));
+                        } else {
+                          setNewTypeEvent((error) => ({
+                            ...error,
+                            input: eventType2.props.value,
+                          }));
+                        }
+                      }}
+                    >
+                      {eventType.map((eventType2) => (
+                        <MenuItem
+                          key={eventType2.event_type_id}
+                          value={eventType2.event_type}
+                          event_type_id={eventType2.event_type_id}
+                        >
+                          {eventType2?.event_type}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </Grid>
                 </MuiPickersUtilsProvider>
               </Grid>

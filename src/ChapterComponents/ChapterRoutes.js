@@ -68,7 +68,7 @@ export default function ChapterRoutes(props) {
             openSnackbarByType={props.openSnackbarByType}
           />  ) : (  <Redirect to={`${url}/events`} />)}
         </Route>
-        <Route path={`${path}/events/createEvent`}>
+        <Route path={`${path}/events/createEvent/:id_event?`}>
         {ValidatePermissions.canUpdate(props.roles) ? (
           <CreateEvent
             handleLoader={props.handleLoader}
