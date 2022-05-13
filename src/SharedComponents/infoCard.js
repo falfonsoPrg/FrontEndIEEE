@@ -31,27 +31,34 @@ const useStyles = makeStyles((theme) => ({
 export default function InfiMediaCard(props) {
  
   //verificar los props de counselor presidente y vice presidente
-  const verification = () => {
-    if (!props.ImgPresident && !props.descriptionPresident && !props.emailPresident) {
+  const verificationPresident = () => {
+    if (!(props.ImgPresident + props.firstNamePresident + props.lastNamePresident + props.emailPresident)) {
       return false
-    } else if (!props.ImgCounselor && !props.descriptionCounselor && !props.emailCounselor) {
-      return false
-    } else if (!props.ImgVicePresident && !props.descriptionVicePresident && !props.emailVicePresident) {
-      return false
-    } else {
-      return true
-    }
+    } 
+    return true
   }
-  console.log(props.descriptionVicePresident)
+  
+  const verificationCounselor = () => {
+    if (!props.ImgCounselor && !props.firstNameCounselor && !props.lastNameCounselor && !props.emailCounselor) {
+      return false
+    }
+    return true
+  }
+  const verificationVicePresident = () => {
+    if (!props.ImgVicePresident && !props.firstNameVicePresident && !props.lastNameVicePresident && !props.emailVicePresident) {
+      return false
+    }
+    return true
+  }
     
 
     
   const classes = useStyles();
   return (
       <div className={classes.root}>
-        <Grid container spacing={3}>
-        <Grid item xs={12}>
-            <Paper className={classes.paper}>
+        <Grid container spacing={3} style={{justifyContent: 'center'}}>
+        <Grid item xs={12} >
+            <Paper className={classes.paper} style={{textAlign: 'center'}} >
              
               <Typography variant="h2" className={classes.title}>
                 
@@ -60,15 +67,25 @@ export default function InfiMediaCard(props) {
               
             </Paper>
           </Grid>
-          <Grid item xs={4}>
-            <Card imageHeight="230" imagePath={props.ImgCounselor ? props.ImgCounselor : "assets/prueba.png"} imageTitle="Counselor" cardTitle="Counselor" cardDescription={props.firstNameCounselor  + props.firstNameCounselor ? "Name: "+  props.firstNameCounselor  + " "+props.firstNameCounselor : "Name: No name " + props.lastNameCounselor ? props.lastNameCounselor : ""}  cardEmail={props.emailCounselor ? "Email: " + props.emailCounselor : "Email: No email  "} />
+          {
+            verificationCounselor() &&
+            <Grid item xs={4} >
+            <Card imageHeight="230" imagePath={props.ImgCounselor ? props.ImgCounselor : "assets/prueba.png"} imageTitle="Counselor" cardTitle="Counselor" cardDescription={props.firstNameCounselor  + props.firstNameCounselor ? "Name: "+  props.firstNameCounselor  + " "+props.firstNameCounselor : "Name: No name " + props.lastNameCounselor ? props.lastNameCounselor : ""}  cardEmail={props.emailCounselor ? "Email: " + props.emailCounselor : "Email: No email  "} alignTitle={'center'} />
           </Grid>
-          <Grid item xs={4}>
-            <Card imageHeight="230" imagePath={props.ImgPresident ? props.ImgPresident : "assets/prueba.png"} imageTitle="President" cardTitle="President" cardDescription={props.firstNamePresident + props.lastnamePresident ? "Name: "+  props.firstNamePresident +" " + props.lastNamePresident : "Name: No name"} cardEmail={props.emailPresident ? "Email: " +  props.emailPresident : "Email:  No email "} />
+          }
+         {
+            verificationPresident() &&
+            <Grid item xs={4}>
+            <Card imageHeight="230" imagePath={props.ImgPresident ? props.ImgPresident : "assets/prueba.png"} imageTitle="President" cardTitle="President" cardDescription={props.firstNamePresident + props.lastnamePresident ? "Name: "+  props.firstNamePresident +" " + props.lastNamePresident : "Name: No name"} cardEmail={props.emailPresident ? "Email: " +  props.emailPresident : "Email:  No email "} alignTitle={'center'} />
           </Grid>
-          <Grid item xs={4}>
-            <Card imageHeight="230" imagePath={props.ImgVicePresident ? props.ImgVicePresident : "assets/prueba.png"} imageTitle="vice-president" cardTitle="Vice President" cardDescription={props.firstNameVicePresident + props.lastNameVicePresident ? "Name: "+  props.firstNameVicePresident + " " + props.lastNameVicePresident : "Name: No name "}  cardEmail={props.emailVicePresident ? "Email: " +  props.emailVicePresident : "Email  :  No email "} />
-          </Grid>  
+         }
+          {
+            verificationVicePresident() &&
+            <Grid item xs={4}>
+            <Card imageHeight="230" imagePath={props.ImgVicePresident ? props.ImgVicePresident : "assets/prueba.png"} imageTitle="vice-president" cardTitle="Vice President" cardDescription={props.firstNameVicePresident + props.lastNameVicePresident ? "Name: "+  props.firstNameVicePresident + " " + props.lastNameVicePresident : "Name: No name "}  cardEmail={props.emailVicePresident ? "Email: " +  props.emailVicePresident : "Email:  No email "} alignTitle={'center'}/>
+          </Grid> 
+          }
+          
         </Grid>
       </div>
   );

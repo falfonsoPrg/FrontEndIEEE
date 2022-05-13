@@ -15,7 +15,7 @@ export default function ImgMediaCard(props) {
 
   return (
     <Card >
-      <CardActionArea>
+      
         <CardMedia
           component="img"
           alt={props.imageAlt ? props.imageAlt : "Default alt"}
@@ -24,7 +24,7 @@ export default function ImgMediaCard(props) {
           title={props.imageTitle ? props.imageTitle : "Default title"}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" style={{textAlign: props.alignTitle}}>
             {props.cardTitle ? props.cardTitle : "Default title"}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" style={{textAlign: "justify"}}>
@@ -34,7 +34,7 @@ export default function ImgMediaCard(props) {
             {props.cardEmail ? props.cardEmail : ""}
           </Typography>
         </CardContent>
-      </CardActionArea>
+      
       {/* <CardActions>
         <Button size="small" color="primary">
           Share
