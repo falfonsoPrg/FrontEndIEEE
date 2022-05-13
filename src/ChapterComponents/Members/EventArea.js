@@ -29,7 +29,6 @@ export default function EventArea(props) {
   const deleteEvent = (event_id) => {
     handleClose();
     axios.delete(process.env.REACT_APP_ENDPOINT +`/events/${event_id}`).then(res => {
-      console.log(res)
       getEvents()
     });
   };

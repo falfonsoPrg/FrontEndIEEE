@@ -52,8 +52,6 @@ export default function MainAdminView({handleLoader, openSnackbarByType}) {
             openSnackbarByType(true, "success", "Rol deleted successfully")
             getRoles()
         }).catch(e => {
-            console.log(e)
-            console.log(e.response)
             handleLoader(false)
             openSnackbarByType(true, "error", 
                 e.response.data.error ? e.response.data.error : "Rol couldn't be deleted")

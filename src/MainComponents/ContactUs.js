@@ -39,7 +39,7 @@ export default function ContactUs() {
         axios.get(process.env.REACT_APP_ENDPOINT +'/chapters/')
         .then(res => {
             setChapter(res.data.response)
-            console.log(res.data.response)
+            
         })
         .catch(err => {
             console.log(err)
@@ -70,7 +70,7 @@ export default function ContactUs() {
             </Grid>
             {
                 chapters.map(chapter => {
-                    console.log(chapter.Chapter_Members.filter(member =>  member.role_id === 1))
+                    
                     return (
                     <InfoCard title={chapter.chapter_name} 
                     ImgCounselor={chapter.Chapter_Members.filter(member => member.role_id === 3)[0]?.Member.image_path}
