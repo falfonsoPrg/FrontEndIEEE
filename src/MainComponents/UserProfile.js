@@ -48,6 +48,14 @@ export default function UserProfile(props) {
     handleLoader(true)
     axios.put(process.env.REACT_APP_ENDPOINT + "/members", userToUpdate).then(res => {
       handleLoader(false)
+      props.member.firstname = userToUpdate.firstname
+      props.member.lastname = userToUpdate.lastname
+      props.member.phone = userToUpdate.phone
+      props.member.email = userToUpdate.email
+      setFirstName(userToUpdate.firstname)
+      setLastname(userToUpdate.lastname)
+      setCellphone(userToUpdate.phone)
+      setEmail(userToUpdate.email)
       openSnackbarByType(true, "success", "Your data has been uptaded succesfully")
     }).catch(err => {
       handleLoader(false)
