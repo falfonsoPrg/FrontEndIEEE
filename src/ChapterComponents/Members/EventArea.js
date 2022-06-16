@@ -3,7 +3,6 @@ import {
   useRouteMatch,
   Link as RouterLink,
   useParams,
-  useHistory,
 } from "react-router-dom";
 import { Grid, Typography, Button } from "@material-ui/core";
 import Card from "../../SharedComponents/Card";
@@ -13,7 +12,6 @@ import ValidatePermissions from '../../ValidatePermissions'
 import Alert from '../../SharedComponents/Alert'
 
 export default function EventArea(props) {
-  let history = useHistory();
   let { url } = useRouteMatch();
   let { id } = useParams();
   const [events, setEvents] = useState([]);
@@ -30,16 +28,15 @@ export default function EventArea(props) {
   };
   const deleteEvent = (event_id) => {
     handleClose();
-    axios.delete(process.env.REACT_APP_ENDPOINT +`/events/${event_id}`);
-    history.push(`/chapter/${id}`);
+    axios.delete(process.env.REACT_APP_ENDPOINT +`/events/${event_id}`).then(res => {
+      getEvents();
+    })
   };
   const getEvents = ()=>
   {axios.get(process.env.REACT_APP_ENDPOINT + "/events/byChapter/" + id)
   .then((res) => {
     props.handleLoader(false);
-    setEvents(res.data.response);
-    console.log(res.data.response);
-    
+    setEvents(res.data.response);    
     if (res.data.response) {
       setSelectedEvent(res.data.response[0])
     }
